@@ -37,36 +37,74 @@ cd bookstore
  npm start
 ```
 
+## Available scripts
+
+`npm start` - run development server with hot reload mode,
+
+`npm build` - build distributon package,
+
+`npm run format` - run prettier,
+
+`npm run lint` - run lints,
+
+`npm run lint:code` - run lint for typescript / javascript files,
+
+`npm run lint:code:fix` - run lint for typescript / javascript files with auto fix option,
+
+`npm run lint:style` - run lint for style files,
+
+`npm run lint:style:fix` - run lint for style files with auto fix option,
+
+`npm run test` - run Jest tests,
+
+`npm run test:watch` - run Jest tests with watch mode,
+
+`npm run test:coverage` - run Jest tests and generate coverage report,
+
+`npm run prepare` - enable Git hooks,
+
 ## Demo
 
 Check out our live demo of the Online Bookstore Project here.
 
-
 ## Technologies Used
 
 ### Frontend
+
+- Typescript
 - React
-- TypeScript
+- React Router Dom
+- Jest
+- Sass
+- Webpack
+- ESLint
+- Prettier
+- Husky
+
 ### Backend
-- commercetools
+
+- Commercetools
 
 ## Contribution
 
-We welcome contributions from the community! 
+We welcome contributions from the community!
 
 🚀 How to Contribute:
 We believe in the collective power of the book-loving community! If you'd like to contribute to BookStore, there are several ways to get involved:
+
 - 👩‍💻 Code Contributions: Help us improve the platform by contributing bug fixes, adding new features, or enhancing existing ones.
 - 📝 Documentation: Contribute to our documentation to make it more comprehensive and beginner-friendly.
 - 🌟 Spread the Word: Share the BookStore with fellow bookworms and grow our community.
 
 If you'd like to contribute to the Online Bookstore Project, please follow these steps:
+
 1. Fork the repository.
 2. Create a new branch for your feature or bug fix.
 3. Commit your changes and push them to your fork.
 4. Submit a pull request, detailing the changes you've made and any relevant information.
 
 ## Community
+
 📖 We hope you enjoy using the Online Bookstore Project! If you have any questions, feedback, or issues, please don't hesitate to open an issue or contact us. Happy reading!
 
 📢 Join the BookStore Community:

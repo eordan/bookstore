@@ -17,6 +17,7 @@
 <!-- Elaborate on the changes made in this pull request. -->
 <!-- Mention specific features added, bugs fixed, or improvements made. -->
 <!-- Example: -->
+
 - Added a new feature to search books by author.
 - Fixed a bug that caused the checkout process to fail on certain browsers.
 - Improved the responsiveness of the bookstore website on mobile devices.
@@ -30,6 +31,7 @@
 <!-- Describe the testing you have done for these changes. -->
 <!-- Include details on the test scenarios, frameworks used, and any relevant results. -->
 <!-- Example: -->
+
 - Unit tests for the new search functionality have been added and pass successfully.
 - Manually tested the checkout process on various browsers and devices to ensure its stability.
 
@@ -37,6 +39,7 @@
 
 <!-- Mark the completed items with [x] (e.g., [x] item). -->
 <!-- Add or remove checklist items based on the nature of your pull request. -->
+
 - [ ] Code follows the style guidelines of this project.
 - [ ] A self-review of the code has been performed
 - [ ] The comments are added in hard-to-understand areas
