@@ -7,8 +7,10 @@ interface IHelloProps {
   bar: string;
 }
 
-export const Hello = (props: IHelloProps): JSX.Element => (
-  <div className={style.sample}>
-    Hello from {props.foo} and {props.bar}!
-  </div>
-);
+export function Hello(props: IHelloProps): JSX.Element {
+  return (
+    <div className={style.sample}>
+      Hello from {props.foo} and {props.bar}!
+    </div>
+  );
+}
