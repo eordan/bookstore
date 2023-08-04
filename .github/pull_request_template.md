@@ -1,6 +1,34 @@
-## Description
+## Task (Click Up)
+
+<!-- Give a Click Up link to the task covered by this pull request -->
+
+## Brief Description
 
 <!-- Provide a brief summary of the changes introduced by this pull request. -->
+
+## Full Description (if necessary)
+
+<!-- Elaborate on the changes made in this pull request. -->
+<!-- Mention specific features added, bugs fixed, or improvements made. -->
+<!-- Example: -->
+
+- Added a new feature to search books by author.
+- Fixed a bug that caused the checkout process to fail on certain browsers.
+- Improved the responsiveness of the bookstore website on mobile devices.
+
+## This is a ... (only ckeck if Full Description has not been added)
+
+- [ ] New feature
+- [ ] Bug fix
+- [ ] Performance optimization
+- [ ] Refactoring
+- [ ] Test Case
+- [ ] Documentation update
+- [ ] Other
+
+## TO DO
+
+<!-- Indicate any issues to be addressed in the future. -->
 
 ## Related Issues
 
@@ -11,16 +39,6 @@
 
 <!-- If this pull request is related to or depends on other open pull requests, list them here. -->
 <!-- Use the #PR_NUMBER syntax to automatically link the related PRs. -->
-
-## Description of Changes
-
-<!-- Elaborate on the changes made in this pull request. -->
-<!-- Mention specific features added, bugs fixed, or improvements made. -->
-<!-- Example: -->
-
-- Added a new feature to search books by author.
-- Fixed a bug that caused the checkout process to fail on certain browsers.
-- Improved the responsiveness of the bookstore website on mobile devices.
 
 ## Screenshots
 
@@ -47,6 +65,8 @@
 - [ ] Automated tests have been added/updated to cover the changes.
 - [ ] Documentation has been updated to reflect the changes made.
 - [ ] The code builds without errors or warnings.
+- [ ] Two reviews have been requested from team members.
+- [ ] The branch and pull request names follow naming convention rules and contain the name of the developper.
 
 ## Additional Notes
 
