@@ -6,19 +6,21 @@ import World from '@components/World';
 
 import style from './App.scss';
 
-export const App = (): JSX.Element => (
-  <div className={style.componentWrapper}>
-    <h2>Hello App</h2>
-    <BrowserRouter>
-      <nav className={style.routingWrapper}>
-        <b>Routing: </b>
-        <Link to="/">Hello component</Link>
-        <Link to="/world">World component</Link>
-      </nav>
-      <Routes>
-        <Route path="/" element={<Hello />} />
-        <Route path="/world" element={<World />} />
-      </Routes>
-    </BrowserRouter>
-  </div>
-);
+export function App(): JSX.Element {
+  return (
+    <div className={style.componentWrapper}>
+      <h2>Hello App</h2>
+      <BrowserRouter>
+        <nav className={style.routingWrapper}>
+          <b>Routing: </b>
+          <Link to="/">Hello component</Link>
+          <Link to="/world">World component</Link>
+        </nav>
+        <Routes>
+          <Route path="/" element={<Hello />} />
+          <Route path="/world" element={<World />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+}
