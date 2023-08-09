@@ -21,9 +21,6 @@ module.exports = {
       filename: '[name].[hash].css',
       chunkFilename: '[id].[hash].css',
     }),
-    new webpack.DefinePlugin({
-      'process.env.REACT_APP_VAR': JSON.stringify(process.env.REACT_APP_VAR),
-    }),
     new webpack.DefinePlugin(envKeys),
   ],
 };
