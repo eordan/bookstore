@@ -8,14 +8,14 @@ import './Login.scss';
 export function Login(): JSX.Element {
   return (
     <Container className="d-flex flex-column justify-content-center align-items-center login-container">
-      <h2 className="m-auto">Welcome Back</h2>
+      <h2>Welcome Back</h2>
       <Form className="d-flex flex-column mt-4">
         <Form.Group className="mt-3">
-          <Form.Label>Username</Form.Label>
-          <Form.Control placeholder="Enter your username" />
+          <Form.Label>Email *</Form.Label>
+          <Form.Control placeholder="Enter your email" />
         </Form.Group>
         <Form.Group className="mt-3">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Password *</Form.Label>
           <Form.Control placeholder="Enter your password" type="password" />
         </Form.Group>
         <Button className="mt-3" variant="success">
