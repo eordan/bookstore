@@ -81,9 +81,12 @@
     "webpack-dev-server": "4.11.1"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.14",
     "bootstrap": "^5.3.1",
     "eslint-config-airbnb": "^19.0.4",
+    "exports-loader": "^4.0.0",
     "jest": "29.4.1",
+    "postcss-loader": "^7.3.3",
     "react": "18.2.0",
     "react-bootstrap": "^2.8.0",
     "react-dom": "18.2.0",
