@@ -13,9 +13,7 @@
     "baseUrl": "./",
     "paths": {
       "@components/*": ["src/components/*"]
-    },
+    }
   },
-  "include": ["./", "./.eslintrc.js"],
+  "include": ["./", "./.eslintrc.js"]
 }
-
-//Unfortunately I couldn't reproduce the error and after checking out the `develop` branch I saw no issues in my VSCode. But after examining possible reasons why this error could occur I found that it might be due to the fact that I had excluded 'node_modules' folder in `tsconfig.json`
