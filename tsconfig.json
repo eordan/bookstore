@@ -15,5 +15,5 @@
       "@components/*": ["src/components/*"]
     },
   },
-  "include": ["./", "./.eslintrc.js"]
+  "include": ["./", "./.eslintrc.js"],
 }
