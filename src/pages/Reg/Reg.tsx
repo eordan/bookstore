@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { RoutesEnum } from '../../utils/enums';
@@ -6,6 +6,29 @@ import { RoutesEnum } from '../../utils/enums';
 import './Reg.scss';
 
 export function Reg(): JSX.Element {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [rePassword, setRePassword] = useState('');
+  const [firstName, setFirsName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [birthday, setBirthday] = useState('');
+  const [shippingCountry, setShippingCountry] = useState('');
+  const [shippingStreet, setShippingStreet] = useState('');
+  const [shippingCity, setShippingCity] = useState('');
+  const [shippingPostalCode, setShippingPostalCode] = useState('');
+  const [billingCountry, setBillingCountry] = useState('');
+  const [billingStreet, setBillingStreet] = useState('');
+  const [billingCity, setBillingCity] = useState('');
+  const [billingPostalCode, setBillingPostalCode] = useState('');
+
+  const signUp = () => {
+    // eslint-disable-next-line no-console
+    console.log(
+      'Function, that send data to api\n' +
+        `${email}, ${password}, ${rePassword}, ${firstName}, ${lastName}, ${birthday}, ${shippingCountry}, ${shippingStreet}, ${shippingCity}, ${shippingPostalCode}, ${billingCountry}, ${billingStreet}, ${billingCity}, ${billingPostalCode}`,
+    );
+  };
+
   return (
     <Container className="d-flex flex-column justify-content-center align-items-center login-container">
       <h2>Sign up for free</h2>
@@ -14,30 +37,48 @@ export function Reg(): JSX.Element {
           <h5>Account</h5>
           <Form.Group as={Col}>
             <Form.Label>Email</Form.Label>
-            <Form.Control placeholder="Enter your email" />
+            <Form.Control placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} />
           </Form.Group>
           <Form.Group as={Col}>
             <Form.Label>Password</Form.Label>
-            <Form.Control placeholder="Enter your password" type="password" />
+            <Form.Control
+              placeholder="Enter your password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </Form.Group>
           <Form.Group as={Col}>
             <Form.Label>Repeat password</Form.Label>
-            <Form.Control placeholder="Repeate your password" type="password" />
+            <Form.Control
+              placeholder="Repeate your password"
+              type="password"
+              value={rePassword}
+              onChange={(e) => setRePassword(e.target.value)}
+            />
           </Form.Group>
         </Row>
         <Row className="mt-4">
           <h5>Personal Info</h5>
           <Form.Group as={Col}>
             <Form.Label>First Name *</Form.Label>
-            <Form.Control placeholder="Enter your first name" />
+            <Form.Control
+              placeholder="Enter your first name"
+              value={firstName}
+              onChange={(e) => setFirsName(e.target.value)}
+            />
           </Form.Group>
           <Form.Group as={Col}>
             <Form.Label>Last Name *</Form.Label>
-            <Form.Control placeholder="Enter your last name" />
+            <Form.Control
+              placeholder="Enter your last name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
           </Form.Group>
           <Form.Group as={Col}>
             <Form.Label>Date of Birth *</Form.Label>
-            <Form.Control type="date" />
+            <Form.Control type="date" value={birthday} onChange={(e) => setBirthday(e.target.value)} />
           </Form.Group>
         </Row>
         <Form.Check
@@ -48,47 +89,71 @@ export function Reg(): JSX.Element {
         />
         <Row>
           <Col className="mt-3">
-            <h5>Billing address</h5>
+            <h5>Shipping address</h5>
             <Form.Group>
               <Form.Label>Street *</Form.Label>
-              <Form.Control placeholder="Street" />
+              <Form.Control
+                placeholder="Street"
+                value={shippingStreet}
+                onChange={(e) => setShippingStreet(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mt-3">
               <Form.Label>City *</Form.Label>
-              <Form.Control placeholder="City" />
+              <Form.Control placeholder="City" value={shippingCity} onChange={(e) => setShippingCity(e.target.value)} />
             </Form.Group>
             <Form.Group className="mt-3">
               <Form.Label>Postal code *</Form.Label>
-              <Form.Control placeholder="Postal code" />
+              <Form.Control
+                placeholder="Postal code"
+                value={shippingPostalCode}
+                onChange={(e) => setShippingPostalCode(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mt-3">
               <Form.Label>Country *</Form.Label>
-              <Form.Control placeholder="Country" />
+              <Form.Control
+                placeholder="Country"
+                value={shippingCountry}
+                onChange={(e) => setShippingCountry(e.target.value)}
+              />
             </Form.Group>
             <Form.Check className="mt-3" type="switch" id="custom-switch" label="Make this address default?" />
           </Col>
           <Col className="mt-3">
-            <h5>Shipping address</h5>
+            <h5>Billing address</h5>
             <Form.Group>
               <Form.Label>Street *</Form.Label>
-              <Form.Control placeholder="Street" />
+              <Form.Control
+                placeholder="Street"
+                value={billingStreet}
+                onChange={(e) => setBillingStreet(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mt-3">
               <Form.Label>City *</Form.Label>
-              <Form.Control placeholder="City" />
+              <Form.Control placeholder="City" value={billingCity} onChange={(e) => setBillingCity(e.target.value)} />
             </Form.Group>
             <Form.Group className="mt-3">
               <Form.Label>Postal code *</Form.Label>
-              <Form.Control placeholder="Postal code" />
+              <Form.Control
+                placeholder="Postal code"
+                value={billingPostalCode}
+                onChange={(e) => setBillingPostalCode(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mt-3">
               <Form.Label>Country *</Form.Label>
-              <Form.Control placeholder="Country" />
+              <Form.Control
+                placeholder="Country"
+                value={billingCountry}
+                onChange={(e) => setBillingCountry(e.target.value)}
+              />
             </Form.Group>
             <Form.Check className="mt-3" type="switch" id="custom-switch" label="Make this address default?" />
           </Col>
         </Row>
-        <Button className="mt-3" variant="success">
+        <Button className="mt-3" variant="success" onClick={signUp}>
           Get started
         </Button>
         <Form.Text className="policy-text mt-3 text-muted">
