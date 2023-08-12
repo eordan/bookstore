@@ -14,8 +14,6 @@
     "paths": {
       "@components/*": ["src/components/*"]
     },
-    "types": ["jest", "node"]
   },
   "include": ["./", "./.eslintrc.js"],
-  "exclude": ["node_modules"]
 }
