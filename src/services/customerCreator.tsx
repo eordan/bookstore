@@ -1,37 +1,8 @@
+import { CustomerSignInResult } from '@commercetools/platform-sdk';
 import { apiRoot } from './clientBuilder';
 import { CustomerDraft, BaseAddress, EmailCheck } from '../../utils/types';
 
-export function checkEmailAndReturnInfo(customerEmail: string) {
-  const data = apiRoot
-    .customers()
-    .get({
-      queryArgs: {
-        where: `email="${customerEmail}"`,
-      },
-    })
-    .execute()
-    .then(({ body }) => {
-      if (body.results.length === 0) {
-        const emailCheck: EmailCheck = {
-          emailDoesExist: false,
-          message: 'This email address has not been registered.',
-        };
-        return emailCheck;
-      }
-      const emailCheck: EmailCheck = {
-        emailDoesExist: true,
-        message: 'This email address has already been registered.',
-      };
-      return emailCheck;
-    })
-    .catch((error) => {
-      throw error;
-    });
-
-  return data;
-}
-
-export function transformUserInputToCustomerDetails(
+export const transformUserInputToCustomerDetails = (
   email: string,
   password: string,
   firstName: string,
@@ -42,7 +13,7 @@ export function transformUserInputToCustomerDetails(
   shippingIsDeafult: boolean,
   billingAddress: BaseAddress,
   billingIsDeafult: boolean,
-): CustomerDraft {
+): CustomerDraft => {
   const addresses: BaseAddress[] = (() => {
     if (billingAndShippingAreSame === true) {
       return [shippingAddress];
@@ -78,19 +49,51 @@ export function transformUserInputToCustomerDetails(
   }
 
   return customerDetails;
-}
+};
 
-export function createCustomer(customerDetails: CustomerDraft) {
-  apiRoot
+export const checkEmailAndReturnInfo = async (customerEmail: string): Promise<EmailCheck> => {
+  const data = await apiRoot
+    .customers()
+    .get({
+      queryArgs: {
+        where: `email="${customerEmail}"`,
+      },
+    })
+    .execute()
+    .then(({ body }) => {
+      if (body.results.length === 0) {
+        const emailCheck: EmailCheck = {
+          emailDoesExist: false,
+          message: 'This email address has not been registered.',
+        };
+        return emailCheck;
+      }
+      const emailCheck: EmailCheck = {
+        emailDoesExist: true,
+        message: 'This email address has already been registered.',
+      };
+      return emailCheck;
+    })
+    .catch((error) => {
+      throw error;
+    });
+
+  return data;
+};
+
+export const createCustomer = async (customerDetails: CustomerDraft): Promise<CustomerSignInResult> => {
+  const data = await apiRoot
     .customers()
     .post({
       body: customerDetails,
     })
     .execute()
     .then(({ body }) => {
-      return body.customer.id;
+      return body;
     })
     .catch((error) => {
       throw error;
     });
-}
+
+  return data;
+};
