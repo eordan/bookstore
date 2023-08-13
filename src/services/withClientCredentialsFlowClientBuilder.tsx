@@ -1,5 +1,4 @@
 import { ClientBuilder, type AuthMiddlewareOptions, type HttpMiddlewareOptions } from '@commercetools/sdk-client-v2';
-import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import fetch from 'node-fetch';
 import { API_CLIENT_DETAILS } from './apiClientDetailsSetter';
 
@@ -24,7 +23,3 @@ export const ctpClient = new ClientBuilder()
   .withHttpMiddleware(httpMiddlewareOptions)
   .withLoggerMiddleware()
   .build();
-
-export const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
-  projectKey: API_CLIENT_DETAILS.projectKey,
-});

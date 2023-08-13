@@ -1,6 +1,11 @@
-import { CustomerSignInResult } from '@commercetools/platform-sdk';
-import { apiRoot } from './clientBuilder';
+import { CustomerSignInResult, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
+import { ctpClient } from './withClientCredentialsFlowClientBuilder';
 import { CustomerDraft, BaseAddress, EmailCheck } from '../../utils/types';
+import { API_CLIENT_DETAILS } from './apiClientDetailsSetter';
+
+const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
+  projectKey: API_CLIENT_DETAILS.projectKey,
+});
 
 export const transformUserInputToCustomerDetails = (
   email: string,
