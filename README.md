@@ -65,7 +65,7 @@ cd bookstore
 
 ## Demo
 
-Check out our live demo of the Online Bookstore Project here.
+Check out our live demo of the Online Bookstore Project [here](https://develop--precious-youtiao-17dd40.netlify.app/).
 
 ## Technologies Used
 
