@@ -1,35 +1,11 @@
-import {
-  ClientBuilder,
-  type PasswordAuthMiddlewareOptions,
-  type HttpMiddlewareOptions,
-} from '@commercetools/sdk-client-v2';
-import fetch from 'node-fetch';
-import { API_ADMIN_CLIENT_DETAILS, PROJECT_KEY } from './apiClientDetailsSetter';
+import { ClientBuilder } from '@commercetools/sdk-client-v2';
+import { authMiddlewareOptionsForPasswordFlow, httpMiddlewareOptions } from './authAndHttpMiddlewareOptionsSetter';
+import { API_MANAGE_MY_PROFILE_CLIENT_DETAILS } from './apiClientDetailsSetter';
 
-export const withPasswordFlowCtpClient = (username: string, password: string) => {
-  const withPasswordFlowAuthMiddlewareOptions: PasswordAuthMiddlewareOptions = {
-    host: `https://auth.${API_ADMIN_CLIENT_DETAILS.region}.commercetools.com`,
-    projectKey: PROJECT_KEY,
-    credentials: {
-      clientId: API_ADMIN_CLIENT_DETAILS.clientId,
-      clientSecret: API_ADMIN_CLIENT_DETAILS.clientSecret,
-      user: {
-        username,
-        password,
-      },
-    },
-    scopes: [API_ADMIN_CLIENT_DETAILS.scopes],
-    fetch,
-  };
-
-  const httpMiddlewareOptions: HttpMiddlewareOptions = {
-    host: `https://api.${API_ADMIN_CLIENT_DETAILS.region}.commercetools.com`,
-    fetch,
-  };
-
+export const loginUserCtpClient = (username: string, password: string) => {
   const ctpClient = new ClientBuilder()
-    .withPasswordFlow(withPasswordFlowAuthMiddlewareOptions)
-    .withHttpMiddleware(httpMiddlewareOptions)
+    .withPasswordFlow(authMiddlewareOptionsForPasswordFlow(API_MANAGE_MY_PROFILE_CLIENT_DETAILS, username, password))
+    .withHttpMiddleware(httpMiddlewareOptions(API_MANAGE_MY_PROFILE_CLIENT_DETAILS))
     .withLoggerMiddleware()
     .build();
 
