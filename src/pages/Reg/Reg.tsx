@@ -23,6 +23,9 @@ export function Reg(): JSX.Element {
   const [billingStreet, setBillingStreet] = useState('');
   const [billingCity, setBillingCity] = useState('');
   const [billingPostalCode, setBillingPostalCode] = useState('');
+  const [isIdentical, setIdentical] = useState(false);
+  const [isBillingDefault, setBillingDefault] = useState(false);
+  const [isShippingDefault, setShippingDefault] = useState(false);
   const [passwordType, setPasswordType] = useState('password');
   const [rePasswordType, setRePasswordType] = useState('password');
 
@@ -30,7 +33,7 @@ export function Reg(): JSX.Element {
     // eslint-disable-next-line no-console
     console.log(
       'Function, that send data to api\n' +
-        `${email}, ${password}, ${rePassword}, ${firstName}, ${lastName}, ${birthday}, ${shippingCountry}, ${shippingStreet}, ${shippingCity}, ${shippingPostalCode}, ${billingCountry}, ${billingStreet}, ${billingCity}, ${billingPostalCode}`,
+        `${email}, ${password}, ${rePassword}, ${firstName}, ${lastName}, ${birthday}, ${shippingCountry}, ${shippingStreet}, ${shippingCity}, ${shippingPostalCode}, ${billingCountry}, ${billingStreet}, ${billingCity}, ${billingPostalCode}, ${isIdentical}, shippingDefault - ${isShippingDefault}, billingDefault - ${isBillingDefault}`,
     );
   };
 
@@ -119,6 +122,8 @@ export function Reg(): JSX.Element {
           type="switch"
           id="custom-switch"
           label="Use the same address for shipping and billing"
+          checked={isIdentical}
+          onChange={(e) => setIdentical(e.target.checked)}
         />
         <Row>
           <Col className="mt-3">
@@ -128,19 +133,32 @@ export function Reg(): JSX.Element {
               <Form.Control
                 placeholder="Street"
                 value={shippingStreet}
-                onChange={(e) => setShippingStreet(e.target.value)}
+                onChange={(e) => {
+                  setShippingStreet(e.target.value);
+                  if (isIdentical) setBillingStreet(e.target.value);
+                }}
               />
             </Form.Group>
             <Form.Group className="mt-3">
               <Form.Label>City *</Form.Label>
-              <Form.Control placeholder="City" value={shippingCity} onChange={(e) => setShippingCity(e.target.value)} />
+              <Form.Control
+                placeholder="City"
+                value={shippingCity}
+                onChange={(e) => {
+                  setShippingCity(e.target.value);
+                  if (isIdentical) setBillingCity(e.target.value);
+                }}
+              />
             </Form.Group>
             <Form.Group className="mt-3">
               <Form.Label>Postal code *</Form.Label>
               <Form.Control
                 placeholder="Postal code"
                 value={shippingPostalCode}
-                onChange={(e) => setShippingPostalCode(e.target.value)}
+                onChange={(e) => {
+                  setShippingPostalCode(e.target.value);
+                  if (isIdentical) setBillingPostalCode(e.target.value);
+                }}
               />
             </Form.Group>
             <Form.Group className="mt-3">
@@ -148,10 +166,20 @@ export function Reg(): JSX.Element {
               <Form.Control
                 placeholder="Country"
                 value={shippingCountry}
-                onChange={(e) => setShippingCountry(e.target.value)}
+                onChange={(e) => {
+                  setShippingCountry(e.target.value);
+                  if (isIdentical) setBillingCountry(e.target.value);
+                }}
               />
             </Form.Group>
-            <Form.Check className="mt-3" type="switch" id="custom-switch" label="Make this address default?" />
+            <Form.Check
+              checked={isShippingDefault}
+              className="mt-3"
+              type="switch"
+              id="custom-switch"
+              label="Make this address default?"
+              onChange={(e) => setShippingDefault(e.target.checked)}
+            />
           </Col>
           <Col className="mt-3">
             <h5>Billing address</h5>
@@ -159,18 +187,25 @@ export function Reg(): JSX.Element {
               <Form.Label>Street *</Form.Label>
               <Form.Control
                 placeholder="Street"
+                disabled={isIdentical}
                 value={billingStreet}
                 onChange={(e) => setBillingStreet(e.target.value)}
               />
             </Form.Group>
             <Form.Group className="mt-3">
               <Form.Label>City *</Form.Label>
-              <Form.Control placeholder="City" value={billingCity} onChange={(e) => setBillingCity(e.target.value)} />
+              <Form.Control
+                placeholder="City"
+                value={billingCity}
+                disabled={isIdentical}
+                onChange={(e) => setBillingCity(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mt-3">
               <Form.Label>Postal code *</Form.Label>
               <Form.Control
                 placeholder="Postal code"
+                disabled={isIdentical}
                 value={billingPostalCode}
                 onChange={(e) => setBillingPostalCode(e.target.value)}
               />
@@ -179,11 +214,19 @@ export function Reg(): JSX.Element {
               <Form.Label>Country *</Form.Label>
               <Form.Control
                 placeholder="Country"
+                disabled={isIdentical}
                 value={billingCountry}
                 onChange={(e) => setBillingCountry(e.target.value)}
               />
             </Form.Group>
-            <Form.Check className="mt-3" type="switch" id="custom-switch" label="Make this address default?" />
+            <Form.Check
+              className="mt-3"
+              type="switch"
+              id="custom-switch"
+              label="Make this address default?"
+              checked={isBillingDefault}
+              onChange={(e) => setBillingDefault(e.target.checked)}
+            />
           </Col>
         </Row>
         <Button className="mt-3" variant="success" onClick={signUp}>
@@ -193,7 +236,7 @@ export function Reg(): JSX.Element {
           By filling in the form above and clicking the “Get Started” button, you accept and agree to Terms of Service
           and Privacy Policy.
         </Form.Text>
-        <div className="d-flex justify-content-center mt-3">
+        <div className="d-flex justify-content-center mt-3 mb-5">
           <p>Already have an account?</p>
           <NavLink className="sign-up" to={RoutesEnum.LOGIN_ROUTE}>
             Sign In
