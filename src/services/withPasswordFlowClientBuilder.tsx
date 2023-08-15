@@ -4,12 +4,12 @@ import {
   type HttpMiddlewareOptions,
 } from '@commercetools/sdk-client-v2';
 import fetch from 'node-fetch';
-import { API_CLIENT_DETAILS } from './apiClientDetailsSetter';
+import { API_CLIENT_DETAILS, PROJECT_KEY } from './apiClientDetailsSetter';
 
-export const ctpClient = (username: string, password: string) => {
+export const withPasswordFlowCtpClient = (username: string, password: string) => {
   const withPasswordFlowAuthMiddlewareOptions: PasswordAuthMiddlewareOptions = {
     host: `https://auth.${API_CLIENT_DETAILS.region}.commercetools.com`,
-    projectKey: API_CLIENT_DETAILS.projectKey,
+    projectKey: PROJECT_KEY,
     credentials: {
       clientId: API_CLIENT_DETAILS.clientId,
       clientSecret: API_CLIENT_DETAILS.clientSecret,
@@ -27,11 +27,11 @@ export const ctpClient = (username: string, password: string) => {
     fetch,
   };
 
-  const ctpClientCreator = new ClientBuilder()
+  const ctpClient = new ClientBuilder()
     .withPasswordFlow(withPasswordFlowAuthMiddlewareOptions)
     .withHttpMiddleware(httpMiddlewareOptions)
     .withLoggerMiddleware()
     .build();
 
-  return ctpClientCreator;
+  return ctpClient;
 };

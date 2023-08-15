@@ -1,25 +1,9 @@
-import { ClientBuilder, type AuthMiddlewareOptions, type HttpMiddlewareOptions } from '@commercetools/sdk-client-v2';
-import fetch from 'node-fetch';
-import { API_CLIENT_DETAILS } from './apiClientDetailsSetter';
+import { ClientBuilder } from '@commercetools/sdk-client-v2';
+import { authMiddlewareOptions, httpMiddlewareOptions } from './authAndHttpMiddlewareOptionsSetter';
+import { API_VIEW_CUSTOMERS_CLIENT_DETAILS } from './apiClientDetailsSetter';
 
-const authMiddlewareOptions: AuthMiddlewareOptions = {
-  host: `https://auth.${API_CLIENT_DETAILS.region}.commercetools.com`,
-  projectKey: API_CLIENT_DETAILS.projectKey,
-  credentials: {
-    clientId: API_CLIENT_DETAILS.clientId,
-    clientSecret: API_CLIENT_DETAILS.clientSecret,
-  },
-  scopes: [API_CLIENT_DETAILS.scopes],
-  fetch,
-};
-
-const httpMiddlewareOptions: HttpMiddlewareOptions = {
-  host: `https://api.${API_CLIENT_DETAILS.region}.commercetools.com`,
-  fetch,
-};
-
-export const ctpClient = new ClientBuilder()
-  .withClientCredentialsFlow(authMiddlewareOptions)
-  .withHttpMiddleware(httpMiddlewareOptions)
+export const viewCustomersCtpClient = new ClientBuilder()
+  .withClientCredentialsFlow(authMiddlewareOptions(API_VIEW_CUSTOMERS_CLIENT_DETAILS))
+  .withHttpMiddleware(httpMiddlewareOptions(API_VIEW_CUSTOMERS_CLIENT_DETAILS))
   .withLoggerMiddleware()
   .build();
