@@ -2,6 +2,7 @@ import {
   type AuthMiddlewareOptions,
   type PasswordAuthMiddlewareOptions,
   type AnonymousAuthMiddlewareOptions,
+  type RefreshAuthMiddlewareOptions,
   type HttpMiddlewareOptions,
 } from '@commercetools/sdk-client-v2';
 import fetch from 'node-fetch';
@@ -51,6 +52,21 @@ export const authMiddlewareOptionsForAnonymousSessionFlow = (details: ApiClientD
       clientSecret: details.clientSecret,
     },
     scopes: [details.scopes],
+    fetch,
+  };
+
+  return options;
+};
+
+export const authMiddlewareOptionsForRefreshTokenFlow = (details: ApiClientDetails) => {
+  const options: RefreshAuthMiddlewareOptions = {
+    host: `https://auth.${details.region}.commercetools.com`,
+    projectKey: PROJECT_KEY,
+    credentials: {
+      clientId: details.clientId,
+      clientSecret: details.clientSecret,
+    },
+    refreshToken: 'bXvTyxc5yuebdvwTwyXn==',
     fetch,
   };
 
