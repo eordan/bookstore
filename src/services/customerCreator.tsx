@@ -1,6 +1,5 @@
 import { CustomerSignInResult, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
-import { viewCustomersCtpClient } from './withClientCredentialsFlowClientBuilder';
-import { withPasswordFlowCtpClient } from './withPasswordFlowClientBuilder';
+import { viewCustomersCtpClient, manageCustomersCtpClient } from './withClientCredentialsFlowClientBuilder';
 import { CustomerDraft, BaseAddress, EmailCheck } from '../../utils/types';
 
 export const transformUserInputToCustomerDetails = (
@@ -86,19 +85,41 @@ export const checkEmailAndReturnInfo = async (customerEmail: string, projectKey:
   return data;
 };
 
-export const createCustomer = async (
+export const createCustomerThroughMe = async (
   customerDetails: CustomerDraft,
   projectKey: string,
 ): Promise<CustomerSignInResult> => {
-  const apiRoot = createApiBuilderFromCtpClient(
-    withPasswordFlowCtpClient(customerDetails.email, customerDetails.password),
-  ).withProjectKey({
+  const apiRoot = createApiBuilderFromCtpClient(manageCustomersCtpClient).withProjectKey({
     projectKey,
   });
 
   const data = apiRoot
     .me()
     .signup()
+    .post({
+      body: customerDetails,
+    })
+    .execute()
+    .then(({ body }) => {
+      return body;
+    })
+    .catch((error) => {
+      throw error;
+    });
+
+  return data;
+};
+
+export const createCustomerThroughCustomers = async (
+  customerDetails: CustomerDraft,
+  projectKey: string,
+): Promise<CustomerSignInResult> => {
+  const apiRoot = createApiBuilderFromCtpClient(manageCustomersCtpClient).withProjectKey({
+    projectKey,
+  });
+
+  const data = apiRoot
+    .customers()
     .post({
       body: customerDetails,
     })

@@ -4,22 +4,22 @@ import {
   type HttpMiddlewareOptions,
 } from '@commercetools/sdk-client-v2';
 import fetch from 'node-fetch';
-import { API_CLIENT_DETAILS, PROJECT_KEY } from './apiClientDetailsSetter';
+import { API_ADMIN_CLIENT_DETAILS, PROJECT_KEY } from './apiClientDetailsSetter';
 
 export const withAnonymousSessionFlowCtpClient = () => {
   const authMiddlewareOptions: AnonymousAuthMiddlewareOptions = {
-    host: `https://auth.${API_CLIENT_DETAILS.region}.commercetools.com`,
+    host: `https://auth.${API_ADMIN_CLIENT_DETAILS.region}.commercetools.com`,
     projectKey: PROJECT_KEY,
     credentials: {
-      clientId: API_CLIENT_DETAILS.clientId,
-      clientSecret: API_CLIENT_DETAILS.clientSecret,
+      clientId: API_ADMIN_CLIENT_DETAILS.clientId,
+      clientSecret: API_ADMIN_CLIENT_DETAILS.clientSecret,
     },
-    scopes: [API_CLIENT_DETAILS.scopes],
+    scopes: [API_ADMIN_CLIENT_DETAILS.scopes],
     fetch,
   };
 
   const httpMiddlewareOptions: HttpMiddlewareOptions = {
-    host: `https://api.${API_CLIENT_DETAILS.region}.commercetools.com`,
+    host: `https://api.${API_ADMIN_CLIENT_DETAILS.region}.commercetools.com`,
     fetch,
   };
 

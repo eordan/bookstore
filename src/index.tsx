@@ -1,8 +1,8 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-// import { loginCustomer } from './services/customerAuther';
 import toAlpha2 from 'iso-3166-1-alpha-2';
-import { transformUserInputToCustomerDetails, createCustomer } from './services/customerCreator';
+import { loginCustomer } from './services/customerAuther';
+import { transformUserInputToCustomerDetails, createCustomerThroughCustomers } from './services/customerCreator';
 import { PROJECT_KEY } from './services/apiClientDetailsSetter';
 
 import App from './components/App/index';
@@ -15,12 +15,12 @@ if (container) {
   root.render(<App />);
 }
 
-// const request = {
-//   email: 'request@final.com',
-//   password: 'tR6dZY32uR5UR52',
-// };
+const request = {
+  email: 'request@final.com',
+  password: 'tR6dZY32uR5UR52',
+};
 
-// loginCustomer(request);
+loginCustomer(request);
 
 const firstCountryCode = toAlpha2.getCode('Germany') as string;
 const secondCountryCode = toAlpha2.getCode('United States') as string;
@@ -42,9 +42,9 @@ const billingAddress = {
 const formattedDateOfBirth = new Date('2018-10-12').toISOString().split('T')[0];
 
 const customerDraft = transformUserInputToCustomerDetails(
-  'nbhkio@hjkiuo.com',
+  'nsgs7hkio@hjkiuo.com',
   'gygufiugliug',
-  'Jhon',
+  'Jghon',
   'Proper',
   formattedDateOfBirth,
   false,
@@ -54,7 +54,9 @@ const customerDraft = transformUserInputToCustomerDetails(
   true,
 );
 
-createCustomer(customerDraft, PROJECT_KEY);
+createCustomerThroughCustomers(customerDraft, PROJECT_KEY);
 
 // const data = checkEmailAndReturnInfo('request@final.com', PROJECT_KEY);
 // console.log(data);
+
+// console.log(API_ADMIN_CLIENT_DETAILS);
