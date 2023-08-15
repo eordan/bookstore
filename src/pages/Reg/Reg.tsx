@@ -5,6 +5,9 @@ import { RoutesEnum } from '../../utils/enums';
 
 import './Reg.scss';
 
+import view from '../../assets/view.png';
+import noView from '../../assets/no-view.png';
+
 export function Reg(): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,6 +23,8 @@ export function Reg(): JSX.Element {
   const [billingStreet, setBillingStreet] = useState('');
   const [billingCity, setBillingCity] = useState('');
   const [billingPostalCode, setBillingPostalCode] = useState('');
+  const [passwordType, setPasswordType] = useState('password');
+  const [rePasswordType, setRePasswordType] = useState('password');
 
   const signUp = () => {
     // eslint-disable-next-line no-console
@@ -27,6 +32,22 @@ export function Reg(): JSX.Element {
       'Function, that send data to api\n' +
         `${email}, ${password}, ${rePassword}, ${firstName}, ${lastName}, ${birthday}, ${shippingCountry}, ${shippingStreet}, ${shippingCity}, ${shippingPostalCode}, ${billingCountry}, ${billingStreet}, ${billingCity}, ${billingPostalCode}`,
     );
+  };
+
+  const togglePassword = () => {
+    if (passwordType === 'password') {
+      setPasswordType('text');
+      return;
+    }
+    setPasswordType('password');
+  };
+
+  const toggleRePassword = () => {
+    if (rePasswordType === 'password') {
+      setRePasswordType('text');
+      return;
+    }
+    setRePasswordType('password');
   };
 
   return (
@@ -41,21 +62,33 @@ export function Reg(): JSX.Element {
           </Form.Group>
           <Form.Group as={Col}>
             <Form.Label>Password</Form.Label>
-            <Form.Control
-              placeholder="Enter your password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <div className="password">
+              <Form.Control
+                className="password"
+                placeholder="Enter your password"
+                type={passwordType}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <button className="password-control" type="button" onClick={togglePassword}>
+                {passwordType === 'password' ? <img src={view} alt="view" /> : <img src={noView} alt="no-view" />}
+              </button>
+            </div>
           </Form.Group>
           <Form.Group as={Col}>
             <Form.Label>Repeat password</Form.Label>
-            <Form.Control
-              placeholder="Repeate your password"
-              type="password"
-              value={rePassword}
-              onChange={(e) => setRePassword(e.target.value)}
-            />
+            <div className="password">
+              <Form.Control
+                className="password"
+                placeholder="Repeate your password"
+                type={rePasswordType}
+                value={rePassword}
+                onChange={(e) => setRePassword(e.target.value)}
+              />
+              <button className="password-control" type="button" onClick={toggleRePassword}>
+                {rePasswordType === 'password' ? <img src={view} alt="view" /> : <img src={noView} alt="no-view" />}
+              </button>
+            </div>
           </Form.Group>
         </Row>
         <Row className="mt-4">

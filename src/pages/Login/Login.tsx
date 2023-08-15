@@ -5,13 +5,25 @@ import { RoutesEnum } from '../../utils/enums';
 
 import './Login.scss';
 
+import view from '../../assets/view.png';
+import noView from '../../assets/no-view.png';
+
 export function Login(): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordType, setPasswordType] = useState('password');
 
   const signIn = () => {
     // eslint-disable-next-line no-console
     console.log(`Function, that send data to api\n ${email}, ${password}`);
+  };
+
+  const togglePassword = () => {
+    if (passwordType === 'password') {
+      setPasswordType('text');
+      return;
+    }
+    setPasswordType('password');
   };
 
   return (
@@ -24,17 +36,23 @@ export function Login(): JSX.Element {
         </Form.Group>
         <Form.Group className="mt-3">
           <Form.Label>Password *</Form.Label>
-          <Form.Control
-            placeholder="Enter your password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <div className="password">
+            <Form.Control
+              className="password"
+              placeholder="Enter your password"
+              type={passwordType}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button className="password-control" type="button" onClick={togglePassword}>
+              {passwordType === 'password' ? <img src={view} alt="view" /> : <img src={noView} alt="no-view" />}
+            </button>
+          </div>
         </Form.Group>
         <Button className="mt-3" variant="success" onClick={signIn}>
           Get started
         </Button>
-        <div className="d-flex justify-content-evenly mt-3 mb-5">
+        <div className="d-flex justify-content)-evenly mt-3 mb-5">
           <p>Already have an account?</p>
           <NavLink className="sign-up pl-3" to={RoutesEnum.REGISTRATION_ROUTE}>
             Sign Up
