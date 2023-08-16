@@ -8,21 +8,21 @@ export const transformUserInputToCustomerDetails = (
   firstName: string,
   lastName: string,
   dateOfBirth: string,
-  billingAndShippingAreSame: boolean,
+  isBillingTheSame: boolean,
   shippingAddress: BaseAddress,
   shippingIsDeafult: boolean,
   billingAddress: BaseAddress,
   billingIsDeafult: boolean,
 ): CustomerDraft => {
   const addresses: BaseAddress[] = (() => {
-    if (billingAndShippingAreSame === true) {
+    if (isBillingTheSame === true) {
       return [shippingAddress];
     }
     return [shippingAddress, billingAddress];
   })();
 
   const billingAddresses: number[] = (() => {
-    if (billingAndShippingAreSame === true) {
+    if (isBillingTheSame === true) {
       return [0];
     }
     return [1];
