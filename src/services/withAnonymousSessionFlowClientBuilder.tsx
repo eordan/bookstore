@@ -3,10 +3,10 @@ import {
   authMiddlewareOptionsForAnonymousSessionFlow,
   httpMiddlewareOptions,
 } from './authAndHttpMiddlewareOptionsSetter';
-import { API_ADMIN_CLIENT_DETAILS } from './apiClientDetailsSetter';
+import { API_ADMIN_SCOPE } from './apiClientDetailsSetter';
 
 export const anonymousSessionFlowCtpClient = new ClientBuilder()
-  .withAnonymousSessionFlow(authMiddlewareOptionsForAnonymousSessionFlow(API_ADMIN_CLIENT_DETAILS))
+  .withAnonymousSessionFlow(authMiddlewareOptionsForAnonymousSessionFlow(API_ADMIN_SCOPE))
   .withHttpMiddleware(httpMiddlewareOptions())
   .withLoggerMiddleware()
   .build();

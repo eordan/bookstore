@@ -3,16 +3,16 @@ import {
   authMiddlewareOptionsForClientCredentialsFlow,
   httpMiddlewareOptions,
 } from './authAndHttpMiddlewareOptionsSetter';
-import { API_VIEW_CUSTOMERS_CLIENT_DETAILS, API_MANAGE_MY_PROFILE_CLIENT_DETAILS } from './apiClientDetailsSetter';
+import { API_VIEW_CUSTOMERS_SCOPE, API_MANAGE_PROFILE_SCOPE } from './apiClientDetailsSetter';
 
 export const viewCustomersCtpClient = new ClientBuilder()
-  .withClientCredentialsFlow(authMiddlewareOptionsForClientCredentialsFlow(API_VIEW_CUSTOMERS_CLIENT_DETAILS))
+  .withClientCredentialsFlow(authMiddlewareOptionsForClientCredentialsFlow(API_VIEW_CUSTOMERS_SCOPE))
   .withHttpMiddleware(httpMiddlewareOptions())
   .withLoggerMiddleware()
   .build();
 
 export const manageCustomersCtpClient = new ClientBuilder()
-  .withClientCredentialsFlow(authMiddlewareOptionsForClientCredentialsFlow(API_MANAGE_MY_PROFILE_CLIENT_DETAILS))
+  .withClientCredentialsFlow(authMiddlewareOptionsForClientCredentialsFlow(API_MANAGE_PROFILE_SCOPE))
   .withHttpMiddleware(httpMiddlewareOptions())
   .withLoggerMiddleware()
   .build();
