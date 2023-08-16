@@ -10,9 +10,9 @@ export const getCustomerDetails = (
   dateOfBirth: string,
   isBillingTheSame: boolean,
   shippingAddress: BaseAddress,
-  shippingIsDeafult: boolean,
+  isShippingDefault: boolean,
   billingAddress: BaseAddress,
-  billingIsDeafult: boolean,
+  isBillingDefault: boolean,
 ): CustomerDraft => {
   const addresses: BaseAddress[] = (() => {
     if (isBillingTheSame) {
@@ -39,11 +39,11 @@ export const getCustomerDetails = (
     billingAddresses,
   };
 
-  if (shippingIsDeafult) {
+  if (isShippingDefault) {
     customerDetails.defaultShippingAddress = 0;
   }
 
-  if (billingIsDeafult) {
+  if (isBillingDefault) {
     const [defaultBillingAddress] = customerDetails.billingAddresses;
     customerDetails.defaultBillingAddress = defaultBillingAddress;
   }
