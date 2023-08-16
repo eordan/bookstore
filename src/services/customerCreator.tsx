@@ -2,7 +2,7 @@ import { CustomerSignInResult, createApiBuilderFromCtpClient } from '@commerceto
 import { viewCustomersCtpClient, manageCustomersCtpClient } from './withClientCredentialsFlowClientBuilder';
 import { CustomerDraft, BaseAddress, EmailCheck } from '../../utils/types';
 
-export const transformUserInputToCustomerDetails = (
+export const getCustomerDetails = (
   email: string,
   password: string,
   firstName: string,
@@ -15,14 +15,14 @@ export const transformUserInputToCustomerDetails = (
   billingIsDeafult: boolean,
 ): CustomerDraft => {
   const addresses: BaseAddress[] = (() => {
-    if (isBillingTheSame === true) {
+    if (isBillingTheSame) {
       return [shippingAddress];
     }
     return [shippingAddress, billingAddress];
   })();
 
   const billingAddresses: number[] = (() => {
-    if (isBillingTheSame === true) {
+    if (isBillingTheSame) {
       return [0];
     }
     return [1];
@@ -39,11 +39,11 @@ export const transformUserInputToCustomerDetails = (
     billingAddresses,
   };
 
-  if (shippingIsDeafult === true) {
+  if (shippingIsDeafult) {
     customerDetails.defaultShippingAddress = 0;
   }
 
-  if (billingIsDeafult === true) {
+  if (billingIsDeafult) {
     const [defaultBillingAddress] = customerDetails.billingAddresses;
     customerDetails.defaultBillingAddress = defaultBillingAddress;
   }
