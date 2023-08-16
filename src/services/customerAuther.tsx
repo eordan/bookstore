@@ -3,6 +3,7 @@ import { manageCustomersCtpClient } from './withClientCredentialsFlowClientBuild
 import { loginUserCtpClient } from './withPasswordFlowClientBuilder';
 import { PROJECT_KEY } from './apiClientDetailsSetter';
 
+// Login customer through `me` endpoint
 export const loginCustomerThroughMe = async (request: MyCustomerSignin): Promise<CustomerSignInResult> => {
   const apiRoot = createApiBuilderFromCtpClient(loginUserCtpClient(request.email, request.password)).withProjectKey({
     projectKey: PROJECT_KEY,
@@ -25,6 +26,7 @@ export const loginCustomerThroughMe = async (request: MyCustomerSignin): Promise
   return data;
 };
 
+// Login customer through `login` endpoint
 export const loginCustomerThroughLogin = async (request: MyCustomerSignin): Promise<CustomerSignInResult> => {
   const apiRoot = createApiBuilderFromCtpClient(manageCustomersCtpClient).withProjectKey({
     projectKey: PROJECT_KEY,

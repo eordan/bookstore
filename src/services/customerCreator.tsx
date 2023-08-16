@@ -83,6 +83,7 @@ export const checkEmail = async (customerEmail: string, projectKey: string): Pro
   return data;
 };
 
+// Register customer through `me` endpoint
 export const createCustomerThroughMe = async (
   customerDetails: CustomerDraft,
   projectKey: string,
@@ -108,6 +109,7 @@ export const createCustomerThroughMe = async (
   return data;
 };
 
+// Register customer through `customers` endpoint
 export const createCustomerThroughCustomers = async (
   customerDetails: CustomerDraft,
   projectKey: string,
