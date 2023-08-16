@@ -1,12 +1,9 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import ReactDOM from 'react-dom/client';
+import 'bootstrap';
+import 'react-bootstrap';
 
-import App from './components/App/index';
+import App from './components/App';
 import './index.scss';
 
-const container = document.getElementById('root');
-
-if (container) {
-  const root = createRoot(container);
-  root.render(<App />);
-}
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(<App />);

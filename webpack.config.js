@@ -10,6 +10,7 @@ const baseConfig = {
     alias: {
       '@components': path.resolve(__dirname, 'src/components'),
       '@routes': path.resolve(__dirname, 'src/routes'),
+      '@containers': path.resolve(__dirname, 'src/containers'),
     },
   },
   output: {
@@ -34,6 +35,14 @@ const baseConfig = {
                 localIdentName: '[local]',
               },
               sourceMap: true,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: () => {
+                return require('autoprefixer');
+              },
             },
           },
           {
