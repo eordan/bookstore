@@ -5,7 +5,7 @@ import { API_MANAGE_MY_PROFILE_CLIENT_DETAILS } from './apiClientDetailsSetter';
 export const loginUserCtpClient = (username: string, password: string) => {
   const ctpClient = new ClientBuilder()
     .withPasswordFlow(authMiddlewareOptionsForPasswordFlow(API_MANAGE_MY_PROFILE_CLIENT_DETAILS, username, password))
-    .withHttpMiddleware(httpMiddlewareOptions(API_MANAGE_MY_PROFILE_CLIENT_DETAILS))
+    .withHttpMiddleware(httpMiddlewareOptions())
     .withLoggerMiddleware()
     .build();
 

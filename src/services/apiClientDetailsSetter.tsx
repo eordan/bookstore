@@ -31,3 +31,4 @@ export const API_ADMIN_CLIENT_DETAILS: ApiClientDetails = {
 };
 
 export const PROJECT_KEY: string = process.env.REACT_APP_CTP_PROJECT_KEY as string;
+export const REGION: string = process.env.REACT_APP_CTP_REGION as string;

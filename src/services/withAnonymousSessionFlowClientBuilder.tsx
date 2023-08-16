@@ -7,6 +7,6 @@ import { API_ADMIN_CLIENT_DETAILS } from './apiClientDetailsSetter';
 
 export const anonymousSessionFlowCtpClient = new ClientBuilder()
   .withAnonymousSessionFlow(authMiddlewareOptionsForAnonymousSessionFlow(API_ADMIN_CLIENT_DETAILS))
-  .withHttpMiddleware(httpMiddlewareOptions(API_ADMIN_CLIENT_DETAILS))
+  .withHttpMiddleware(httpMiddlewareOptions())
   .withLoggerMiddleware()
   .build();
