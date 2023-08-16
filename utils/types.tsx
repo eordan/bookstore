@@ -1,5 +1,4 @@
 export interface ApiClientDetails {
-  readonly projectKey: string;
   readonly clientSecret: string;
   readonly clientId: string;
   readonly authUrl: string;
