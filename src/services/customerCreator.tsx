@@ -51,7 +51,7 @@ export const getCustomerDetails = (
   return customerDetails;
 };
 
-export const checkEmailAndReturnInfo = async (customerEmail: string, projectKey: string): Promise<EmailCheck> => {
+export const checkEmail = async (customerEmail: string, projectKey: string): Promise<EmailCheck> => {
   const apiRoot = createApiBuilderFromCtpClient(viewCustomersCtpClient).withProjectKey({
     projectKey,
   });
@@ -66,17 +66,15 @@ export const checkEmailAndReturnInfo = async (customerEmail: string, projectKey:
     .execute()
     .then(({ body }) => {
       if (body.results.length === 0) {
-        const emailCheck: EmailCheck = {
+        return {
           emailDoesExist: false,
           message: 'This email address has not been registered.',
         };
-        return emailCheck;
       }
-      const emailCheck: EmailCheck = {
+      return {
         emailDoesExist: true,
         message: 'This email address has already been registered.',
       };
-      return emailCheck;
     })
     .catch((error) => {
       throw error;
