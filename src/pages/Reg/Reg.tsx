@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
+import toAlpha2 from 'iso-3166-1-alpha-2';
 import { RoutesEnum } from '../../utils/enums';
+import { getCustomerDetails, createCustomerThroughCustomers } from '../../services/customerCreator';
+import { loginCustomerThroughMe } from '../../services/customerAuther';
 
 import './Reg.scss';
 
@@ -35,6 +38,65 @@ export function Reg(): JSX.Element {
       'Function, that send data to api\n' +
         `${email}, ${password}, ${rePassword}, ${firstName}, ${lastName}, ${birthday}, ${shippingCountry}, ${shippingStreet}, ${shippingCity}, ${shippingPostalCode}, ${billingCountry}, ${billingStreet}, ${billingCity}, ${billingPostalCode}, ${isIdentical}, shippingDefault - ${isShippingDefault}, billingDefault - ${isBillingDefault}`,
     );
+
+    const shippingCountryCode = toAlpha2.getCode(shippingCountry) as string;
+    const billingCountryCode = toAlpha2.getCode(billingCountry) as string;
+
+    const shippingAddress = {
+      country: shippingCountryCode,
+      streetName: shippingStreet,
+      postalCode: shippingPostalCode,
+      city: shippingCity,
+    };
+
+    const billingAddress = {
+      country: billingCountryCode,
+      streetName: billingStreet,
+      postalCode: billingPostalCode,
+      city: billingCity,
+    };
+
+    const formattedDateOfBirth = new Date(birthday).toISOString().split('T')[0];
+
+    const customerDetails = getCustomerDetails(
+      email,
+      password,
+      firstName,
+      lastName,
+      formattedDateOfBirth,
+      isIdentical,
+      shippingAddress,
+      isShippingDefault,
+      billingAddress,
+      isBillingDefault,
+    );
+
+    // eslint-disable-next-line no-console
+    console.log(customerDetails);
+
+    const data = createCustomerThroughCustomers(customerDetails);
+
+    data
+      .then((result) => {
+        // eslint-disable-next-line no-console
+        console.log(result);
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log(`${error}`);
+      });
+
+    const loginData = loginCustomerThroughMe({ email, password });
+
+    loginData
+      .then((result) => {
+        // eslint-disable-next-line no-console
+        console.log(result);
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log(`${error}`);
+      });
   };
 
   const togglePassword = () => {

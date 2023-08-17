@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { RoutesEnum } from '../../utils/enums';
+import { loginCustomerThroughMe } from '../../services/customerAuther';
 
 import './Login.scss';
 
@@ -14,8 +15,17 @@ export function Login(): JSX.Element {
   const [passwordType, setPasswordType] = useState('password');
 
   const signIn = () => {
-    // eslint-disable-next-line no-console
-    console.log(`Function, that send data to api\n ${email}, ${password}`);
+    const data = loginCustomerThroughMe({ email, password });
+
+    data
+      .then((result) => {
+        // eslint-disable-next-line no-console
+        console.log(result);
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log(`${error}`);
+      });
   };
 
   const togglePassword = () => {
