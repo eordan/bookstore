@@ -1,8 +1,7 @@
 export const emailValidationRules = {
   required: 'Please enter your email',
   validate: {
-    matchPattern: (value: string) =>
-      /^[\w_.+-]+@[\w.-]+\.[a-zA-Z]{2,4}/.test(value) || 'Please enter valid email',
+    matchPattern: (value: string) => /^[\w_.+-]+@[\w.-]+\.[a-zA-Z]{2,4}/.test(value) || 'Please enter valid email',
     whitespacePattern: (value: string) => value === value.trim() || 'No leading or trailing whitespace',
   },
 };
