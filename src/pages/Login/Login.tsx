@@ -27,7 +27,9 @@ export function Login(): JSX.Element {
   });
 
   const signIn = async () => {
-    const data = await loginCustomerThroughMe({ getValues('email'), getValues('password') });
+    const email = getValues('email');
+    const password = getValues('password');
+    const data = await loginCustomerThroughMe({ email, password });
 
     if (data.customer) {
       // eslint-disable-next-line no-console
@@ -38,9 +40,6 @@ export function Login(): JSX.Element {
       // eslint-disable-next-line no-console
       console.log('Invalid login or password');
     }
-  
-  const signIn = () => {
-    console.log(`Function, that send data to api\n ${getValues('email')}, ${getValues('password')}`);
   };
 
   const togglePassword = () => {
