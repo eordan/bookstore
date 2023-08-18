@@ -3,20 +3,26 @@
 }
 
 .sign-up {
+  color: #ffa62b;
   text-decoration: none;
-  color: #FFA62B;
 }
 
 .password {
-	position: relative;
+  position: relative;
 }
 
 .password-control {
-	position: absolute;
-	top: 7px;
-	right: 6px;
-  padding: 0;
-  border: none;
   background-color: inherit;
+  border: unset;
+  padding: 0;
+  position: absolute;
+  right: 6px;
+  top: 7px;
 }
 
+.message {
+  color: #ef0000;
+  font-size: 14px;
+  height: 21px;
+  margin: 0;
+}

@@ -3,3 +3,7 @@ test-coverage
 .history
 dist
 .env
+.editorconfig
+
+# Local Netlify folder
+.netlify

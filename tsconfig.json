@@ -13,8 +13,8 @@
     "baseUrl": "./",
     "paths": {
       "@components/*": ["src/components/*"],
-      "@containers/*": ["src/containers/*"],
-    },
+      "@containers/*": ["src/containers/*"]
+    }
   },
   "include": ["./", "./.eslintrc.js"]
 }
