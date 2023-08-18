@@ -8,6 +8,7 @@ import './Login.scss';
 
 import view from '../../assets/view.png';
 import noView from '../../assets/no-view.png';
+import { emailValidationRules, passwordValidationRules } from '../../validation';
 
 export function Login(): JSX.Element {
   const [passwordType, setPasswordType] = useState('password');
@@ -43,13 +44,7 @@ export function Login(): JSX.Element {
           <Form.Label>Email *</Form.Label>
           <Form.Control
             placeholder="Enter your email"
-            {...register('email', {
-              required: 'Please enter your email',
-              validate: {
-                matchPattern: (value) =>
-                  /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(value) || 'Please enter valid email',
-              },
-            })}
+            {...register('email', emailValidationRules)}
           />
           <p className="message">{errors.email?.message}</p>
         </Form.Group>
@@ -60,17 +55,7 @@ export function Login(): JSX.Element {
               className="password"
               placeholder="Enter your password"
               type={passwordType}
-              {...register('password', {
-                required: 'Please enter your password',
-                validate: {
-                  minLength: (value) => value.length >= 8 || 'Minimum 8 characters',
-                  uppercasePattern: (value) => /[A-Z]/.test(value) || 'At least 1 uppercase letter (A-Z)',
-                  lowercasePattern: (value) => /[a-z]/.test(value) || 'At least 1 lowercase letter (a-z)',
-                  digitPattern: (value) => /[0-9]/.test(value) || 'At least 1 digit (0-9)',
-                  specialPattern: (value) => /[!@#$%^&*?]/.test(value) || 'At least 1 special symbol (!@#$%^&*)',
-                  whitespacePattern: (value) => value === value.trim() || 'No leading or trailing whitespace',
-                },
-              })}
+              {...register('password', passwordValidationRules)}
             />
             <p className="message">{errors.password?.message}</p>
             <button className="password-control" type="button" onClick={togglePassword}>
