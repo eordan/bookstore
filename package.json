@@ -6,7 +6,6 @@
   "scripts": {
     "start": "webpack serve --open --hot --config ./webpack.config.js --env mode=dev",
     "build": "webpack --config ./webpack.config.js --env mode=prod",
-    "netlify-build": "react-scripts build",
     "format": "npx prettier --write .",
     "lint": "npm run lint:code && npm run lint:style",
     "lint:fix": "npm run lint:code:fix && npm run lint:style:fix",
@@ -97,7 +96,6 @@
     "react-bootstrap": "^2.8.0",
     "react-dom": "18.2.0",
     "react-router-dom": "6.8.0",
-    "react-scripts": "^5.0.1",
     "react-test-renderer": "18.2.0"
   }
 }
