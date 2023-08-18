@@ -63,7 +63,12 @@ export function Login(): JSX.Element {
               {...register('password', {
                 required: 'Please enter your password',
                 validate: {
-                  minLength: (value) => value.length >= 8 || 'Please enter valid password',
+                  minLength: (value) => value.length >= 8 || 'Minimum 8 characters',
+                  uppercasePattern: (value) => /[A-Z]/.test(value) || 'At least 1 uppercase letter (A-Z)',
+                  lowercasePattern: (value) => /[a-z]/.test(value) || 'At least 1 lowercase letter (a-z)',
+                  digitPattern: (value) => /[0-9]/.test(value) || 'At least 1 digit (0-9)',
+                  specialPattern: (value) => /[!@#$%^&*?]/.test(value) || 'At least 1 special symbol (!@#$%^&*)',
+                  whitespacePattern: (value) => value === value.trim() || 'No leading or trailing whitespace',
                 },
               })}
             />
