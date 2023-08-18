@@ -51,7 +51,7 @@ export function Login(): JSX.Element {
               },
             })}
           />
-          {errors.email?.message && <p className="message">{errors.email.message}</p>}
+          <p className="message">{errors.email?.message}</p>
         </Form.Group>
         <Form.Group className="mt-3">
           <Form.Label>Password *</Form.Label>
@@ -67,7 +67,7 @@ export function Login(): JSX.Element {
                 },
               })}
             />
-            {errors.password?.message && <p className="message">{errors.password.message}</p>}
+            <p className="message">{errors.password?.message}</p>
             <button className="password-control" type="button" onClick={togglePassword}>
               {passwordType === 'password' ? <img src={view} alt="view" /> : <img src={noView} alt="no-view" />}
             </button>
