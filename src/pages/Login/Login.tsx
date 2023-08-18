@@ -14,18 +14,16 @@ export function Login(): JSX.Element {
   const [password, setPassword] = useState('');
   const [passwordType, setPasswordType] = useState('password');
 
-  const signIn = () => {
-    const data = loginCustomerThroughMe({ email, password });
+  const signIn = async () => {
+    const data = await loginCustomerThroughMe({ email, password });
 
-    data
-      .then((result) => {
-        // eslint-disable-next-line no-console
-        console.log(result);
-      })
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.log(`${error}`);
-      });
+    if (data.customer) {
+      // eslint-disable-next-line no-console
+      console.log('Customer successfully logged in');
+    } else {
+      // eslint-disable-next-line no-console
+      console.log('Invalid login or password');
+    }
   };
 
   const togglePassword = () => {

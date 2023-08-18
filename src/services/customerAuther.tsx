@@ -9,7 +9,7 @@ export const loginCustomerThroughMe = async (request: MyCustomerSignin): Promise
     projectKey: PROJECT_KEY,
   });
 
-  const data = apiRoot
+  return apiRoot
     .me()
     .login()
     .post({
@@ -20,10 +20,8 @@ export const loginCustomerThroughMe = async (request: MyCustomerSignin): Promise
       return body;
     })
     .catch((error) => {
-      throw error;
+      return error;
     });
-
-  return data;
 };
 
 // Login customer through `login` endpoint
