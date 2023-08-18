@@ -3,8 +3,8 @@
 }
 
 .sign-up {
-  text-decoration: none;
   color: #ffa62b;
+  text-decoration: none;
 }
 
 .password {
@@ -12,10 +12,17 @@
 }
 
 .password-control {
-  position: absolute;
-  top: 7px;
-  right: 6px;
-  padding: 0;
-  border: none;
   background-color: inherit;
+  border: unset;
+  padding: 0;
+  position: absolute;
+  right: 6px;
+  top: 7px;
+}
+
+.message {
+  color: #ef0000;
+  font-size: 14px;
+  height: 21px;
+  margin: 0;
 }
