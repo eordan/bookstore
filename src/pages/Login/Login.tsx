@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import { RoutesEnum } from '../../utils/enums';
 
 import './Login.scss';
@@ -9,13 +10,21 @@ import view from '../../assets/view.png';
 import noView from '../../assets/no-view.png';
 
 export function Login(): JSX.Element {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [passwordType, setPasswordType] = useState('password');
+  const {
+    register,
+    getValues,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+    mode: 'onChange',
+  });
 
   const signIn = () => {
-    // eslint-disable-next-line no-console
-    console.log(`Function, that send data to api\n ${email}, ${password}`);
+    console.log(`Function, that send data to api\n ${getValues('email')}, ${getValues('password')}`);
   };
 
   const togglePassword = () => {
@@ -32,7 +41,17 @@ export function Login(): JSX.Element {
       <Form className="d-flex flex-column mt-4">
         <Form.Group className="mt-3">
           <Form.Label>Email *</Form.Label>
-          <Form.Control placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <Form.Control
+            placeholder="Enter your email"
+            {...register('email', {
+              required: 'Please enter your email',
+              validate: {
+                matchPattern: (value) =>
+                  /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(value) || 'Please enter valid email',
+              },
+            })}
+          />
+          {errors.email?.message && <p className="message">{errors.email.message}</p>}
         </Form.Group>
         <Form.Group className="mt-3">
           <Form.Label>Password *</Form.Label>
@@ -41,9 +60,14 @@ export function Login(): JSX.Element {
               className="password"
               placeholder="Enter your password"
               type={passwordType}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              {...register('password', {
+                required: 'Please enter your password',
+                validate: {
+                  minLength: (value) => value.length >= 8 || 'Please enter valid password',
+                },
+              })}
             />
+            {errors.password?.message && <p className="message">{errors.password.message}</p>}
             <button className="password-control" type="button" onClick={togglePassword}>
               {passwordType === 'password' ? <img src={view} alt="view" /> : <img src={noView} alt="no-view" />}
             </button>

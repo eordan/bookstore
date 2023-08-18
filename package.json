@@ -79,22 +79,23 @@
     "webpack-dev-server": "4.11.1"
   },
   "dependencies": {
-    "autoprefixer": "^10.4.14",
-    "bootstrap": "^5.3.1",
     "@commercetools/importapi-sdk": "^4.6.2",
     "@commercetools/platform-sdk": "^4.11.0",
     "@commercetools/sdk-client-v2": "^2.2.0",
+    "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
+    "bootstrap": "^5.3.1",
     "dotenv": "^16.3.1",
     "eslint-config-airbnb": "^19.0.4",
     "exports-loader": "^4.0.0",
     "iso-3166-1-alpha-2": "^1.0.1",
     "jest": "29.4.1",
-    "postcss-loader": "^7.3.3",
     "node-fetch": "^2.6.12",
+    "postcss-loader": "^7.3.3",
     "react": "18.2.0",
     "react-bootstrap": "^2.8.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.45.4",
     "react-router-dom": "6.8.0",
     "react-test-renderer": "18.2.0"
   }
