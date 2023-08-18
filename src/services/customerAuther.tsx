@@ -4,12 +4,12 @@ import { loginUserCtpClient } from './withPasswordFlowClientBuilder';
 import { PROJECT_KEY } from './apiClientDetailsSetter';
 
 // Login customer through `me` endpoint
-export const loginCustomerThroughMe = async (request: MyCustomerSignin): Promise<CustomerSignInResult> => {
+export const loginCustomerThroughMe = (request: MyCustomerSignin): Promise<CustomerSignInResult> => {
   const apiRoot = createApiBuilderFromCtpClient(loginUserCtpClient(request.email, request.password)).withProjectKey({
     projectKey: PROJECT_KEY,
   });
 
-  const data = apiRoot
+  return apiRoot
     .me()
     .login()
     .post({
@@ -20,10 +20,8 @@ export const loginCustomerThroughMe = async (request: MyCustomerSignin): Promise
       return body;
     })
     .catch((error) => {
-      throw error;
+      return error;
     });
-
-  return data;
 };
 
 // Login customer through `login` endpoint

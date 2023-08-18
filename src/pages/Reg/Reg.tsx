@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { RoutesEnum } from '../../utils/enums';
+import { getCustomerDetails, createCustomerThroughCustomers } from '../../services/customerCreator';
+import { loginCustomerThroughMe } from '../../services/customerAuther';
 
 import './Reg.scss';
 
@@ -29,12 +31,59 @@ export function Reg(): JSX.Element {
   const [passwordType, setPasswordType] = useState('password');
   const [rePasswordType, setRePasswordType] = useState('password');
 
-  const signUp = () => {
+  const signUp = async () => {
     // eslint-disable-next-line no-console
     console.log(
       'Function, that send data to api\n' +
         `${email}, ${password}, ${rePassword}, ${firstName}, ${lastName}, ${birthday}, ${shippingCountry}, ${shippingStreet}, ${shippingCity}, ${shippingPostalCode}, ${billingCountry}, ${billingStreet}, ${billingCity}, ${billingPostalCode}, ${isIdentical}, shippingDefault - ${isShippingDefault}, billingDefault - ${isBillingDefault}`,
     );
+
+    const customerDetails = getCustomerDetails(
+      email,
+      password,
+      firstName,
+      lastName,
+      birthday,
+      isIdentical,
+      shippingCountry,
+      shippingStreet,
+      shippingPostalCode,
+      shippingCity,
+      isShippingDefault,
+      billingCountry,
+      billingStreet,
+      billingPostalCode,
+      billingCity,
+      isBillingDefault,
+    );
+
+    const data = await createCustomerThroughCustomers(customerDetails)
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        return error;
+      });
+
+    if (data.customer) {
+      // eslint-disable-next-line no-console
+      console.log('Customer successfully registered');
+
+      const signInData = await loginCustomerThroughMe({ email, password });
+
+      if (signInData.customer) {
+        // eslint-disable-next-line no-console
+        console.log('Customer successfully logged in');
+      } else {
+        // eslint-disable-next-line no-console
+        console.log(signInData);
+        // eslint-disable-next-line no-console
+        console.log('Something went wrong! Please try again');
+      }
+    } else {
+      // eslint-disable-next-line no-console
+      console.log(data.message);
+    }
   };
 
   const togglePassword = () => {

@@ -3,6 +3,7 @@ import { Button, Container, Form } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { RoutesEnum } from '../../utils/enums';
+import { loginCustomerThroughMe } from '../../services/customerAuther';
 import { emailValidationRules, passwordValidationRules } from '../../validation';
 
 import './Login.scss';
@@ -25,6 +26,19 @@ export function Login(): JSX.Element {
     mode: 'onChange',
   });
 
+  const signIn = async () => {
+    const data = await loginCustomerThroughMe({ getValues('email'), getValues('password') });
+
+    if (data.customer) {
+      // eslint-disable-next-line no-console
+      console.log('Customer successfully logged in');
+    } else {
+      // eslint-disable-next-line no-console
+      console.log(data);
+      // eslint-disable-next-line no-console
+      console.log('Invalid login or password');
+    }
+  
   const signIn = () => {
     console.log(`Function, that send data to api\n ${getValues('email')}, ${getValues('password')}`);
   };

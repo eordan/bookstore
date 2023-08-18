@@ -1,19 +1,44 @@
 import { CustomerSignInResult, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
+import toAlpha2 from 'iso-3166-1-alpha-2';
 import { viewCustomersCtpClient, manageCustomersCtpClient } from './withClientCredentialsFlowClientBuilder';
 import { CustomerDraft, BaseAddress, EmailCheck } from '../../utils/types';
+import { PROJECT_KEY } from './apiClientDetailsSetter';
 
 export const getCustomerDetails = (
   email: string,
   password: string,
   firstName: string,
   lastName: string,
-  dateOfBirth: string,
+  birthday: string,
   isBillingTheSame: boolean,
-  shippingAddress: BaseAddress,
+  shippingCountry: string,
+  shippingStreet: string,
+  shippingPostalCode: string,
+  shippingCity: string,
   isShippingDefault: boolean,
-  billingAddress: BaseAddress,
+  billingCountry: string,
+  billingStreet: string,
+  billingPostalCode: string,
+  billingCity: string,
   isBillingDefault: boolean,
 ): CustomerDraft => {
+  const shippingCountryCode = toAlpha2.getCode(shippingCountry) as string;
+  const billingCountryCode = toAlpha2.getCode(billingCountry) as string;
+
+  const shippingAddress: BaseAddress = {
+    country: shippingCountryCode,
+    streetName: shippingStreet,
+    postalCode: shippingPostalCode,
+    city: shippingCity,
+  };
+
+  const billingAddress: BaseAddress = {
+    country: billingCountryCode,
+    streetName: billingStreet,
+    postalCode: billingPostalCode,
+    city: billingCity,
+  };
+
   const addresses: BaseAddress[] = (() => {
     if (isBillingTheSame) {
       return [shippingAddress];
@@ -27,6 +52,8 @@ export const getCustomerDetails = (
     }
     return [1];
   })();
+
+  const dateOfBirth = new Date(birthday).toISOString().split('T')[0];
 
   const customerDetails: CustomerDraft = {
     email,
@@ -84,15 +111,12 @@ export const checkEmail = async (customerEmail: string, projectKey: string): Pro
 };
 
 // Register customer through `me` endpoint
-export const createCustomerThroughMe = async (
-  customerDetails: CustomerDraft,
-  projectKey: string,
-): Promise<CustomerSignInResult> => {
+export const createCustomerThroughMe = (customerDetails: CustomerDraft): Promise<CustomerSignInResult> => {
   const apiRoot = createApiBuilderFromCtpClient(manageCustomersCtpClient).withProjectKey({
-    projectKey,
+    projectKey: PROJECT_KEY,
   });
 
-  const data = apiRoot
+  return apiRoot
     .me()
     .signup()
     .post({
@@ -103,19 +127,14 @@ export const createCustomerThroughMe = async (
       return body;
     })
     .catch((error) => {
-      throw error;
+      return error;
     });
-
-  return data;
 };
 
 // Register customer through `customers` endpoint
-export const createCustomerThroughCustomers = async (
-  customerDetails: CustomerDraft,
-  projectKey: string,
-): Promise<CustomerSignInResult> => {
+export const createCustomerThroughCustomers = async (customerDetails: CustomerDraft): Promise<CustomerSignInResult> => {
   const apiRoot = createApiBuilderFromCtpClient(manageCustomersCtpClient).withProjectKey({
-    projectKey,
+    projectKey: PROJECT_KEY,
   });
 
   const data = apiRoot
