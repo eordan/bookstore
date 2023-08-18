@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { RoutesEnum } from '../../utils/enums';
 import { getCustomerDetails, createCustomerThroughCustomers } from '../../services/customerCreator';
 import { loginCustomerThroughMe } from '../../services/customerAuther';
@@ -30,6 +30,8 @@ export function Reg(): JSX.Element {
   const [isShippingDefault, setShippingDefault] = useState(false);
   const [passwordType, setPasswordType] = useState('password');
   const [rePasswordType, setRePasswordType] = useState('password');
+
+  const navigate = useNavigate();
 
   const signUp = async () => {
     // eslint-disable-next-line no-console
@@ -74,6 +76,8 @@ export function Reg(): JSX.Element {
       if (signInData.customer) {
         // eslint-disable-next-line no-console
         console.log('Customer successfully logged in');
+
+        navigate(RoutesEnum.MAIN_ROUTE);
       } else {
         // eslint-disable-next-line no-console
         console.log(signInData);
