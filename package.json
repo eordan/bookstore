@@ -6,6 +6,7 @@
   "scripts": {
     "start": "webpack serve --open --hot --config ./webpack.config.js --env mode=dev",
     "build": "webpack --config ./webpack.config.js --env mode=prod",
+    "netlify-build": "react-scripts build",
     "format": "npx prettier --write .",
     "lint": "npm run lint:code && npm run lint:style",
     "lint:fix": "npm run lint:code:fix && npm run lint:style:fix",
