@@ -42,10 +42,7 @@ export function Login(): JSX.Element {
       <Form className="d-flex flex-column mt-4">
         <Form.Group className="mt-3">
           <Form.Label>Email *</Form.Label>
-          <Form.Control
-            placeholder="Enter your email"
-            {...register('email', emailValidationRules)}
-          />
+          <Form.Control placeholder="Enter your email" {...register('email', emailValidationRules)} />
           <p className="message">{errors.email?.message}</p>
         </Form.Group>
         <Form.Group className="mt-3">
