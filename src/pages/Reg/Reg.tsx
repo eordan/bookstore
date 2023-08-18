@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
-import toAlpha2 from 'iso-3166-1-alpha-2';
 import { RoutesEnum } from '../../utils/enums';
 import { getCustomerDetails, createCustomerThroughCustomers } from '../../services/customerCreator';
 import { loginCustomerThroughMe } from '../../services/customerAuther';
@@ -32,71 +31,59 @@ export function Reg(): JSX.Element {
   const [passwordType, setPasswordType] = useState('password');
   const [rePasswordType, setRePasswordType] = useState('password');
 
-  const signUp = () => {
+  const signUp = async () => {
     // eslint-disable-next-line no-console
     console.log(
       'Function, that send data to api\n' +
         `${email}, ${password}, ${rePassword}, ${firstName}, ${lastName}, ${birthday}, ${shippingCountry}, ${shippingStreet}, ${shippingCity}, ${shippingPostalCode}, ${billingCountry}, ${billingStreet}, ${billingCity}, ${billingPostalCode}, ${isIdentical}, shippingDefault - ${isShippingDefault}, billingDefault - ${isBillingDefault}`,
     );
 
-    const shippingCountryCode = toAlpha2.getCode(shippingCountry) as string;
-    const billingCountryCode = toAlpha2.getCode(billingCountry) as string;
-
-    const shippingAddress = {
-      country: shippingCountryCode,
-      streetName: shippingStreet,
-      postalCode: shippingPostalCode,
-      city: shippingCity,
-    };
-
-    const billingAddress = {
-      country: billingCountryCode,
-      streetName: billingStreet,
-      postalCode: billingPostalCode,
-      city: billingCity,
-    };
-
-    const formattedDateOfBirth = new Date(birthday).toISOString().split('T')[0];
-
     const customerDetails = getCustomerDetails(
       email,
       password,
       firstName,
       lastName,
-      formattedDateOfBirth,
+      birthday,
       isIdentical,
-      shippingAddress,
+      shippingCountry,
+      shippingStreet,
+      shippingPostalCode,
+      shippingCity,
       isShippingDefault,
-      billingAddress,
+      billingCountry,
+      billingStreet,
+      billingPostalCode,
+      billingCity,
       isBillingDefault,
     );
 
-    // eslint-disable-next-line no-console
-    console.log(customerDetails);
-
-    const data = createCustomerThroughCustomers(customerDetails);
-
-    data
-      .then((result) => {
-        // eslint-disable-next-line no-console
-        console.log(result);
+    const data = await createCustomerThroughCustomers(customerDetails)
+      .then((response) => {
+        return response;
       })
       .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.log(`${error}`);
+        return error;
       });
 
-    const loginData = loginCustomerThroughMe({ email, password });
+    if (data.customer) {
+      // eslint-disable-next-line no-console
+      console.log('Customer successfully registered');
 
-    loginData
-      .then((result) => {
+      const signInData = await loginCustomerThroughMe({ email, password });
+
+      if (signInData.customer) {
         // eslint-disable-next-line no-console
-        console.log(result);
-      })
-      .catch((error) => {
+        console.log('Customer successfully logged in');
+      } else {
         // eslint-disable-next-line no-console
-        console.log(`${error}`);
-      });
+        console.log(signInData);
+        // eslint-disable-next-line no-console
+        console.log('Something went wrong! Please try again');
+      }
+    } else {
+      // eslint-disable-next-line no-console
+      console.log(data.message);
+    }
   };
 
   const togglePassword = () => {

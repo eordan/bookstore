@@ -4,7 +4,7 @@ import { loginUserCtpClient } from './withPasswordFlowClientBuilder';
 import { PROJECT_KEY } from './apiClientDetailsSetter';
 
 // Login customer through `me` endpoint
-export const loginCustomerThroughMe = async (request: MyCustomerSignin): Promise<CustomerSignInResult> => {
+export const loginCustomerThroughMe = (request: MyCustomerSignin): Promise<CustomerSignInResult> => {
   const apiRoot = createApiBuilderFromCtpClient(loginUserCtpClient(request.email, request.password)).withProjectKey({
     projectKey: PROJECT_KEY,
   });

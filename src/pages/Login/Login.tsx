@@ -22,6 +22,8 @@ export function Login(): JSX.Element {
       console.log('Customer successfully logged in');
     } else {
       // eslint-disable-next-line no-console
+      console.log(data);
+      // eslint-disable-next-line no-console
       console.log('Invalid login or password');
     }
   };
