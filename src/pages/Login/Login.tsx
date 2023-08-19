@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { RoutesEnum } from '../../utils/enums';
 import { loginCustomerThroughMe } from '../../services/customerAuther';
 import { emailValidationRules, passwordValidationRules } from '../../validation';
+import { Context } from '../..';
 
 import './Login.scss';
 
@@ -25,6 +26,8 @@ export function Login(): JSX.Element {
     },
     mode: 'onChange',
   });
+  const user = useContext(Context);
+  const navigate = useNavigate();
 
   const signIn = async () => {
     const email = getValues('email');
@@ -34,6 +37,8 @@ export function Login(): JSX.Element {
     if (data.customer) {
       // eslint-disable-next-line no-console
       console.log('Customer successfully logged in');
+      user.setIsAuth(true);
+      navigate(RoutesEnum.MAIN_ROUTE);
     } else {
       // eslint-disable-next-line no-console
       console.log(data);
@@ -54,6 +59,7 @@ export function Login(): JSX.Element {
 
   return (
     <Container className="d-flex flex-column justify-content-center align-items-center login-container">
+      {user.isAuth && <Navigate to={RoutesEnum.MAIN_ROUTE} />}
       <h2>Welcome Back</h2>
       <Form className="d-flex flex-column mt-4" onSubmit={handleSubmit(onSubmit)}>
         <Form.Group className="mt-3">

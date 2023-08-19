@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { RoutesEnum } from '../../utils/enums';
 import { getCustomerDetails, createCustomerThroughCustomers } from '../../services/customerCreator';
 import { loginCustomerThroughMe } from '../../services/customerAuther';
+import { Context } from '../..';
 
 import './Reg.scss';
 
@@ -30,6 +31,9 @@ export function Reg(): JSX.Element {
   const [isShippingDefault, setShippingDefault] = useState(false);
   const [passwordType, setPasswordType] = useState('password');
   const [rePasswordType, setRePasswordType] = useState('password');
+
+  const user = useContext(Context);
+  const navigate = useNavigate();
 
   const signUp = async () => {
     // eslint-disable-next-line no-console
@@ -74,6 +78,8 @@ export function Reg(): JSX.Element {
       if (signInData.customer) {
         // eslint-disable-next-line no-console
         console.log('Customer successfully logged in');
+        user.setIsAuth(true);
+        navigate(RoutesEnum.MAIN_ROUTE);
       } else {
         // eslint-disable-next-line no-console
         console.log(signInData);
@@ -104,6 +110,7 @@ export function Reg(): JSX.Element {
 
   return (
     <Container className="d-flex flex-column justify-content-center align-items-center login-container">
+      {user.isAuth && <Navigate to={RoutesEnum.MAIN_ROUTE} />}
       <h2>Sign up for free</h2>
       <Form className="d-flex flex-column mt-4 forms">
         <Row className="mt-3">
@@ -172,7 +179,13 @@ export function Reg(): JSX.Element {
           id="custom-switch"
           label="Use the same address for shipping and billing"
           checked={isIdentical}
-          onChange={(e) => setIdentical(e.target.checked)}
+          onChange={(e) => {
+            setIdentical(e.target.checked);
+            setBillingStreet(shippingStreet);
+            setBillingCity(shippingCity);
+            setBillingPostalCode(shippingPostalCode);
+            setBillingCountry(shippingCountry);
+          }}
         />
         <Row>
           <Col className="mt-3">
