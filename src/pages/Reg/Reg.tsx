@@ -179,7 +179,13 @@ export function Reg(): JSX.Element {
           id="custom-switch"
           label="Use the same address for shipping and billing"
           checked={isIdentical}
-          onChange={(e) => setIdentical(e.target.checked)}
+          onChange={(e) => {
+            setIdentical(e.target.checked);
+            setBillingStreet(shippingStreet);
+            setBillingCity(shippingCity);
+            setBillingPostalCode(shippingPostalCode);
+            setBillingCountry(shippingCountry);
+          }}
         />
         <Row>
           <Col className="mt-3">
