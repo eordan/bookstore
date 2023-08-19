@@ -14,9 +14,6 @@ import view from '../../assets/view.png';
 import noView from '../../assets/no-view.png';
 
 export function Reg(): JSX.Element {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [rePassword, setRePassword] = useState('');
   const [firstName, setFirsName] = useState('');
   const [lastName, setLastName] = useState('');
   const [birthday, setBirthday] = useState('');
@@ -52,10 +49,12 @@ export function Reg(): JSX.Element {
 
   const signUp = async () => {
     // eslint-disable-next-line no-console
-    console.log(
-      'Function, that send data to api\n' +
-        `${email}, ${password}, ${rePassword}, ${firstName}, ${lastName}, ${birthday}, ${shippingCountry}, ${shippingStreet}, ${shippingCity}, ${shippingPostalCode}, ${billingCountry}, ${billingStreet}, ${billingCity}, ${billingPostalCode}, ${isIdentical}, shippingDefault - ${isShippingDefault}, billingDefault - ${isBillingDefault}`,
-    );
+    // console.log(
+    //   'Function, that send data to api\n' +
+    //     `${email}, ${password}, ${rePassword}, ${firstName}, ${lastName}, ${birthday}, ${shippingCountry}, ${shippingStreet}, ${shippingCity}, ${shippingPostalCode}, ${billingCountry}, ${billingStreet}, ${billingCity}, ${billingPostalCode}, ${isIdentical}, shippingDefault - ${isShippingDefault}, billingDefault - ${isBillingDefault}`,
+    // );
+    const email = getValues('email');
+    const password = getValues('password');
 
     const customerDetails = getCustomerDetails(
       getValues('email'),
