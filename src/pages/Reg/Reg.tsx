@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { RoutesEnum } from '../../utils/enums';
 import { getCustomerDetails, createCustomerThroughCustomers } from '../../services/customerCreator';
 import { loginCustomerThroughMe } from '../../services/customerAuther';
+import { Context } from '../..';
 
 import './Reg.scss';
 
@@ -31,6 +32,7 @@ export function Reg(): JSX.Element {
   const [passwordType, setPasswordType] = useState('password');
   const [rePasswordType, setRePasswordType] = useState('password');
 
+  const user = useContext(Context);
   const navigate = useNavigate();
 
   const signUp = async () => {
@@ -108,6 +110,7 @@ export function Reg(): JSX.Element {
 
   return (
     <Container className="d-flex flex-column justify-content-center align-items-center login-container">
+      {user.isAuth && <Navigate to={RoutesEnum.MAIN_ROUTE} />}
       <h2>Sign up for free</h2>
       <Form className="d-flex flex-column mt-4 forms">
         <Row className="mt-3">
