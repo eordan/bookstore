@@ -78,7 +78,7 @@ export function Reg(): JSX.Element {
       if (signInData.customer) {
         // eslint-disable-next-line no-console
         console.log('Customer successfully logged in');
-
+        user.setIsAuth(true);
         navigate(RoutesEnum.MAIN_ROUTE);
       } else {
         // eslint-disable-next-line no-console

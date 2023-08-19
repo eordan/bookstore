@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
-import { NavLink, Navigate } from 'react-router-dom';
+import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { RoutesEnum } from '../../utils/enums';
 import { loginCustomerThroughMe } from '../../services/customerAuther';
@@ -27,6 +27,7 @@ export function Login(): JSX.Element {
     mode: 'onChange',
   });
   const user = useContext(Context);
+  const navigate = useNavigate();
 
   const signIn = async () => {
     const email = getValues('email');
@@ -36,6 +37,8 @@ export function Login(): JSX.Element {
     if (data.customer) {
       // eslint-disable-next-line no-console
       console.log('Customer successfully logged in');
+      user.setIsAuth(true);
+      navigate(RoutesEnum.MAIN_ROUTE);
     } else {
       // eslint-disable-next-line no-console
       console.log(data);
