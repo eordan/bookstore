@@ -1,9 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { NavLink, Navigate, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import { RoutesEnum } from '../../utils/enums';
 import { getCustomerDetails, createCustomerThroughCustomers } from '../../services/customerCreator';
 import { loginCustomerThroughMe } from '../../services/customerAuther';
+import { emailValidationRules, passwordValidationRules } from '../../validation';
 import { Context } from '../..';
 
 import './Reg.scss';
@@ -31,6 +33,19 @@ export function Reg(): JSX.Element {
   const [isShippingDefault, setShippingDefault] = useState(false);
   const [passwordType, setPasswordType] = useState('password');
   const [rePasswordType, setRePasswordType] = useState('password');
+  const {
+    register,
+    getValues,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+      passwordRepeat: '',
+    },
+    mode: 'onChange',
+  });
 
   const user = useContext(Context);
   const navigate = useNavigate();
@@ -43,8 +58,8 @@ export function Reg(): JSX.Element {
     );
 
     const customerDetails = getCustomerDetails(
-      email,
-      password,
+      getValues('email'),
+      getValues('password'),
       firstName,
       lastName,
       birthday,
@@ -108,16 +123,19 @@ export function Reg(): JSX.Element {
     setRePasswordType('password');
   };
 
+  const onSubmit = () => signUp();
+
   return (
     <Container className="d-flex flex-column justify-content-center align-items-center login-container">
       {user.isAuth && <Navigate to={RoutesEnum.MAIN_ROUTE} />}
       <h2>Sign up for free</h2>
-      <Form className="d-flex flex-column mt-4 forms">
+      <Form className="d-flex flex-column mt-4 forms" onSubmit={handleSubmit(onSubmit)}>
         <Row className="mt-3">
           <h5>Account</h5>
           <Form.Group as={Col}>
             <Form.Label>Email</Form.Label>
-            <Form.Control placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <Form.Control placeholder="Enter your email" {...register('email', emailValidationRules)} />
+            <p className="message">{errors.email?.message}</p>
           </Form.Group>
           <Form.Group as={Col}>
             <Form.Label>Password</Form.Label>
@@ -126,9 +144,9 @@ export function Reg(): JSX.Element {
                 className="password"
                 placeholder="Enter your password"
                 type={passwordType}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                {...register('password', passwordValidationRules)}
               />
+              <p className="message">{errors.password?.message}</p>
               <button className="password-control" type="button" onClick={togglePassword}>
                 {passwordType === 'password' ? <img src={view} alt="view" /> : <img src={noView} alt="no-view" />}
               </button>
@@ -141,9 +159,11 @@ export function Reg(): JSX.Element {
                 className="password"
                 placeholder="Repeate your password"
                 type={rePasswordType}
-                value={rePassword}
-                onChange={(e) => setRePassword(e.target.value)}
+                {...register('passwordRepeat', {
+                  validate: (value) => value === getValues('password') || 'Password does not match',
+                })}
               />
+              <p className="message">{errors.passwordRepeat?.message}</p>
               <button className="password-control" type="button" onClick={toggleRePassword}>
                 {rePasswordType === 'password' ? <img src={view} alt="view" /> : <img src={noView} alt="no-view" />}
               </button>
@@ -291,7 +311,7 @@ export function Reg(): JSX.Element {
             />
           </Col>
         </Row>
-        <Button className="mt-3" variant="success" onClick={signUp}>
+        <Button type="submit" className="mt-3" variant="success">
           Get started
         </Button>
         <Form.Text className="policy-text mt-3 text-muted">
