@@ -16,3 +16,19 @@ export const passwordValidationRules = {
     specialPattern: (value: string) => /[!@#$%^&*?]/.test(value) || 'At least 1 special symbol (!@#$%^&*)',
   },
 };
+
+export const checkBirthday = (date: string): boolean => {
+  const today = new Date();
+  const birthDate = new Date(date);
+  const minAge = 13;
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const month = today.getMonth() - birthDate.getMonth();
+  if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
+    age -= 1;
+  }
+  console.log(age);
+  if (age >= minAge) {
+    return true;
+  }
+  return false;
+}

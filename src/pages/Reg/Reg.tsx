@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { RoutesEnum } from '../../utils/enums';
 import { getCustomerDetails, createCustomerThroughCustomers } from '../../services/customerCreator';
 import { loginCustomerThroughMe } from '../../services/customerAuther';
-import { emailValidationRules, passwordValidationRules } from '../../validation';
+import { checkBirthday, emailValidationRules, passwordValidationRules } from '../../validation';
 import { Context } from '../..';
 
 import './Reg.scss';
@@ -14,9 +14,6 @@ import view from '../../assets/view.png';
 import noView from '../../assets/no-view.png';
 
 export function Reg(): JSX.Element {
-  const [firstName, setFirsName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [birthday, setBirthday] = useState('');
   const [shippingCountry, setShippingCountry] = useState('');
   const [shippingStreet, setShippingStreet] = useState('');
   const [shippingCity, setShippingCity] = useState('');
@@ -40,6 +37,9 @@ export function Reg(): JSX.Element {
       email: '',
       password: '',
       passwordRepeat: '',
+      firstName: '',
+      lastName: '',
+      birthday: '',
     },
     mode: 'onChange',
   });
@@ -59,9 +59,9 @@ export function Reg(): JSX.Element {
     const customerDetails = getCustomerDetails(
       getValues('email'),
       getValues('password'),
-      firstName,
-      lastName,
-      birthday,
+      getValues('firstName'),
+      getValues('lastName'),
+      getValues('birthday'),
       isIdentical,
       shippingCountry,
       shippingStreet,
@@ -175,21 +175,31 @@ export function Reg(): JSX.Element {
             <Form.Label>First Name *</Form.Label>
             <Form.Control
               placeholder="Enter your first name"
-              value={firstName}
-              onChange={(e) => setFirsName(e.target.value)}
+              {...register('firstName', {
+                validate: (value) => /[a-zA-Z]/.test(value) || 'Please enter valid name',
+              })}
             />
+            <p className="message">{errors.firstName?.message}</p>
           </Form.Group>
           <Form.Group as={Col}>
             <Form.Label>Last Name *</Form.Label>
             <Form.Control
               placeholder="Enter your last name"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              {...register('lastName', {
+                validate: (value) => /[a-zA-Z]/.test(value) || 'Please enter valid last name',
+              })}
             />
+            <p className="message">{errors.lastName?.message}</p>
           </Form.Group>
           <Form.Group as={Col}>
             <Form.Label>Date of Birth *</Form.Label>
-            <Form.Control type="date" value={birthday} onChange={(e) => setBirthday(e.target.value)} />
+            <Form.Control
+              type="date"
+              {...register('birthday', {
+                validate: (value) => checkBirthday(value) || 'Minimum 13 years old',
+              })}
+            />
+            <p className="message">{errors.birthday?.message}</p>
           </Form.Group>
         </Row>
         <Form.Check
