@@ -35,5 +35,6 @@ module.exports = {
     'global-require': 'off',
     'func-names': 'off',
     'no-param-reassign': 'off',
+    'no-underscore-dangle': 'off',
   },
 };

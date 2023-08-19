@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { RoutesEnum } from '../../utils/enums';
 
 import './Header.scss';
+import { Context } from '../..';
 
 export function Header(): JSX.Element {
   const navigate = useNavigate();
+  const user = useContext(Context);
 
   return (
     <Navbar>
@@ -30,6 +32,18 @@ export function Header(): JSX.Element {
             <Button className="ml-3 registration-btn" onClick={() => navigate(RoutesEnum.REGISTRATION_ROUTE)}>
               Registration
             </Button>
+            {user.isAuth && (
+              <Button
+                className="logout-btn"
+                variant="dark"
+                onClick={() => {
+                  user.setIsAuth(false);
+                  navigate(RoutesEnum.MAIN_ROUTE);
+                }}
+              >
+                Log Out
+              </Button>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
