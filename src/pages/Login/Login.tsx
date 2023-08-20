@@ -29,7 +29,7 @@ export function Login(): JSX.Element {
   });
   const user = useContext(Context);
   const navigate = useNavigate();
-  const [isShowing, setIsShowing] = useState(false);
+  const [isShowing, setIsShowing] = useState<boolean>(false);
 
   const signIn = async () => {
     const email = getValues('email');
@@ -65,7 +65,7 @@ export function Login(): JSX.Element {
     <Container className="d-flex flex-column justify-content-center align-items-center login-container">
       {user.isAuth && <Navigate to={RoutesEnum.MAIN_ROUTE} />}
       <h2>Welcome Back</h2>
-      {isShowing && <SuccessMessage />}
+      {isShowing && <SuccessMessage handle={setIsShowing} />}
       <Form className="d-flex flex-column mt-4" onSubmit={handleSubmit(onSubmit)}>
         <Form.Group className="mt-3">
           <Form.Label>Email *</Form.Label>
