@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { RoutesEnum } from '../../utils/enums';
 import { getCustomerDetails, createCustomerThroughCustomers } from '../../services/customerCreator';
 import { loginCustomerThroughMe } from '../../services/customerAuther';
-import { checkBirthday, checkPostalCode, emailValidationRules, passwordValidationRules } from '../../validation';
+import { checkBirthday, checkPostalCode, emailValidationRules, passwordValidationRules } from '../../utils/validation';
 import { Context } from '../..';
 
 import './Reg.scss';

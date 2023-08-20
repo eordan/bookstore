@@ -2,9 +2,10 @@ import React, { useContext, useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import SuccessMessage from '@components/SuccessMessage';
 import { RoutesEnum } from '../../utils/enums';
 import { loginCustomerThroughMe } from '../../services/customerAuther';
-import { emailValidationRules, passwordValidationRules } from '../../validation';
+import { emailValidationRules, passwordValidationRules } from '../../utils/validation';
 import { Context } from '../..';
 
 import './Login.scss';
@@ -61,6 +62,7 @@ export function Login(): JSX.Element {
     <Container className="d-flex flex-column justify-content-center align-items-center login-container">
       {user.isAuth && <Navigate to={RoutesEnum.MAIN_ROUTE} />}
       <h2>Welcome Back</h2>
+      <SuccessMessage isShowing isSuccessful />
       <Form className="d-flex flex-column mt-4" onSubmit={handleSubmit(onSubmit)}>
         <Form.Group className="mt-3">
           <Form.Label>Email *</Form.Label>
