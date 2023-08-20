@@ -1,5 +1,5 @@
 import React from 'react';
 
 export function Products(): JSX.Element {
-  return <h1>Welcome to Products page</h1>;
+  return <h1 className="align-self-center">Welcome to the Products page</h1>;
 }
