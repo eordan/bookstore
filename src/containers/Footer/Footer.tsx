@@ -9,7 +9,7 @@ import github from '../../assets/github.png';
 export function Footer(): JSX.Element {
   return (
     <footer className="footer">
-      <Container className="d-flex justify-content-between p-5">
+      <Container className="d-flex justify-content-between p-4">
         <h2>Liblion</h2>
         <div>
           <NavLink target="_blank" to="https://github.com/eordan/bookstore/tree/develop">

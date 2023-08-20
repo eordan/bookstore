@@ -1,10 +1,17 @@
 .main {
-  background-image: url('../../assets/background.png');
+  background-image: url('../../assets/background.svg');
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
+  background-position: center;
+  flex-grow: 1;
 }
 
 .main-container {
-  height: 1322px;
   padding: 112px 0;
+}
+
+.title {
+  max-width: 300px;
+  color: #fff;
+  font-size: 4.8em;
 }

@@ -13,7 +13,7 @@ export function Header(): JSX.Element {
   const user = useContext(Context);
 
   return (
-    <Navbar>
+    <Navbar className="p-3">
       <Container>
         <Navbar.Brand>Liblion</Navbar.Brand>
         <Navbar.Collapse id="responsive-navbar-nav">
