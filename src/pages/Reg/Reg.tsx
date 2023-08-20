@@ -70,7 +70,7 @@ export function Reg(): JSX.Element {
       getValues('billingCity'),
       isBillingDefault,
     );
-      console.log(customerDetails);
+    console.log(customerDetails);
 
     const data = await createCustomerThroughCustomers(customerDetails)
       .then((response) => {
@@ -173,7 +173,7 @@ export function Reg(): JSX.Element {
             <Form.Control
               placeholder="Enter your first name"
               {...register('firstName', {
-                validate: (value) => /[a-zA-Z]/.test(value) || 'Please enter valid name',
+                validate: (value) => /[a-zA-Z]/.test(value) || 'Please enter correct name',
               })}
             />
             <p className="message">{errors.firstName?.message}</p>
@@ -183,7 +183,7 @@ export function Reg(): JSX.Element {
             <Form.Control
               placeholder="Enter your last name"
               {...register('lastName', {
-                validate: (value) => /[a-zA-Z]/.test(value) || 'Please enter valid last name',
+                validate: (value) => /[a-zA-Z]/.test(value) || 'Please enter correct last name',
               })}
             />
             <p className="message">{errors.lastName?.message}</p>
@@ -224,7 +224,7 @@ export function Reg(): JSX.Element {
                   validate: (value) => /[a-zA-Z0-9]/.test(value) || 'Please enter correct street',
                   onChange: (e) => {
                     if (isIdentical) {
-                      setValue('billingStreet', getValues(e.target.name))
+                      setValue('billingStreet', getValues(e.target.name));
                     }
                   },
                 })}
@@ -239,7 +239,7 @@ export function Reg(): JSX.Element {
                   validate: (value) => /[a-zA-Z]/.test(value) || 'Please enter correct city',
                   onChange: (e) => {
                     if (isIdentical) {
-                      setValue('billingCity', getValues(e.target.name))
+                      setValue('billingCity', getValues(e.target.name));
                     }
                   },
                 })}
@@ -251,11 +251,10 @@ export function Reg(): JSX.Element {
               <Form.Control
                 placeholder="Postal code"
                 {...register('shippingPostalCode', {
-                  validate: (value) =>
-                    checkPostalCode(shippingCountry, value) || 'Please enter correct postal code',
+                  validate: (value) => checkPostalCode(shippingCountry, value) || 'Please enter correct postal code',
                   onChange: (e) => {
                     if (isIdentical) {
-                      setValue('billingPostalCode', getValues(e.target.name))
+                      setValue('billingPostalCode', getValues(e.target.name));
                     }
                   },
                 })}
@@ -290,7 +289,7 @@ export function Reg(): JSX.Element {
                 placeholder="Street"
                 disabled={isIdentical}
                 {...register('billingStreet', {
-                  validate: (value) => /[a-zA-Z0-9]/.test(value) || 'Please correct valid street',
+                  validate: (value) => /[a-zA-Z0-9]/.test(value) || 'Please correct correct street',
                 })}
               />
               <p className="message">{errors.billingStreet?.message}</p>
@@ -301,7 +300,7 @@ export function Reg(): JSX.Element {
                 placeholder="City"
                 disabled={isIdentical}
                 {...register('billingCity', {
-                  validate: (value) => /[a-zA-Z]/.test(value) || 'Please correct valid city',
+                  validate: (value) => /[a-zA-Z]/.test(value) || 'Please correct correct city',
                 })}
               />
               <p className="message">{errors.billingCity?.message}</p>
@@ -312,8 +311,7 @@ export function Reg(): JSX.Element {
                 placeholder="Postal code"
                 disabled={isIdentical}
                 {...register('billingPostalCode', {
-                  validate: (value) =>
-                    checkPostalCode(billingCountry, value) || 'Please enter correct postal code',
+                  validate: (value) => checkPostalCode(billingCountry, value) || 'Please enter correct postal code',
                 })}
               />
               <p className="message">{errors.billingPostalCode?.message}</p>

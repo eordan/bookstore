@@ -34,12 +34,12 @@ export const checkBirthday = (date: string): boolean => {
 };
 
 export const checkPostalCode = (country: string, code: string): boolean => {
-  if (!country) return true;
-  if (country.toLowerCase() === 'belarus' && /^\d{6}$/.test(code)) {
+  // if (!country) return true;
+  if (country === 'Belarus' && /^\d{6}$/.test(code)) {
     return true;
   }
-  if (country.toLowerCase() === 'poland' && /^\d{2}-\d{3}$/.test(code)) {
+  if (country === 'Poland' && /^\d{2}-\d{3}$/.test(code)) {
     return true;
   }
   return false;
-}
+};
