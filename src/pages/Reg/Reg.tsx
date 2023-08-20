@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { RoutesEnum } from '../../utils/enums';
 import { getCustomerDetails, createCustomerThroughCustomers } from '../../services/customerCreator';
 import { loginCustomerThroughMe } from '../../services/customerAuther';
-import { checkBirthday, emailValidationRules, passwordValidationRules } from '../../validation';
+import { checkBirthday, checkPostalCode, emailValidationRules, passwordValidationRules } from '../../validation';
 import { Context } from '../..';
 
 import './Reg.scss';
@@ -15,13 +15,7 @@ import noView from '../../assets/no-view.png';
 
 export function Reg(): JSX.Element {
   const [shippingCountry, setShippingCountry] = useState('');
-  const [shippingStreet, setShippingStreet] = useState('');
-  const [shippingCity, setShippingCity] = useState('');
-  const [shippingPostalCode, setShippingPostalCode] = useState('');
   const [billingCountry, setBillingCountry] = useState('');
-  const [billingStreet, setBillingStreet] = useState('');
-  const [billingCity, setBillingCity] = useState('');
-  const [billingPostalCode, setBillingPostalCode] = useState('');
   const [isIdentical, setIdentical] = useState(false);
   const [isBillingDefault, setBillingDefault] = useState(false);
   const [isShippingDefault, setShippingDefault] = useState(false);
@@ -30,6 +24,7 @@ export function Reg(): JSX.Element {
   const {
     register,
     getValues,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -40,6 +35,12 @@ export function Reg(): JSX.Element {
       firstName: '',
       lastName: '',
       birthday: '',
+      shippingStreet: '',
+      shippingCity: '',
+      shippingPostalCode: '',
+      billingStreet: '',
+      billingCity: '',
+      billingPostalCode: '',
     },
     mode: 'onChange',
   });
@@ -48,11 +49,6 @@ export function Reg(): JSX.Element {
   const navigate = useNavigate();
 
   const signUp = async () => {
-    // eslint-disable-next-line no-console
-    // console.log(
-    //   'Function, that send data to api\n' +
-    //     `${email}, ${password}, ${rePassword}, ${firstName}, ${lastName}, ${birthday}, ${shippingCountry}, ${shippingStreet}, ${shippingCity}, ${shippingPostalCode}, ${billingCountry}, ${billingStreet}, ${billingCity}, ${billingPostalCode}, ${isIdentical}, shippingDefault - ${isShippingDefault}, billingDefault - ${isBillingDefault}`,
-    // );
     const email = getValues('email');
     const password = getValues('password');
 
@@ -64,16 +60,17 @@ export function Reg(): JSX.Element {
       getValues('birthday'),
       isIdentical,
       shippingCountry,
-      shippingStreet,
-      shippingPostalCode,
-      shippingCity,
+      getValues('shippingStreet'),
+      getValues('shippingPostalCode'),
+      getValues('shippingCity'),
       isShippingDefault,
       billingCountry,
-      billingStreet,
-      billingPostalCode,
-      billingCity,
+      getValues('billingStreet'),
+      getValues('billingPostalCode'),
+      getValues('billingCity'),
       isBillingDefault,
     );
+      console.log(customerDetails);
 
     const data = await createCustomerThroughCustomers(customerDetails)
       .then((response) => {
@@ -210,9 +207,9 @@ export function Reg(): JSX.Element {
           checked={isIdentical}
           onChange={(e) => {
             setIdentical(e.target.checked);
-            setBillingStreet(shippingStreet);
-            setBillingCity(shippingCity);
-            setBillingPostalCode(shippingPostalCode);
+            setValue('billingStreet', getValues('shippingStreet'));
+            setValue('billingCity', getValues('shippingCity'));
+            setValue('billingPostalCode', getValues('shippingPostalCode'));
             setBillingCountry(shippingCountry);
           }}
         />
@@ -223,34 +220,47 @@ export function Reg(): JSX.Element {
               <Form.Label>Street *</Form.Label>
               <Form.Control
                 placeholder="Street"
-                value={shippingStreet}
-                onChange={(e) => {
-                  setShippingStreet(e.target.value);
-                  if (isIdentical) setBillingStreet(e.target.value);
-                }}
+                {...register('shippingStreet', {
+                  validate: (value) => /[a-zA-Z0-9]/.test(value) || 'Please enter correct street',
+                  onChange: (e) => {
+                    if (isIdentical) {
+                      setValue('billingStreet', getValues(e.target.name))
+                    }
+                  },
+                })}
               />
+              <p className="message">{errors.shippingStreet?.message}</p>
             </Form.Group>
             <Form.Group className="mt-3">
               <Form.Label>City *</Form.Label>
               <Form.Control
                 placeholder="City"
-                value={shippingCity}
-                onChange={(e) => {
-                  setShippingCity(e.target.value);
-                  if (isIdentical) setBillingCity(e.target.value);
-                }}
+                {...register('shippingCity', {
+                  validate: (value) => /[a-zA-Z]/.test(value) || 'Please enter correct city',
+                  onChange: (e) => {
+                    if (isIdentical) {
+                      setValue('billingCity', getValues(e.target.name))
+                    }
+                  },
+                })}
               />
+              <p className="message">{errors.shippingCity?.message}</p>
             </Form.Group>
             <Form.Group className="mt-3">
               <Form.Label>Postal code *</Form.Label>
               <Form.Control
                 placeholder="Postal code"
-                value={shippingPostalCode}
-                onChange={(e) => {
-                  setShippingPostalCode(e.target.value);
-                  if (isIdentical) setBillingPostalCode(e.target.value);
-                }}
+                {...register('shippingPostalCode', {
+                  validate: (value) =>
+                    checkPostalCode(shippingCountry, value) || 'Please enter correct postal code',
+                  onChange: (e) => {
+                    if (isIdentical) {
+                      setValue('billingPostalCode', getValues(e.target.name))
+                    }
+                  },
+                })}
               />
+              <p className="message">{errors.shippingPostalCode?.message}</p>
             </Form.Group>
             <Form.Group className="mt-3">
               <Form.Label>Country *</Form.Label>
@@ -279,27 +289,34 @@ export function Reg(): JSX.Element {
               <Form.Control
                 placeholder="Street"
                 disabled={isIdentical}
-                value={billingStreet}
-                onChange={(e) => setBillingStreet(e.target.value)}
+                {...register('billingStreet', {
+                  validate: (value) => /[a-zA-Z0-9]/.test(value) || 'Please correct valid street',
+                })}
               />
+              <p className="message">{errors.billingStreet?.message}</p>
             </Form.Group>
             <Form.Group className="mt-3">
               <Form.Label>City *</Form.Label>
               <Form.Control
                 placeholder="City"
-                value={billingCity}
                 disabled={isIdentical}
-                onChange={(e) => setBillingCity(e.target.value)}
+                {...register('billingCity', {
+                  validate: (value) => /[a-zA-Z]/.test(value) || 'Please correct valid city',
+                })}
               />
+              <p className="message">{errors.billingCity?.message}</p>
             </Form.Group>
             <Form.Group className="mt-3">
               <Form.Label>Postal code *</Form.Label>
               <Form.Control
                 placeholder="Postal code"
                 disabled={isIdentical}
-                value={billingPostalCode}
-                onChange={(e) => setBillingPostalCode(e.target.value)}
+                {...register('billingPostalCode', {
+                  validate: (value) =>
+                    checkPostalCode(billingCountry, value) || 'Please enter correct postal code',
+                })}
               />
+              <p className="message">{errors.billingPostalCode?.message}</p>
             </Form.Group>
             <Form.Group className="mt-3">
               <Form.Label>Country *</Form.Label>
