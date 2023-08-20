@@ -3,18 +3,17 @@ import React, { useState, useEffect } from 'react';
 
 import './SuccessMessage.scss';
 
-type MessageProps = {
-  isShowing: boolean;
-  isSuccessful: boolean;
-};
+// type MessageProps = {
+//   isShowing: boolean;
+// };
 
-export function SuccessMessage({ isShowing, isSuccessful }: MessageProps): JSX.Element {
-  const [showMessage, setShowMessage] = useState(isShowing);
+export function SuccessMessage(): JSX.Element {
+  const [showMessage, setShowMessage] = useState(true);
   const [messageStyle, setMessageStyle] = useState('');
-  const [message, setMessage] = useState('');
-  const [color, setColor] = useState('');
+  // const [message, setMessage] = useState('');
+  // const [color, setColor] = useState('');
 
-  const messageColor = { backgroundColor: color };
+  // const messageColor = { backgroundColor: color };
 
   useEffect(() => {
     if (showMessage) {
@@ -22,21 +21,21 @@ export function SuccessMessage({ isShowing, isSuccessful }: MessageProps): JSX.E
     } else {
       setMessageStyle('success-message hide');
     }
-  });
+  }, [showMessage]);
 
-  useEffect(() => {
-    if (isSuccessful) {
-      setMessage('Customer successfully logged in');
-      setColor('#00ba7c');
-    } else {
-      setMessage('Invalid email or password');
-      setColor('#ff6666');
-    }
-  });
+  // useEffect(() => {
+  //   if (isSuccessful) {
+  //     setMessage('Customer successfully logged in');
+  //     setColor('#00ba7c');
+  //   } else {
+  //     setMessage('Invalid email or password');
+  //     setColor('#ff6666');
+  //   }
+  // });
 
   return (
-    <div className={messageStyle} style={messageColor}>
-      {message}
+    <div className={messageStyle} style={{ backgroundColor: '#ff6666' }}>
+      Invalid email or password
       <div className="close-btn" onClick={() => setShowMessage(false)}>
         <span className="line" />
         <span className="line" />

@@ -29,6 +29,7 @@ export function Login(): JSX.Element {
   });
   const user = useContext(Context);
   const navigate = useNavigate();
+  const [isShowing, setIsShowing] = useState(false);
 
   const signIn = async () => {
     const email = getValues('email');
@@ -38,12 +39,14 @@ export function Login(): JSX.Element {
     if (data.customer) {
       // eslint-disable-next-line no-console
       console.log('Customer successfully logged in');
+      setIsShowing(false);
       user.setIsAuth(true);
       navigate(RoutesEnum.MAIN_ROUTE);
     } else {
       // eslint-disable-next-line no-console
       console.log(data);
       // eslint-disable-next-line no-console
+      setIsShowing(true);
       console.log('Invalid login or password');
     }
   };
@@ -62,7 +65,7 @@ export function Login(): JSX.Element {
     <Container className="d-flex flex-column justify-content-center align-items-center login-container">
       {user.isAuth && <Navigate to={RoutesEnum.MAIN_ROUTE} />}
       <h2>Welcome Back</h2>
-      <SuccessMessage isShowing isSuccessful />
+      {isShowing && <SuccessMessage />}
       <Form className="d-flex flex-column mt-4" onSubmit={handleSubmit(onSubmit)}>
         <Form.Group className="mt-3">
           <Form.Label>Email *</Form.Label>
