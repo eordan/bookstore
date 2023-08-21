@@ -38,6 +38,7 @@ export function Login(): JSX.Element {
 
     if (data.customer) {
       user.setIsAuth(true);
+      user.setIsEntered(true);
       navigate(RoutesEnum.MAIN_ROUTE);
     } else {
       setIsErrorShowing(true);

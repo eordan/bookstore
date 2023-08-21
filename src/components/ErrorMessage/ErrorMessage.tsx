@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './ErrorMessage.scss';
 
@@ -8,9 +8,18 @@ type MessageProps = {
 };
 
 export function ErrorMessage({ handle, message }: MessageProps): JSX.Element {
-  const topOffset: string = `${window.scrollY + 60}px`;
+  const [offset, setOffset] = useState(window.scrollY);
+
+  useEffect(() => {
+    const onScroll = () => setOffset(window.scrollY);
+    window.removeEventListener('scroll', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const topOffset: string = `translateY(${offset}px)`;
   return (
-    <div className="error-message" style={{ top: topOffset }}>
+    <div className="error-message" style={{ transform: topOffset }}>
       {message}
       <button type="button" className="close-btn" onClick={() => handle(false)}>
         <span className="line" />

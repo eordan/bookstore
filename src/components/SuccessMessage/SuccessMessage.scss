@@ -1,0 +1,28 @@
+.success-message {
+  display: flex;
+  position: absolute;
+  top: -60px;
+  z-index: 2;
+  padding: 15px 30px;
+  color: #fff;
+  background-color: #00ba7c;
+  // animation: slide 5s ease-in-out;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateY(-120px);
+  }
+
+  25% {
+    transform: translateY(120px);
+  }
+
+  75% {
+    transform: translateY(120px);
+  }
+
+  100% {
+    transform: translateY(-120px);
+  }
+}
