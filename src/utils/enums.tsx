@@ -4,5 +4,5 @@ export enum RoutesEnum {
   REGISTRATION_ROUTE = '/registration',
   CONTACTS_ROUTE = '/contacts',
   PRODUCTS_ROUTE = '/products',
-  PAGE_404 = '/404',
+  PAGE_404 = '/*',
 }
