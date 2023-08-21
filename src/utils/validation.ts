@@ -6,15 +6,12 @@ export const emailValidationRules = {
 };
 
 export const passwordValidationRules = {
-  required: 'Please enter your password',
-  validate: {
-    whitespacePattern: (value: string) => value === value.replace(' ', '') || 'No whitespaces',
-    minLength: (value: string) => value.length >= 8 || 'Minimum 8 characters',
-    uppercasePattern: (value: string) => /[A-Z]/.test(value) || 'At least 1 uppercase letter (A-Z)',
-    lowercasePattern: (value: string) => /[a-z]/.test(value) || 'At least 1 lowercase letter (a-z)',
-    digitPattern: (value: string) => /[0-9]/.test(value) || 'At least 1 digit (0-9)',
-    specialPattern: (value: string) => /[!@#$%^&*?]/.test(value) || 'At least 1 special symbol (!@#$%^&*)',
-  },
+  whitespacePattern: (value: string) => value === value.replace(' ', '') || 'No whitespaces',
+  minLength: (value: string) => value.length >= 8 || 'Minimum 8 characters',
+  uppercasePattern: (value: string) => /[A-Z]/.test(value) || 'At least 1 uppercase letter (A-Z)',
+  lowercasePattern: (value: string) => /[a-z]/.test(value) || 'At least 1 lowercase letter (a-z)',
+  digitPattern: (value: string) => /[0-9]/.test(value) || 'At least 1 digit (0-9)',
+  specialPattern: (value: string) => /[!@#$%^&*?]/.test(value) || 'At least 1 special symbol (!@#$%^&*)',
 };
 
 export const checkBirthday = (date: string): boolean => {
@@ -34,7 +31,6 @@ export const checkBirthday = (date: string): boolean => {
 };
 
 export const checkPostalCode = (country: string, code: string): boolean => {
-  // if (!country) return true;
   if (country === 'Belarus' && /^\d{6}$/.test(code)) {
     return true;
   }
