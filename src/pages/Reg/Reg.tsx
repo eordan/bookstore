@@ -199,7 +199,6 @@ export function Reg(): JSX.Element {
         <Form.Check
           className="mt-4"
           type="switch"
-          id="custom-switch"
           label="Use the same address for shipping and billing"
           checked={isIdentical}
           onChange={(e) => {
@@ -291,7 +290,6 @@ export function Reg(): JSX.Element {
               checked={isShippingDefault}
               className="mt-2"
               type="switch"
-              id="custom-switch"
               label="Make this address default?"
               onChange={(e) => setShippingDefault(e.target.checked)}
             />
@@ -352,7 +350,6 @@ export function Reg(): JSX.Element {
             <Form.Check
               className="mt-2"
               type="switch"
-              id="custom-switch"
               label="Make this address default?"
               checked={isBillingDefault}
               onChange={(e) => setBillingDefault(e.target.checked)}
