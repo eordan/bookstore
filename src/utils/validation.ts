@@ -23,7 +23,6 @@ export const checkBirthday = (date: string): boolean => {
   if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
     age -= 1;
   }
-  console.log(age);
   if (age >= minAge) {
     return true;
   }
@@ -31,6 +30,9 @@ export const checkBirthday = (date: string): boolean => {
 };
 
 export const checkPostalCode = (country: string, code: string): boolean => {
+  if (country === 'Choose...') {
+    return true;
+  }
   if (country === 'Belarus' && /^\d{6}$/.test(code)) {
     return true;
   }

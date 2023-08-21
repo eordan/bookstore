@@ -15,8 +15,6 @@ import view from '../../assets/view.png';
 import noView from '../../assets/no-view.png';
 
 export function Reg(): JSX.Element {
-  const [shippingCountry, setShippingCountry] = useState('');
-  const [billingCountry, setBillingCountry] = useState('');
   const [isIdentical, setIdentical] = useState(false);
   const [isBillingDefault, setBillingDefault] = useState(false);
   const [isShippingDefault, setShippingDefault] = useState(false);
@@ -28,6 +26,7 @@ export function Reg(): JSX.Element {
     getValues,
     setValue,
     trigger,
+    clearErrors,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -41,9 +40,11 @@ export function Reg(): JSX.Element {
       shippingStreet: '',
       shippingCity: '',
       shippingPostalCode: '',
+      shippingCountry: 'Choose...',
       billingStreet: '',
       billingCity: '',
       billingPostalCode: '',
+      billingCountry: 'Choose...',
     },
     mode: 'onChange',
   });
@@ -62,18 +63,17 @@ export function Reg(): JSX.Element {
       getValues('lastName'),
       getValues('birthday'),
       isIdentical,
-      shippingCountry,
+      getValues('shippingCountry'),
       getValues('shippingStreet'),
       getValues('shippingPostalCode'),
       getValues('shippingCity'),
       isShippingDefault,
-      billingCountry,
+      getValues('billingCountry'),
       getValues('billingStreet'),
       getValues('billingPostalCode'),
       getValues('billingCity'),
       isBillingDefault,
     );
-    console.log(customerDetails);
 
     const data = await createCustomerThroughCustomers(customerDetails)
       .then((response) => {
@@ -170,7 +170,7 @@ export function Reg(): JSX.Element {
             <Form.Control
               placeholder="Enter your first name"
               {...register('firstName', {
-                validate: (value) => /[a-zA-Z]/.test(value) || 'Please enter correct name',
+                validate: (value) => /^[a-zA-Z]/.test(value) || 'Please enter correct name',
               })}
             />
             <p className="message">{errors.firstName?.message}</p>
@@ -180,7 +180,7 @@ export function Reg(): JSX.Element {
             <Form.Control
               placeholder="Enter your last name"
               {...register('lastName', {
-                validate: (value) => /[a-zA-Z]/.test(value) || 'Please enter correct last name',
+                validate: (value) => /^[a-zA-Z]/.test(value) || 'Please enter correct last name',
               })}
             />
             <p className="message">{errors.lastName?.message}</p>
@@ -204,11 +204,15 @@ export function Reg(): JSX.Element {
           checked={isIdentical}
           onChange={(e) => {
             setIdentical(e.target.checked);
+            if (!isIdentical) {
+              clearErrors(['billingStreet', 'billingCity', 'billingPostalCode', 'billingCountry']);
+            } else {
+              trigger(['billingStreet', 'billingCity', 'billingPostalCode', 'billingCountry']);
+            }
             setValue('billingStreet', getValues('shippingStreet'));
             setValue('billingCity', getValues('shippingCity'));
             setValue('billingPostalCode', getValues('shippingPostalCode'));
-            setBillingCountry(shippingCountry);
-            trigger(['billingStreet', 'billingCity', 'billingPostalCode']);
+            setValue('billingCountry', getValues('shippingCountry'));
           }}
         />
         <Row>
@@ -219,7 +223,7 @@ export function Reg(): JSX.Element {
               <Form.Control
                 placeholder="Street"
                 {...register('shippingStreet', {
-                  validate: (value) => /[a-zA-Z0-9]/.test(value) || 'Please enter correct street',
+                  validate: (value) => /^[a-zA-Z0-9]/.test(value) || 'Please enter correct street',
                   onChange: (e) => {
                     if (isIdentical) {
                       setValue('billingStreet', getValues(e.target.name));
@@ -235,7 +239,7 @@ export function Reg(): JSX.Element {
               <Form.Control
                 placeholder="City"
                 {...register('shippingCity', {
-                  validate: (value) => /[a-zA-Z]/.test(value) || 'Please enter correct city',
+                  validate: (value) => /^[a-zA-Z]/.test(value) || 'Please enter correct city',
                   onChange: (e) => {
                     if (isIdentical) {
                       setValue('billingCity', getValues(e.target.name));
@@ -251,7 +255,8 @@ export function Reg(): JSX.Element {
               <Form.Control
                 placeholder="Postal code"
                 {...register('shippingPostalCode', {
-                  validate: (value) => checkPostalCode(shippingCountry, value) || 'Please enter correct postal code',
+                  validate: (value) =>
+                    checkPostalCode(getValues('shippingCountry'), value) || 'Please enter correct postal code',
                   onChange: (e) => {
                     if (isIdentical) {
                       setValue('billingPostalCode', getValues(e.target.name));
@@ -264,14 +269,23 @@ export function Reg(): JSX.Element {
             </Form.Group>
             <Form.Group className="mt-3">
               <Form.Label>Country *</Form.Label>
-              <Form.Control
-                placeholder="Country"
-                value={shippingCountry}
-                onChange={(e) => {
-                  setShippingCountry(e.target.value);
-                  if (isIdentical) setBillingCountry(e.target.value);
-                }}
-              />
+              <Form.Select
+                {...register('shippingCountry', {
+                  validate: (value) => value !== 'Choose...' || 'Please choose country',
+                  onChange: (e) => {
+                    trigger('shippingPostalCode');
+                    if (isIdentical) {
+                      setValue('billingCountry', getValues(e.target.name));
+                      trigger('billingPostalCode');
+                    }
+                  },
+                })}
+              >
+                <option>Choose...</option>
+                <option>Belarus</option>
+                <option>Poland</option>
+              </Form.Select>
+              <p className="message">{errors.shippingCountry?.message}</p>
             </Form.Group>
             <Form.Check
               checked={isShippingDefault}
@@ -290,7 +304,7 @@ export function Reg(): JSX.Element {
                 placeholder="Street"
                 disabled={isIdentical}
                 {...register('billingStreet', {
-                  validate: (value) => /[a-zA-Z0-9]/.test(value) || 'Please enter correct street',
+                  validate: (value) => /^[a-zA-Z0-9]/.test(value) || 'Please enter correct street',
                 })}
               />
               <p className="message">{errors.billingStreet?.message}</p>
@@ -301,7 +315,7 @@ export function Reg(): JSX.Element {
                 placeholder="City"
                 disabled={isIdentical}
                 {...register('billingCity', {
-                  validate: (value) => /[a-zA-Z]/.test(value) || 'Please enter correct city',
+                  validate: (value) => /^[a-zA-Z]/.test(value) || 'Please enter correct city',
                 })}
               />
               <p className="message">{errors.billingCity?.message}</p>
@@ -312,19 +326,28 @@ export function Reg(): JSX.Element {
                 placeholder="Postal code"
                 disabled={isIdentical}
                 {...register('billingPostalCode', {
-                  validate: (value) => checkPostalCode(billingCountry, value) || 'Please enter correct postal code',
+                  validate: (value) =>
+                    checkPostalCode(getValues('billingCountry'), value) || 'Please enter correct postal code',
                 })}
               />
               <p className="message">{errors.billingPostalCode?.message}</p>
             </Form.Group>
             <Form.Group className="mt-3">
               <Form.Label>Country *</Form.Label>
-              <Form.Control
-                placeholder="Country"
+              <Form.Select
                 disabled={isIdentical}
-                value={billingCountry}
-                onChange={(e) => setBillingCountry(e.target.value)}
-              />
+                {...register('billingCountry', {
+                  validate: (value) => value !== 'Choose...' || 'Please choose country',
+                  onChange: () => {
+                    trigger('billingPostalCode');
+                  },
+                })}
+              >
+                <option>Choose...</option>
+                <option>Belarus</option>
+                <option>Poland</option>
+              </Form.Select>
+              <p className="message">{errors.billingCountry?.message}</p>
             </Form.Group>
             <Form.Check
               className="mt-3"
