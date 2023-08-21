@@ -8,7 +8,7 @@ type MessageProps = {
 };
 
 export function ErrorMessage({ handle, message }: MessageProps): JSX.Element {
-  const [offset, setOffset] = useState(0);
+  const [offset, setOffset] = useState(window.scrollY);
 
   useEffect(() => {
     const onScroll = () => setOffset(window.scrollY);
