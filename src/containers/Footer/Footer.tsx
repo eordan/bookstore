@@ -3,6 +3,7 @@ import { Container, Nav, Navbar } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import Links from '@components/Links';
 import { LINKS_ARRAY } from '../../utils/constants';
+import { RoutesEnum } from '../../utils/enums';
 
 import './Footer.scss';
 
@@ -12,7 +13,7 @@ export function Footer(): JSX.Element {
   return (
     <Navbar className="p-3 footer" data-bs-theme="dark">
       <Container>
-        <Navbar.Brand>Liblion</Navbar.Brand>
+        <Navbar.Brand href={RoutesEnum.MAIN_ROUTE}>Liblion</Navbar.Brand>
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             {LINKS_ARRAY.map((link) => (
