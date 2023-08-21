@@ -61,13 +61,13 @@ export function Login(): JSX.Element {
     <Container className="d-flex flex-column justify-content-center align-items-center login-container">
       {user.isAuth && <Navigate to={RoutesEnum.MAIN_ROUTE} />}
       <h2>Welcome Back</h2>
-      <Form className="d-flex flex-column mt-4" onSubmit={handleSubmit(onSubmit)}>
+      <Form className="d-flex flex-column" onSubmit={handleSubmit(onSubmit)}>
         <Form.Group className="mt-3">
           <Form.Label>Email *</Form.Label>
           <Form.Control placeholder="Enter your email" {...register('email', emailValidationRules)} />
-          <p className="message">{errors.email?.message}</p>
+          <p className="message mt-2">{errors.email?.message}</p>
         </Form.Group>
-        <Form.Group className="mt-3">
+        <Form.Group className="mt-2">
           <Form.Label>Password *</Form.Label>
           <div className="password">
             <Form.Control
@@ -76,7 +76,7 @@ export function Login(): JSX.Element {
               type={passwordType}
               {...register('password', passwordValidationRules)}
             />
-            <p className="message">{errors.password?.message}</p>
+            <p className="message mt-2">{errors.password?.message}</p>
             <button className="password-control" type="button" onClick={togglePassword}>
               {passwordType === 'password' ? <img src={view} alt="view" /> : <img src={noView} alt="no-view" />}
             </button>
