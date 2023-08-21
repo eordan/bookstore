@@ -2,9 +2,10 @@ import React, { useContext, useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import ErrorMessage from '@components/ErrorMessage';
 import { RoutesEnum } from '../../utils/enums';
 import { loginCustomerThroughMe } from '../../services/customerAuther';
-import { emailValidationRules, passwordValidationRules } from '../../validation';
+import { emailValidationRules, passwordValidationRules } from '../../utils/validation';
 import { Context } from '../..';
 
 import './Login.scss';
@@ -28,6 +29,7 @@ export function Login(): JSX.Element {
   });
   const user = useContext(Context);
   const navigate = useNavigate();
+  const [isErrorShowing, setIsErrorShowing] = useState<boolean>(false);
 
   const signIn = async () => {
     const email = getValues('email');
@@ -35,15 +37,10 @@ export function Login(): JSX.Element {
     const data = await loginCustomerThroughMe({ email, password });
 
     if (data.customer) {
-      // eslint-disable-next-line no-console
-      console.log('Customer successfully logged in');
       user.setIsAuth(true);
       navigate(RoutesEnum.MAIN_ROUTE);
     } else {
-      // eslint-disable-next-line no-console
-      console.log(data);
-      // eslint-disable-next-line no-console
-      console.log('Invalid login or password');
+      setIsErrorShowing(true);
     }
   };
 
@@ -61,6 +58,7 @@ export function Login(): JSX.Element {
     <Container className="d-flex flex-column justify-content-center align-items-center login-container">
       {user.isAuth && <Navigate to={RoutesEnum.MAIN_ROUTE} />}
       <h2>Welcome Back</h2>
+      {isErrorShowing && <ErrorMessage handle={setIsErrorShowing} message="Invalid email or password" />}
       <Form className="d-flex flex-column mt-4" onSubmit={handleSubmit(onSubmit)}>
         <Form.Group className="mt-3">
           <Form.Label>Email *</Form.Label>
@@ -74,7 +72,10 @@ export function Login(): JSX.Element {
               className="password"
               placeholder="Enter your password"
               type={passwordType}
-              {...register('password', passwordValidationRules)}
+              {...register('password', {
+                required: 'Please enter your password',
+                validate: passwordValidationRules,
+              })}
             />
             <p className="message">{errors.password?.message}</p>
             <button className="password-control" type="button" onClick={togglePassword}>
