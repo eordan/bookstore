@@ -13,7 +13,7 @@ export const LINKS_ARRAY = [
   },
   {
     id: 3,
-    title: 'Contacts',
-    to: RoutesEnum.CONTACTS_ROUTE,
+    title: 'About',
+    to: RoutesEnum.ABOUT_ROUTE,
   },
 ];

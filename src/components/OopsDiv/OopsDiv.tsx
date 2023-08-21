@@ -36,8 +36,8 @@ export function OopsDiv(): JSX.Element {
           </div>
           <div className="d-flex mt-2">
             <img className="right-arrow oops-arrow" src={arrow} alt="arrow" />
-            <NavLink style={{ textDecoration: 'none', color: 'inherit' }} to={RoutesEnum.CONTACTS_ROUTE}>
-              Contacts
+            <NavLink style={{ textDecoration: 'none', color: 'inherit' }} to={RoutesEnum.ABOUT_ROUTE}>
+              About
             </NavLink>
           </div>
         </div>

@@ -5,7 +5,7 @@ import Main from './pages/Main';
 import Page404 from './pages/Page404';
 
 import { RoutesEnum } from './utils/enums';
-import Contacts from './pages/Contacts';
+import Contacts from './pages/About';
 import Products from './pages/Products';
 
 export const publicRoutes = [
@@ -26,7 +26,7 @@ export const publicRoutes = [
     Component: <Page404 />,
   },
   {
-    path: RoutesEnum.CONTACTS_ROUTE,
+    path: RoutesEnum.ABOUT_ROUTE,
     Component: <Contacts />,
   },
   {
