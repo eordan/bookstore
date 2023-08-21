@@ -1,18 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Container } from 'react-bootstrap';
+import SuccessMessage from '@components/SuccessMessage';
+import { Context } from '../../index';
 
 import './Main.scss';
-import SuccessMessage from '@components/SuccessMessage';
 
 export function Main(): JSX.Element {
-  // const [message, setMessage] = useState('');
-  // if (login) setMessage('Successfully logged in')
-  // if (registered) setMessage('Succesfully registered')
+  const user = useContext(Context);
 
   return (
     <section className="main">
       <Container className="d-flex main-container">
-        <SuccessMessage message="Successfully logged in" />
+        {user.isEntered && <SuccessMessage message="Successfully logged in" />}
         <h1 className="title">We love literature</h1>
       </Container>
     </section>

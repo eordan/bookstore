@@ -88,6 +88,7 @@ export function Reg(): JSX.Element {
 
       if (signInData.customer) {
         user.setIsAuth(true);
+        user.setIsEntered(true);
         navigate(RoutesEnum.MAIN_ROUTE);
       }
     } else {
