@@ -13,7 +13,7 @@ export function Footer(): JSX.Element {
   return (
     <Navbar className="p-3 footer" data-bs-theme="dark">
       <Container>
-        <Navbar.Brand href={RoutesEnum.MAIN_ROUTE}>Liblion</Navbar.Brand>
+        <Navbar.Brand href={RoutesEnum.MAIN_ROUTE}>Pages d&apos;Évasion</Navbar.Brand>
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             {LINKS_ARRAY.map((link) => (

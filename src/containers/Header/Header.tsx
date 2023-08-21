@@ -15,7 +15,7 @@ export function Header(): JSX.Element {
   return (
     <Navbar collapseOnSelect expand="md" className="p-3">
       <Container>
-        <Navbar.Brand href={RoutesEnum.MAIN_ROUTE}>Liblion</Navbar.Brand>
+        <Navbar.Brand href={RoutesEnum.MAIN_ROUTE}>Pages d&apos;Évasion</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
