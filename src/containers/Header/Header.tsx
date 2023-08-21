@@ -1,31 +1,29 @@
 import React, { useContext } from 'react';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { NavLink, useNavigate } from 'react-router-dom';
+import Links from '@components/Links';
+import { Context } from '../..';
 import { RoutesEnum } from '../../utils/enums';
+import { LINKS_ARRAY } from '../../utils/constants';
 
 import './Header.scss';
-import { Context } from '../..';
 
 export function Header(): JSX.Element {
   const navigate = useNavigate();
   const user = useContext(Context);
 
   return (
-    <Navbar>
+    <Navbar collapseOnSelect expand="md" className="p-3">
       <Container>
         <Navbar.Brand>Liblion</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#">
-              <NavLink style={{ textDecoration: 'none', color: 'inherit' }} to={RoutesEnum.MAIN_ROUTE}>
-                Home
-              </NavLink>
-            </Nav.Link>
-            <Nav.Link href="#pricing">Product</Nav.Link>
-            <Nav.Link href="#features">Pricing</Nav.Link>
-            <Nav.Link href="#pricing">Contact</Nav.Link>
+            {LINKS_ARRAY.map((link) => (
+              <Links key={link.id} to={link.to} title={link.title} />
+            ))}
           </Nav>
-          <Nav className="d-flex align-items-center">
+          <Nav className="d-flex nav-btns">
             <NavLink style={{ textDecoration: 'none' }} to={RoutesEnum.LOGIN_ROUTE}>
               Login
             </NavLink>

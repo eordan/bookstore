@@ -63,9 +63,9 @@ export function Login(): JSX.Element {
         <Form.Group className="mt-3">
           <Form.Label>Email *</Form.Label>
           <Form.Control placeholder="Enter your email" {...register('email', emailValidationRules)} />
-          <p className="message">{errors.email?.message}</p>
+          <p className="message mt-2">{errors.email?.message}</p>
         </Form.Group>
-        <Form.Group className="mt-3">
+        <Form.Group className="mt-2">
           <Form.Label>Password *</Form.Label>
           <div className="password">
             <Form.Control
@@ -77,7 +77,7 @@ export function Login(): JSX.Element {
                 validate: passwordValidationRules,
               })}
             />
-            <p className="message">{errors.password?.message}</p>
+            <p className="message mt-2">{errors.password?.message}</p>
             <button className="password-control" type="button" onClick={togglePassword}>
               {passwordType === 'password' ? <img src={view} alt="view" /> : <img src={noView} alt="no-view" />}
             </button>
