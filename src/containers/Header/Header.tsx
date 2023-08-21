@@ -13,16 +13,17 @@ export function Header(): JSX.Element {
   const user = useContext(Context);
 
   return (
-    <Navbar className="p-3">
+    <Navbar collapseOnSelect expand="md" className="p-3">
       <Container>
         <Navbar.Brand>Liblion</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             {LINKS_ARRAY.map((link) => (
               <Links key={link.id} to={link.to} title={link.title} />
             ))}
           </Nav>
-          <Nav className="d-flex align-items-center">
+          <Nav className="d-flex nav-btns">
             <NavLink style={{ textDecoration: 'none' }} to={RoutesEnum.LOGIN_ROUTE}>
               Login
             </NavLink>

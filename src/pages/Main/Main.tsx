@@ -7,7 +7,7 @@ export function Main(): JSX.Element {
   return (
     <section className="main">
       <Container className="d-flex main-container">
-        <h1 className="title m-5">We love literature</h1>
+        <h1 className="title">We love literature</h1>
       </Container>
     </section>
   );
