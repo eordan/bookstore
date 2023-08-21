@@ -77,18 +77,18 @@ export function Login(): JSX.Element {
                 validate: passwordValidationRules,
               })}
             />
-            <p className="message mt-2">{errors.password?.message}</p>
             <button className="password-control" type="button" onClick={togglePassword}>
               {passwordType === 'password' ? <img src={view} alt="view" /> : <img src={noView} alt="no-view" />}
             </button>
           </div>
+          <p className="message mt-2">{errors.password?.message}</p>
         </Form.Group>
         <Button type="submit" className="mt-3" variant="success">
           Get started
         </Button>
-        <div className="d-flex justify-content)-evenly mt-3 mb-5">
-          <p>Already have an account?</p>
-          <NavLink className="sign-up pl-3" to={RoutesEnum.REGISTRATION_ROUTE}>
+        <div className="d-flex align-self-center mt-3 mb-5">
+          <p>Don&apos;t have an account?</p>
+          <NavLink className="sign-up" to={RoutesEnum.REGISTRATION_ROUTE}>
             Sign Up
           </NavLink>
         </div>
