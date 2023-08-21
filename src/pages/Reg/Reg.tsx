@@ -208,6 +208,7 @@ export function Reg(): JSX.Element {
             setValue('billingCity', getValues('shippingCity'));
             setValue('billingPostalCode', getValues('shippingPostalCode'));
             setBillingCountry(shippingCountry);
+            trigger(['billingStreet', 'billingCity', 'billingPostalCode']);
           }}
         />
         <Row>
@@ -222,6 +223,7 @@ export function Reg(): JSX.Element {
                   onChange: (e) => {
                     if (isIdentical) {
                       setValue('billingStreet', getValues(e.target.name));
+                      trigger('billingStreet');
                     }
                   },
                 })}
@@ -237,6 +239,7 @@ export function Reg(): JSX.Element {
                   onChange: (e) => {
                     if (isIdentical) {
                       setValue('billingCity', getValues(e.target.name));
+                      trigger('billingCity');
                     }
                   },
                 })}
@@ -252,6 +255,7 @@ export function Reg(): JSX.Element {
                   onChange: (e) => {
                     if (isIdentical) {
                       setValue('billingPostalCode', getValues(e.target.name));
+                      trigger('billingPostalCode');
                     }
                   },
                 })}
@@ -286,7 +290,7 @@ export function Reg(): JSX.Element {
                 placeholder="Street"
                 disabled={isIdentical}
                 {...register('billingStreet', {
-                  validate: (value) => /[a-zA-Z0-9]/.test(value) || 'Please correct correct street',
+                  validate: (value) => /[a-zA-Z0-9]/.test(value) || 'Please enter correct street',
                 })}
               />
               <p className="message">{errors.billingStreet?.message}</p>
@@ -297,7 +301,7 @@ export function Reg(): JSX.Element {
                 placeholder="City"
                 disabled={isIdentical}
                 {...register('billingCity', {
-                  validate: (value) => /[a-zA-Z]/.test(value) || 'Please correct correct city',
+                  validate: (value) => /[a-zA-Z]/.test(value) || 'Please enter correct city',
                 })}
               />
               <p className="message">{errors.billingCity?.message}</p>
