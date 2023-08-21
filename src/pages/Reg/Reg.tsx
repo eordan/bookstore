@@ -124,7 +124,7 @@ export function Reg(): JSX.Element {
           <Form.Group as={Col}>
             <Form.Label>Email</Form.Label>
             <Form.Control placeholder="Enter your email" {...register('email', emailValidationRules)} />
-            <p className="message">{errors.email?.message}</p>
+            <p className="message mt-2">{errors.email?.message}</p>
           </Form.Group>
           <Form.Group as={Col}>
             <Form.Label>Password *</Form.Label>
@@ -139,11 +139,11 @@ export function Reg(): JSX.Element {
                   onChange: () => trigger('passwordRepeat'),
                 })}
               />
-              <p className="message">{errors.password?.message}</p>
               <button className="password-control" type="button" onClick={togglePassword}>
                 {passwordType === 'password' ? <img src={view} alt="view" /> : <img src={noView} alt="no-view" />}
               </button>
             </div>
+            <p className="message mt-2">{errors.password?.message}</p>
           </Form.Group>
           <Form.Group as={Col}>
             <Form.Label>Repeat password *</Form.Label>
@@ -156,14 +156,14 @@ export function Reg(): JSX.Element {
                   validate: (value) => value === getValues('password') || 'Password does not match',
                 })}
               />
-              <p className="message">{errors.passwordRepeat?.message}</p>
               <button className="password-control" type="button" onClick={toggleRePassword}>
                 {rePasswordType === 'password' ? <img src={view} alt="view" /> : <img src={noView} alt="no-view" />}
               </button>
             </div>
+            <p className="message mt-2">{errors.passwordRepeat?.message}</p>
           </Form.Group>
         </Row>
-        <Row className="mt-4 form-block">
+        <Row className="mt-3 form-block">
           <h5>Personal Info</h5>
           <Form.Group as={Col}>
             <Form.Label>First Name *</Form.Label>
@@ -173,7 +173,7 @@ export function Reg(): JSX.Element {
                 validate: (value) => /^[a-zA-Z]/.test(value) || 'Please enter correct name',
               })}
             />
-            <p className="message">{errors.firstName?.message}</p>
+            <p className="message mt-2">{errors.firstName?.message}</p>
           </Form.Group>
           <Form.Group as={Col}>
             <Form.Label>Last Name *</Form.Label>
@@ -183,7 +183,7 @@ export function Reg(): JSX.Element {
                 validate: (value) => /^[a-zA-Z]/.test(value) || 'Please enter correct last name',
               })}
             />
-            <p className="message">{errors.lastName?.message}</p>
+            <p className="message mt-2">{errors.lastName?.message}</p>
           </Form.Group>
           <Form.Group as={Col}>
             <Form.Label>Date of Birth *</Form.Label>
@@ -193,11 +193,11 @@ export function Reg(): JSX.Element {
                 validate: (value) => checkBirthday(value) || 'Minimum 13 years old',
               })}
             />
-            <p className="message">{errors.birthday?.message}</p>
+            <p className="message mt-2">{errors.birthday?.message}</p>
           </Form.Group>
         </Row>
         <Form.Check
-          className="mt-5"
+          className="mt-4"
           type="switch"
           id="custom-switch"
           label="Use the same address for shipping and billing"
@@ -232,9 +232,9 @@ export function Reg(): JSX.Element {
                   },
                 })}
               />
-              <p className="message">{errors.shippingStreet?.message}</p>
+              <p className="message mt-2">{errors.shippingStreet?.message}</p>
             </Form.Group>
-            <Form.Group className="mt-3">
+            <Form.Group className="mt-2">
               <Form.Label>City *</Form.Label>
               <Form.Control
                 placeholder="City"
@@ -248,9 +248,9 @@ export function Reg(): JSX.Element {
                   },
                 })}
               />
-              <p className="message">{errors.shippingCity?.message}</p>
+              <p className="message mt-2">{errors.shippingCity?.message}</p>
             </Form.Group>
-            <Form.Group className="mt-3">
+            <Form.Group className="mt-2">
               <Form.Label>Postal code *</Form.Label>
               <Form.Control
                 placeholder="Postal code"
@@ -265,9 +265,9 @@ export function Reg(): JSX.Element {
                   },
                 })}
               />
-              <p className="message">{errors.shippingPostalCode?.message}</p>
+              <p className="message mt-2">{errors.shippingPostalCode?.message}</p>
             </Form.Group>
-            <Form.Group className="mt-3">
+            <Form.Group className="mt-2">
               <Form.Label>Country *</Form.Label>
               <Form.Select
                 {...register('shippingCountry', {
@@ -285,11 +285,11 @@ export function Reg(): JSX.Element {
                 <option>Belarus</option>
                 <option>Poland</option>
               </Form.Select>
-              <p className="message">{errors.shippingCountry?.message}</p>
+              <p className="message mt-2">{errors.shippingCountry?.message}</p>
             </Form.Group>
             <Form.Check
               checked={isShippingDefault}
-              className="mt-3"
+              className="mt-2"
               type="switch"
               id="custom-switch"
               label="Make this address default?"
@@ -307,9 +307,9 @@ export function Reg(): JSX.Element {
                   validate: (value) => /^[a-zA-Z0-9]/.test(value) || 'Please enter correct street',
                 })}
               />
-              <p className="message">{errors.billingStreet?.message}</p>
+              <p className="message mt-2">{errors.billingStreet?.message}</p>
             </Form.Group>
-            <Form.Group className="mt-3">
+            <Form.Group className="mt-2">
               <Form.Label>City *</Form.Label>
               <Form.Control
                 placeholder="City"
@@ -318,9 +318,9 @@ export function Reg(): JSX.Element {
                   validate: (value) => /^[a-zA-Z]/.test(value) || 'Please enter correct city',
                 })}
               />
-              <p className="message">{errors.billingCity?.message}</p>
+              <p className="message mt-2">{errors.billingCity?.message}</p>
             </Form.Group>
-            <Form.Group className="mt-3">
+            <Form.Group className="mt-2">
               <Form.Label>Postal code *</Form.Label>
               <Form.Control
                 placeholder="Postal code"
@@ -330,9 +330,9 @@ export function Reg(): JSX.Element {
                     checkPostalCode(getValues('billingCountry'), value) || 'Please enter correct postal code',
                 })}
               />
-              <p className="message">{errors.billingPostalCode?.message}</p>
+              <p className="message mt-2">{errors.billingPostalCode?.message}</p>
             </Form.Group>
-            <Form.Group className="mt-3">
+            <Form.Group className="mt-2">
               <Form.Label>Country *</Form.Label>
               <Form.Select
                 disabled={isIdentical}
@@ -347,10 +347,10 @@ export function Reg(): JSX.Element {
                 <option>Belarus</option>
                 <option>Poland</option>
               </Form.Select>
-              <p className="message">{errors.billingCountry?.message}</p>
+              <p className="message mt-2">{errors.billingCountry?.message}</p>
             </Form.Group>
             <Form.Check
-              className="mt-3"
+              className="mt-2"
               type="switch"
               id="custom-switch"
               label="Make this address default?"
