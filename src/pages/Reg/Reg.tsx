@@ -109,18 +109,18 @@ export function Reg(): JSX.Element {
   };
 
   return (
-    <Container className="d-flex flex-column justify-content-center align-items-center login-container">
+    <Container className="d-flex flex-column justify-content-center align-items-center login-container mt-4">
       {user.isAuth && <Navigate to={RoutesEnum.MAIN_ROUTE} />}
       <h2>Sign up for free</h2>
-      <Form className="d-flex flex-column mt-4 forms">
-        <Row className="mt-3">
+      <Form className="d-flex flex-column forms">
+        <Row className="mt-3 form-block">
           <h5>Account</h5>
           <Form.Group as={Col}>
-            <Form.Label>Email</Form.Label>
+            <Form.Label>Email *</Form.Label>
             <Form.Control placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} />
           </Form.Group>
           <Form.Group as={Col}>
-            <Form.Label>Password</Form.Label>
+            <Form.Label>Password *</Form.Label>
             <div className="password">
               <Form.Control
                 className="password"
@@ -135,7 +135,7 @@ export function Reg(): JSX.Element {
             </div>
           </Form.Group>
           <Form.Group as={Col}>
-            <Form.Label>Repeat password</Form.Label>
+            <Form.Label>Repeat password *</Form.Label>
             <div className="password">
               <Form.Control
                 className="password"
@@ -150,7 +150,7 @@ export function Reg(): JSX.Element {
             </div>
           </Form.Group>
         </Row>
-        <Row className="mt-4">
+        <Row className="mt-4 form-block">
           <h5>Personal Info</h5>
           <Form.Group as={Col}>
             <Form.Label>First Name *</Form.Label>
@@ -187,8 +187,8 @@ export function Reg(): JSX.Element {
             setBillingCountry(shippingCountry);
           }}
         />
-        <Row>
-          <Col className="mt-3">
+        <Row className="address">
+          <Col className="mt-3 form-block">
             <h5>Shipping address</h5>
             <Form.Group>
               <Form.Label>Street *</Form.Label>
@@ -243,7 +243,7 @@ export function Reg(): JSX.Element {
               onChange={(e) => setShippingDefault(e.target.checked)}
             />
           </Col>
-          <Col className="mt-3">
+          <Col className="mt-3 form-block">
             <h5>Billing address</h5>
             <Form.Group>
               <Form.Label>Street *</Form.Label>
@@ -298,7 +298,7 @@ export function Reg(): JSX.Element {
           By filling in the form above and clicking the “Get Started” button, you accept and agree to Terms of Service
           and Privacy Policy.
         </Form.Text>
-        <div className="d-flex justify-content-center mt-3 mb-5">
+        <div className="d-flex justify-content-center mt-3 mb-4">
           <p>Already have an account?</p>
           <NavLink className="sign-up" to={RoutesEnum.LOGIN_ROUTE}>
             Sign In

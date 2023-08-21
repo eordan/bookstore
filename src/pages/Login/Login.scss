@@ -4,16 +4,13 @@
 }
 
 .password {
-  position: relative;
+  display: flex;
+  column-gap: 5px;
 }
 
 .password-control {
   background-color: inherit;
   border: unset;
-  padding: 0;
-  position: absolute;
-  right: 6px;
-  top: 7px;
 }
 
 .message {
