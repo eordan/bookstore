@@ -1,5 +1,6 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
 interface Props {
   to: string;
@@ -7,5 +8,9 @@ interface Props {
 }
 
 export function Links({ to, title }: Props): JSX.Element {
-  return <Nav.Link href={to}>{title}</Nav.Link>;
+  return (
+    <LinkContainer to={to}>
+      <Nav.Link>{title}</Nav.Link>
+    </LinkContainer>
+  );
 }

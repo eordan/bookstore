@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
 import Links from '@components/Links';
 import { Context } from '../..';
 import { RoutesEnum } from '../../utils/enums';
@@ -15,7 +16,9 @@ export function Header(): JSX.Element {
   return (
     <Navbar collapseOnSelect expand="md" className="p-3">
       <Container>
-        <Navbar.Brand href={RoutesEnum.MAIN_ROUTE}>Pages d&apos;Évasion</Navbar.Brand>
+        <LinkContainer to={RoutesEnum.MAIN_ROUTE}>
+          <Navbar.Brand>Pages d&apos;Évasion</Navbar.Brand>
+        </LinkContainer>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
