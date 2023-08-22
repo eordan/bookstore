@@ -1,3 +1,7 @@
+const dotenv = require('dotenv');
+
+dotenv.config({ path: '.env' });
+
 module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
   moduleNameMapper: {
@@ -7,7 +11,7 @@ module.exports = {
   },
   collectCoverageFrom: ['<rootDir>/**/*.{ts, tsx}'],
   roots: ['<rootDir>'],
-  testRegex: '(/tests/.*|(\\.|/)(test|spec))\\.(ts|tsx)$',
+  testRegex: '(/tests/.*|(\\.|/)(test|spec))\\.(ts|tsx)$|(/test/.*\\.tsx$)',
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
     '^.+\\.svg$': '<rootDir>/utils/svgTransform.js',
