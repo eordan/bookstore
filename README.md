@@ -74,7 +74,7 @@ Check out our live demo of the Online Bookstore Project [here](https://develop--
 - Typescript
 - React
 - React Router Dom
-- React Hook Forms
+- React Hook Form
 - Jest
 - Sass
 - Webpack
