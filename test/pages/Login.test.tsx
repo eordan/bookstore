@@ -4,10 +4,6 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Login from '../../src/pages/Login';
 
-function getEmailInput() {
-  return screen.getByPlaceholderText('Enter your email');
-}
-
 function getPasswordInput() {
   return screen.getByPlaceholderText('Enter your password');
 }
@@ -25,7 +21,7 @@ describe('Login tests', () => {
     expect(screen.getByRole('button', { name: 'Get started' })).toBeInTheDocument();
   });
 
-  test('valiadtes behaviour', async () => {
+  test('Login validates behaviour', async () => {
     render(
       <BrowserRouter>
         <Login />
@@ -36,7 +32,7 @@ describe('Login tests', () => {
     expect(screen.getByText('Please enter your password')).toBeInTheDocument();
     expect(screen.getByText('Please enter your email')).toBeInTheDocument();
 
-    await userEvent.type(getEmailInput(), 'asd-jdfsb');
+    await userEvent.type(screen.getByPlaceholderText('Enter your email'), 'asd-jdfsb');
     expect(screen.getByText('Please enter valid email')).toBeInTheDocument();
 
     await userEvent.type(getPasswordInput(), 'as');

@@ -200,6 +200,7 @@ export function Reg(): JSX.Element {
         <Form.Check
           className="mt-4"
           type="switch"
+          data-testid="identical-toggle"
           label="Use the same address for shipping and billing"
           checked={isIdentical}
           onChange={(e) => {
@@ -254,6 +255,7 @@ export function Reg(): JSX.Element {
               <Form.Label>Postal code *</Form.Label>
               <Form.Control
                 placeholder="Postal code"
+                data-testid="shipping-postal-code"
                 {...register('shippingPostalCode', {
                   validate: (value) =>
                     checkPostalCode(getValues('shippingCountry'), value) || 'Please enter correct postal code',
@@ -270,6 +272,7 @@ export function Reg(): JSX.Element {
             <Form.Group className="mt-2">
               <Form.Label>Country *</Form.Label>
               <Form.Select
+                data-testid="shipping-country"
                 {...register('shippingCountry', {
                   validate: (value) => value !== 'Choose...' || 'Please choose country',
                   onChange: (e) => {
@@ -290,6 +293,7 @@ export function Reg(): JSX.Element {
             <Form.Check
               checked={isShippingDefault}
               className="mt-2"
+              data-testid="default-shipping"
               type="switch"
               label="Make this address default?"
               onChange={(e) => setShippingDefault(e.target.checked)}
@@ -351,6 +355,7 @@ export function Reg(): JSX.Element {
             <Form.Check
               className="mt-2"
               type="switch"
+              data-testid="default-billing"
               label="Make this address default?"
               checked={isBillingDefault}
               onChange={(e) => setBillingDefault(e.target.checked)}
