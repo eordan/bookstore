@@ -13,7 +13,7 @@ import github from '../../assets/github.png';
 export function Footer(): JSX.Element {
   return (
     <Navbar className="p-3 footer" data-bs-theme="dark">
-      <Container>
+      <Container className="footer-container">
         <LinkContainer to={RoutesEnum.MAIN_ROUTE}>
           <Navbar.Brand>Pages d&apos;Évasion</Navbar.Brand>
         </LinkContainer>
@@ -24,7 +24,7 @@ export function Footer(): JSX.Element {
             ))}
           </Nav>
           <Nav>
-            <NavLink target="_blank" to="https://github.com/eordan/bookstore/tree/develop">
+            <NavLink className="github-link" target="_blank" to="https://github.com/eordan/bookstore/tree/develop">
               <img src={github} alt="github" />
             </NavLink>
           </Nav>
