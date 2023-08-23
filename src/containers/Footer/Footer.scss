@@ -2,3 +2,13 @@
   background-color: #252b42;
   color: #fff;
 }
+
+@media (max-width: 450px) {
+  .footer-container {
+    flex-direction: column;
+  }
+
+  .github-link {
+    margin-left: 10px;
+  }
+}
