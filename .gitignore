@@ -4,6 +4,7 @@ test-coverage
 dist
 .env
 .editorconfig
+coverage
 
 # Local Netlify folder
 .netlify
