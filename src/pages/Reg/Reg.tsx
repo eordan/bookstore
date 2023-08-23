@@ -6,7 +6,13 @@ import ErrorMessage from '@components/ErrorMessage';
 import { RoutesEnum } from '../../utils/enums';
 import { getCustomerDetails, createCustomerThroughCustomers } from '../../services/customerCreator';
 import { loginCustomerThroughMe } from '../../services/customerAuther';
-import { checkBirthday, checkPostalCode, emailValidationRules, passwordValidationRules } from '../../utils/validation';
+import {
+  checkBirthday,
+  checkPostalCode,
+  emailValidationRules,
+  namesValidationRules,
+  passwordValidationRules,
+} from '../../utils/validation';
 import { Context } from '../..';
 
 import './Reg.scss';
@@ -171,7 +177,8 @@ export function Reg(): JSX.Element {
             <Form.Control
               placeholder="Enter your first name"
               {...register('firstName', {
-                validate: (value) => /^[a-zA-Z]/.test(value) || 'Please enter correct name',
+                required: 'Please enter your first name',
+                validate: namesValidationRules,
               })}
             />
             <p className="message mt-2">{errors.firstName?.message}</p>
@@ -181,7 +188,8 @@ export function Reg(): JSX.Element {
             <Form.Control
               placeholder="Enter your last name"
               {...register('lastName', {
-                validate: (value) => /^[a-zA-Z]/.test(value) || 'Please enter correct last name',
+                required: 'Please enter your last name',
+                validate: namesValidationRules,
               })}
             />
             <p className="message mt-2">{errors.lastName?.message}</p>
