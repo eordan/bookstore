@@ -20,6 +20,6 @@ module.exports = {
   testRegex: '(/tests/.*|(\\.|/)(test|spec))\\.(ts|tsx)$|(/test/.*\\.tsx$)',
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
-    '^.+\\.svg$': '<rootDir>/utils/svgTransform.js',
+    '^.+\\.svg$': '<rootDir>/src/utils/svgTransform.js',
   },
 };

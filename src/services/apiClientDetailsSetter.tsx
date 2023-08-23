@@ -1,4 +1,4 @@
-import { ApiClientDetails } from '../../utils/types';
+import { ApiClientDetails } from '../utils/types';
 
 // View Customers Scope
 export const API_VIEW_CUSTOMERS_SCOPE: ApiClientDetails = {

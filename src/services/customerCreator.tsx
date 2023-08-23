@@ -1,7 +1,7 @@
 import { CustomerSignInResult, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import toAlpha2 from 'iso-3166-1-alpha-2';
 import { viewCustomersCtpClient, manageCustomersCtpClient } from './withClientCredentialsFlowClientBuilder';
-import { CustomerDraft, BaseAddress, EmailCheck } from '../../utils/types';
+import { CustomerDraft, BaseAddress, EmailCheck } from '../utils/types';
 import { PROJECT_KEY } from './apiClientDetailsSetter';
 
 export const getCustomerDetails = (
