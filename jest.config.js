@@ -8,7 +8,7 @@ module.exports = {
     '\\.scss$': 'identity-obj-proxy',
     '^@components/(.*)$': '<rootDir>/src/components/$1',
     '^@containers/(.*)$': '<rootDir>/src/containers/$1',
-    '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'identity-obj-proxy',
+    '.+\\.(png|jpg|ttf|woff|woff2)$': '<rootDir>/mockFile.ts',
   },
   collectCoverageFrom: ['<rootDir>/**/*.{ts, tsx}'],
   roots: ['<rootDir>'],
