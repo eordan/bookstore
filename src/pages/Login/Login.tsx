@@ -6,7 +6,7 @@ import ErrorMessage from '@components/ErrorMessage';
 import { RoutesEnum } from '../../utils/enums';
 import { loginCustomerThroughMe } from '../../services/customerAuther';
 import { emailValidationRules, passwordValidationRules } from '../../utils/validation';
-import { Context } from '../..';
+import { Context } from '../../utils/createContext';
 
 import './Login.scss';
 

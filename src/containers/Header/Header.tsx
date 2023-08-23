@@ -3,7 +3,7 @@ import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import Links from '@components/Links';
-import { Context } from '../..';
+import { Context } from '../../utils/createContext';
 import { RoutesEnum } from '../../utils/enums';
 import { LINKS_ARRAY } from '../../utils/constants';
 
