@@ -4,8 +4,8 @@ import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import ErrorMessage from '@components/ErrorMessage';
 import { RoutesEnum } from '../../utils/enums';
-import { getCustomerDetails, createCustomerThroughCustomers } from '../../services/customerCreator';
-import { loginCustomerThroughMe } from '../../services/customerAuther';
+import { getCustomerDetails, createCustomer } from '../../services/customerCreator';
+import { loginCustomer } from '../../services/customerAuther';
 import { checkBirthday, checkPostalCode, emailValidationRules, passwordValidationRules } from '../../utils/validation';
 import { Context } from '../..';
 
@@ -75,7 +75,7 @@ export function Reg(): JSX.Element {
       isBillingDefault,
     );
 
-    const data = await createCustomerThroughCustomers(customerDetails)
+    const data = await createCustomer(customerDetails)
       .then((response) => {
         return response;
       })
@@ -84,7 +84,7 @@ export function Reg(): JSX.Element {
       });
 
     if (data.customer) {
-      const signInData = await loginCustomerThroughMe({ email, password });
+      const signInData = await loginCustomer({ email, password });
 
       if (signInData.customer) {
         user.setIsAuth(true);

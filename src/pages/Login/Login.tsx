@@ -4,7 +4,7 @@ import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import ErrorMessage from '@components/ErrorMessage';
 import { RoutesEnum } from '../../utils/enums';
-import { loginCustomerThroughMe } from '../../services/customerAuther';
+import { loginCustomer } from '../../services/customerAuther';
 import { emailValidationRules, passwordValidationRules } from '../../utils/validation';
 import { Context } from '../..';
 
@@ -34,7 +34,7 @@ export function Login(): JSX.Element {
   const signIn = async () => {
     const email = getValues('email');
     const password = getValues('password');
-    const data = await loginCustomerThroughMe({ email, password });
+    const data = await loginCustomer({ email, password });
 
     if (data.customer) {
       user.setIsAuth(true);
