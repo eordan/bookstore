@@ -9,7 +9,13 @@ module.exports = {
     '^@components/(.*)$': '<rootDir>/src/components/$1',
     '^@containers/(.*)$': '<rootDir>/src/containers/$1',
   },
-  collectCoverageFrom: ['<rootDir>/**/*.{ts, tsx}'],
+  collectCoverage: true,
+  collectCoverageFrom: ['./src/**'],
+  coverageThreshold: {
+    global: {
+      lines: 3,
+    },
+  },
   roots: ['<rootDir>'],
   testRegex: '(/tests/.*|(\\.|/)(test|spec))\\.(ts|tsx)$|(/test/.*\\.tsx$)',
   transform: {
