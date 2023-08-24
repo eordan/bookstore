@@ -27,8 +27,8 @@ describe('Registration tests', () => {
     );
 
     await userEvent.click(screen.getByRole('button', { name: 'Get started' }));
-    expect(screen.getByText('Please enter correct name')).toBeInTheDocument();
-    expect(screen.getByText('Please enter correct last name')).toBeInTheDocument();
+    expect(screen.getByText('Please enter your first name')).toBeInTheDocument();
+    expect(screen.getByText('Please enter your last name')).toBeInTheDocument();
     expect(screen.getByText('Minimum 13 years old')).toBeInTheDocument();
 
     await userEvent.selectOptions(screen.getByTestId('shipping-country'), 'Belarus');
