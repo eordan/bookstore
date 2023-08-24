@@ -1,0 +1,16 @@
+.registration-btn {
+  margin-left: 16px;
+  margin-right: 16px;
+
+  @media (max-width: 767px) {
+    margin: 10px 0;
+  }
+}
+
+.nav-btns {
+  align-items: center;
+
+  @media (max-width: 767px) {
+    align-items: flex-start;
+  }
+}

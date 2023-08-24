@@ -2,3 +2,9 @@ node_modules
 test-coverage
 .history
 dist
+.env
+.editorconfig
+coverage
+
+# Local Netlify folder
+.netlify

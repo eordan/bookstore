@@ -1,4 +1,14 @@
+@import '~bootstrap/scss/bootstrap';
+
 html,
 body {
   margin: 0;
+  height: 100%;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
