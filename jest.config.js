@@ -14,7 +14,7 @@ module.exports = {
   collectCoverageFrom: ['./src/**'],
   coverageThreshold: {
     global: {
-      lines: 10,
+      lines: 30,
     },
   },
   roots: ['<rootDir>'],
