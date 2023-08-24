@@ -8,6 +8,7 @@ module.exports = {
     '\\.scss$': 'identity-obj-proxy',
     '^@components/(.*)$': '<rootDir>/src/components/$1',
     '^@containers/(.*)$': '<rootDir>/src/containers/$1',
+    '.+\\.(png|jpg|ttf|woff|woff2)$': '<rootDir>/mockFile.ts',
   },
   collectCoverage: true,
   collectCoverageFrom: ['./src/**'],
@@ -22,4 +23,6 @@ module.exports = {
     '^.+\\.(ts|tsx)$': 'ts-jest',
     '^.+\\.svg$': '<rootDir>/src/utils/svgTransform.js',
   },
+  testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['<rootDir>/jest-setup.tsx'],
 };

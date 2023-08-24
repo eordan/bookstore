@@ -41,7 +41,12 @@
       "eslint --fix"
     ]
   },
+  "jest": {
+    "testEnvironment": "jsdom"
+  },
   "devDependencies": {
+    "@testing-library/dom": "^9.3.1",
+    "@testing-library/user-event": "^14.4.3",
     "@types/iso-3166-1-alpha-2": "^1.0.0",
     "@types/jest": "29.4.0",
     "@types/node": "^20.4.8",
@@ -64,6 +69,7 @@
     "html-webpack-plugin": "5.5.0",
     "husky": "8.0.3",
     "identity-obj-proxy": "3.0.0",
+    "jest-environment-jsdom": "^29.6.3",
     "mini-css-extract-plugin": "2.7.2",
     "prettier": "2.8.3",
     "sass": "1.58.0",
@@ -83,6 +89,8 @@
     "@commercetools/importapi-sdk": "^4.6.2",
     "@commercetools/platform-sdk": "^4.11.0",
     "@commercetools/sdk-client-v2": "^2.2.0",
+    "@testing-library/jest-dom": "^6.1.1",
+    "@testing-library/react": "^14.0.0",
     "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.1",

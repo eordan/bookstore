@@ -16,5 +16,5 @@
       "@containers/*": ["src/containers/*"]
     }
   },
-  "include": ["./", "./.eslintrc.js"]
+  "include": ["./", "./.eslintrc.js", "./jest-setup.tsx"]
 }

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import './SuccessMessage.scss';
-import { Context } from '../../index';
+import { Context } from '../../utils/createContext';
 
 type MessageProps = {
   message: string;
