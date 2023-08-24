@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Container } from 'react-bootstrap';
 import SuccessMessage from '@components/SuccessMessage';
-import { Context } from '../../index';
+import { Context } from '../../utils/createContext';
 
 import './Main.scss';
 

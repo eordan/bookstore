@@ -4,8 +4,9 @@ import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import ErrorMessage from '@components/ErrorMessage';
 import { RoutesEnum } from '../../utils/enums';
-import { getCustomerDetails, createCustomerThroughCustomers } from '../../services/customerCreator';
-import { loginCustomerThroughMe } from '../../services/customerAuther';
+import { getCustomerDetails, createCustomer } from '../../services/customerCreator';
+import { loginCustomer } from '../../services/customerAuther';
+import { Context } from '../../utils/createContext';
 import {
   checkBirthday,
   checkPostalCode,
@@ -13,7 +14,6 @@ import {
   namesValidationRules,
   passwordValidationRules,
 } from '../../utils/validation';
-import { Context } from '../..';
 
 import './Reg.scss';
 
@@ -81,7 +81,7 @@ export function Reg(): JSX.Element {
       isBillingDefault,
     );
 
-    const data = await createCustomerThroughCustomers(customerDetails)
+    const data = await createCustomer(customerDetails)
       .then((response) => {
         return response;
       })
@@ -90,7 +90,7 @@ export function Reg(): JSX.Element {
       });
 
     if (data.customer) {
-      const signInData = await loginCustomerThroughMe({ email, password });
+      const signInData = await loginCustomer({ email, password });
 
       if (signInData.customer) {
         user.setIsAuth(true);
@@ -208,6 +208,7 @@ export function Reg(): JSX.Element {
         <Form.Check
           className="mt-4"
           type="switch"
+          data-testid="identical-toggle"
           label="Use the same address for shipping and billing"
           checked={isIdentical}
           onChange={(e) => {
@@ -262,6 +263,7 @@ export function Reg(): JSX.Element {
               <Form.Label>Postal code *</Form.Label>
               <Form.Control
                 placeholder="Postal code"
+                data-testid="shipping-postal-code"
                 {...register('shippingPostalCode', {
                   validate: (value) =>
                     checkPostalCode(getValues('shippingCountry'), value) || 'Please enter correct postal code',
@@ -278,6 +280,7 @@ export function Reg(): JSX.Element {
             <Form.Group className="mt-2">
               <Form.Label>Country *</Form.Label>
               <Form.Select
+                data-testid="shipping-country"
                 {...register('shippingCountry', {
                   validate: (value) => value !== 'Choose...' || 'Please choose country',
                   onChange: (e) => {
@@ -298,6 +301,7 @@ export function Reg(): JSX.Element {
             <Form.Check
               checked={isShippingDefault}
               className="mt-2"
+              data-testid="default-shipping"
               type="switch"
               label="Make this address default?"
               onChange={(e) => setShippingDefault(e.target.checked)}
@@ -359,6 +363,7 @@ export function Reg(): JSX.Element {
             <Form.Check
               className="mt-2"
               type="switch"
+              data-testid="default-billing"
               label="Make this address default?"
               checked={isBillingDefault}
               onChange={(e) => setBillingDefault(e.target.checked)}

@@ -6,7 +6,7 @@ import {
   type HttpMiddlewareOptions,
 } from '@commercetools/sdk-client-v2';
 import fetch from 'node-fetch';
-import { ApiClientDetails } from '../../utils/types';
+import { ApiClientDetails } from '../utils/types';
 import { PROJECT_KEY, REGION } from './apiClientDetailsSetter';
 
 export const authMiddlewareOptionsForClientCredentialsFlow = (details: ApiClientDetails): AuthMiddlewareOptions => {
