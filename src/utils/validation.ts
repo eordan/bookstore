@@ -42,3 +42,19 @@ export const checkPostalCode = (country: string, code: string): boolean => {
   }
   return false;
 };
+
+export const namesValidationRules = {
+  specialPattern: (value: string) => {
+    if (/[!@#$%^&*?]/.test(value)) {
+      return 'There should be no special characters';
+    }
+    return true;
+  },
+  alphabeticPattern: (value: string) => /^[a-zA-Z]/.test(value) || `Please enter correct name`,
+  digitalPattern: (value: string) => {
+    if (/[0-9]/.test(value)) {
+      return 'There should be no numbers';
+    }
+    return true;
+  },
+};
