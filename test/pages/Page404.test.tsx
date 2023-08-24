@@ -3,8 +3,8 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Page404 from '../../src/pages/Page404';
 
-describe('Footer test', () => {
-  test('renders Footer correctly', () => {
+describe('Page404 test', () => {
+  test('renders Page404 correctly', () => {
     render(
       <BrowserRouter>
         <Page404 />
