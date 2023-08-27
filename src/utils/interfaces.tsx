@@ -2,8 +2,9 @@ export interface ProductInterface {
   id: number;
   img: string;
   title: string;
-  price: number;
+  price: string;
   discount?: {
-    newPrice: number;
+    newPrice: string;
   };
+  category: string;
 }
