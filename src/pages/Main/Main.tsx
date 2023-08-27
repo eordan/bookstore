@@ -6,7 +6,7 @@ import { Context } from '../../utils/createContext';
 import './Main.scss';
 
 export function Main(): JSX.Element {
-  const user = useContext(Context);
+  const { user } = useContext(Context);
 
   return (
     <section className="main">
