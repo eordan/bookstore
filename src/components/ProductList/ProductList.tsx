@@ -7,7 +7,7 @@ export function ProductList(): JSX.Element {
   const { store } = useContext(Context);
 
   return (
-    <Row xs={1} md={2} lg={3} xl={4} className="g-2 mb-5">
+    <Row xs={1} md={2} lg={3} xl={4} className="g-3 mb-5">
       {store.products.map((product) => (
         <ProductItem key={product.id} product={product} />
       ))}
