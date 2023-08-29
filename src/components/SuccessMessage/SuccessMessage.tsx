@@ -13,8 +13,7 @@ export function SuccessMessage({ message }: MessageProps): JSX.Element {
   const slide = 'slide 5s ease-in-out';
 
   const user = useContext(Context);
-
-  setTimeout(() => user.setIsEntered(false), 5000);
+  user.setIsEntered(false);
 
   return (
     <div className="success-message" style={{ left: position, animation: slide }}>
