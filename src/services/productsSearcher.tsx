@@ -6,7 +6,7 @@ import { PROJECT_KEY } from './apiClientDetailsSetter';
 export const getQueryDetails = (
   text: string | undefined = undefined,
   filter: string | string[] | undefined = undefined,
-  sort: string | undefined = undefined,
+  sort: string | undefined = 'variants.attributes.rating desc',
   fuzzy: boolean = true,
   limit: number = 15,
   offset: number = 0,
