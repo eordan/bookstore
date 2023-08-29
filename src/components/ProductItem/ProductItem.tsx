@@ -11,7 +11,7 @@ type ProductProps = {
 export function ProductItem({ product }: ProductProps): JSX.Element {
   return (
     <Col>
-      <Card bg="light" className="h-100">
+      <Card bg="light" className="h-100 card">
         <Card.Img src={product.img} />
         <Card.Body>
           <Card.Title>{product.title}</Card.Title>
