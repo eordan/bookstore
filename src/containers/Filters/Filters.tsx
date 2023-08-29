@@ -1,6 +1,8 @@
 import React from 'react';
 import { Accordion, Form } from 'react-bootstrap';
 
+import './Filters.scss';
+
 export function Filters(): JSX.Element {
   return (
     <Form>
@@ -29,6 +31,15 @@ export function Filters(): JSX.Element {
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
+      <Form.Group className="mt-2">
+        <Form.Label className="price-label">Price</Form.Label>
+        <div className="d-flex">
+          <input type="number" className="price-input" min="0" value="0" />
+          <span>&ensp;-&ensp;</span>
+          <input type="number" max="500" className="price-input" value="500" />
+        </div>
+      </Form.Group>
+      <Form.Check type="checkbox" label="Show discounted products" className="mt-3" />
     </Form>
   );
 }
