@@ -293,8 +293,8 @@ export function Reg(): JSX.Element {
                 })}
               >
                 <option>Choose...</option>
-                <option>Belarus</option>
-                <option>Poland</option>
+                <option>Canada</option>
+                <option>USA</option>
               </Form.Select>
               <p className="message mt-2">{errors.shippingCountry?.message}</p>
             </Form.Group>
@@ -355,8 +355,8 @@ export function Reg(): JSX.Element {
                 })}
               >
                 <option>Choose...</option>
-                <option>Belarus</option>
-                <option>Poland</option>
+                <option>Canada</option>
+                <option>USA</option>
               </Form.Select>
               <p className="message mt-2">{errors.billingCountry?.message}</p>
             </Form.Group>
