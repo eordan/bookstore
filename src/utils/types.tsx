@@ -31,3 +31,12 @@ export interface EmailCheck {
   emailDoesExist: boolean;
   message: string;
 }
+
+export interface ProductProjectionsQueryParameters {
+  text: string | undefined;
+  fuzzy: boolean | undefined;
+  limit: number | undefined;
+  offset: number | undefined;
+  filter: string | string[] | undefined;
+  sort: string | undefined;
+}

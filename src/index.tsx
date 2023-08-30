@@ -4,7 +4,6 @@ import 'bootstrap';
 import 'react-bootstrap';
 import user from './utils/User';
 import store from './utils/Store';
-
 import App from './components/App';
 import './index.scss';
 import { Context } from './utils/createContext';
