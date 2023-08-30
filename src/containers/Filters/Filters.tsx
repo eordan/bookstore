@@ -10,24 +10,24 @@ export function Filters(): JSX.Element {
         <Accordion.Item eventKey="0">
           <Accordion.Header>Category</Accordion.Header>
           <Accordion.Body>
-            <Form.Check type="checkbox" label="Fantasy" />
-            <Form.Check type="checkbox" label="Love" />
-            <Form.Check type="checkbox" label="History" />
+            <Form.Check type="checkbox" label="Fantasy" aria-label="Fantasy" />
+            <Form.Check type="checkbox" label="Love" aria-label="Love" />
+            <Form.Check type="checkbox" label="History" aria-label="History" />
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="1">
           <Accordion.Header>Author</Accordion.Header>
           <Accordion.Body>
-            <Form.Check type="checkbox" label="Adknf" />
-            <Form.Check type="checkbox" label="LJ" />
-            <Form.Check type="checkbox" label="LKJWbe djb" />
+            <Form.Check type="checkbox" label="Adknf" aria-label="Adknf" />
+            <Form.Check type="checkbox" label="LJ" aria-label="LJ" />
+            <Form.Check type="checkbox" label="LKJWbe djb" aria-label="LKJWbe djb" />
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="2">
           <Accordion.Header>Book cover</Accordion.Header>
           <Accordion.Body>
-            <Form.Check type="checkbox" label="Hardcover" />
-            <Form.Check type="checkbox" label="Paperback" />
+            <Form.Check type="checkbox" label="Hardcover" aria-label="Hardcover" />
+            <Form.Check type="checkbox" label="Paperback" aria-label="Paperback" />
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
