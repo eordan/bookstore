@@ -39,4 +39,10 @@ export interface ProductProjectionsQueryParameters {
   offset: number | undefined;
   filter: string | string[] | undefined;
   sort: string | undefined;
+  currency: Currency | undefined;
+}
+
+export interface Currency {
+  currency: string;
+  country: string;
 }
