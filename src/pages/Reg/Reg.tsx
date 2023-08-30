@@ -55,7 +55,7 @@ export function Reg(): JSX.Element {
     mode: 'onChange',
   });
 
-  const user = useContext(Context);
+  const { user } = useContext(Context);
   const navigate = useNavigate();
 
   const signUp = async () => {

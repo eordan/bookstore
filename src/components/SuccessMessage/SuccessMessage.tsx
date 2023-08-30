@@ -12,7 +12,7 @@ export function SuccessMessage({ message }: MessageProps): JSX.Element {
   const position = `${(window.innerWidth - ELEMENT_WIDTH) / 2}px`;
   const slide = 'slide 5s ease-in-out';
 
-  const user = useContext(Context);
+  const { user } = useContext(Context);
 
   setTimeout(() => user.setIsEntered(false), 5000);
 
