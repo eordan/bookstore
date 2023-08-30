@@ -9,7 +9,7 @@ export const getQueryDetails = (
   sort: string | undefined = undefined,
   fuzzy: boolean = true,
   limit: number = 15,
-  offset: number = 0,
+  offset: number = 15,
 ) => {
   return {
     text,
@@ -39,6 +39,8 @@ export const searchProducts = async (
         offset: params.offset,
         filter: params.filter,
         sort: params.sort,
+        priceCurrency: 'CAD',
+        priceCountry: 'CA',
       },
     })
     .execute()
