@@ -1,35 +1,31 @@
 import { createApiBuilderFromCtpClient, ProductProjectionPagedSearchResponse } from '@commercetools/platform-sdk';
 import { searchProductsCtpClient } from './withClientCredentialsFlowClientBuilder';
-import { ProductProjectionsQueryParameters, Currency } from '../utils/types';
+import { ProductProjectionsQueryParameters, Currency, type StringUndefined } from '../utils/types';
 import { PROJECT_KEY } from './apiClientDetailsSetter';
 
-const getCurrencyData = (country: string) => {
-  let countryData: Currency;
+const defaultResultsLimit = 15;
 
+const getCurrencyData = (country: string): Currency => {
   if (country === 'CA') {
-    countryData = {
+    return {
       currency: 'CAD',
       country: 'CA',
     };
-
-    return countryData;
   }
 
-  countryData = {
+  return {
     currency: 'USD',
     country: 'US',
   };
-
-  return countryData;
 };
 
 export const getQueryDetails = (
-  text: string | undefined = undefined,
-  filter: string | string[] | undefined = undefined,
-  sort: string | undefined = undefined,
+  text: StringUndefined = undefined,
+  filter: string[] | StringUndefined = undefined,
+  sort: StringUndefined = undefined,
   fuzzy: boolean = true,
-  limit: number = 15,
-  offset: number = 15,
+  limit: number = defaultResultsLimit,
+  offset: number = 0,
   country: string = 'CA',
 ) => {
   const currency = getCurrencyData(country);
@@ -78,7 +74,7 @@ export const searchProducts = async (
   return data;
 };
 
-export const getCategoriesList = () => {
+export const getCategoriesList = (limit: number) => {
   const apiRoot = createApiBuilderFromCtpClient(searchProductsCtpClient).withProjectKey({
     projectKey: PROJECT_KEY,
   });
@@ -87,7 +83,7 @@ export const getCategoriesList = () => {
     .categories()
     .get({
       queryArgs: {
-        limit: 500,
+        limit,
       },
     })
     .execute()
