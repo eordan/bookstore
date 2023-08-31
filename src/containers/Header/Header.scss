@@ -14,3 +14,20 @@
     align-items: flex-start;
   }
 }
+
+.profile-btn {
+  margin-right: 10px;
+  background: transparent;
+  border: unset;
+  opacity: 0.6;
+  transition: 0.2s;
+
+  img {
+    width: 35px;
+    height: 35px;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}

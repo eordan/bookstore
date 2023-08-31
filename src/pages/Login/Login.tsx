@@ -39,6 +39,9 @@ export function Login(): JSX.Element {
     if (data.customer) {
       user.setIsAuth(true);
       user.setIsEntered(true);
+      user.setFirstName(data.customer.firstName as string);
+      user.setLastName(data.customer.lastName as string);
+      user.setDateOfBirth(data.customer.dateOfBirth as string);
       navigate(RoutesEnum.MAIN_ROUTE);
     } else {
       setIsErrorShowing(true);
