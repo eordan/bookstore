@@ -1,7 +1,8 @@
 import React from 'react';
 import { Card, Col } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { ProductInterface } from '../../utils/interfaces';
-
+import { RoutesEnum } from '../../utils/enums';
 import './ProductItem.scss';
 
 type ProductProps = {
@@ -9,9 +10,11 @@ type ProductProps = {
 };
 
 export function ProductItem({ product }: ProductProps): JSX.Element {
+  const navigate = useNavigate();
+
   return (
     <Col>
-      <Card bg="light" className="h-100 card">
+      <Card bg="light" className="h-100 card" onClick={() => navigate(`${RoutesEnum.PRODUCTS_ROUTE}/${product.id}`)}>
         <Card.Img src={product.img} />
         <Card.Body>
           <Card.Title>{product.title}</Card.Title>

@@ -7,4 +7,5 @@ export interface ProductInterface {
     newPrice: string;
   };
   category: string;
+  description: string;
 }
