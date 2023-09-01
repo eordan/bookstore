@@ -1,8 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Container, Form, Nav } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { namesValidationRules, checkBirthday } from '../../utils/validation';
 import { Context } from '../../utils/createContext';
+
+import './Profile.scss';
+import edit from '../../assets/edit.svg';
 
 export function Profile(): JSX.Element {
   const user = useContext(Context);
@@ -18,8 +21,20 @@ export function Profile(): JSX.Element {
     },
     mode: 'onChange',
   });
+  const [editMode, setEditMode] = useState<boolean>(false);
+  const [showSaveBtn, setShowSaveBtn] = useState('none');
 
   const onSubmit = () => console.log('send data to server...');
+
+  const turnOnEdit = () => {
+    setEditMode(true);
+    setShowSaveBtn('block');
+  };
+
+  const turnOffEdit = () => {
+    setEditMode(false);
+    setShowSaveBtn('none');
+  };
 
   return (
     <Container className="d-flex align-self-start">
@@ -27,10 +42,17 @@ export function Profile(): JSX.Element {
         <Nav.Link>Personal Info</Nav.Link>
         <Nav.Link>Addresses</Nav.Link>
       </Nav>
-      <Form className="mt-3 d-flex flex-column" onSubmit={handleSubmit(onSubmit)}>
+      <Form className="mt-3 d-flex flex-column form-block col-4" onSubmit={handleSubmit(onSubmit)}>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h5 className="m-0">Personal Info</h5>
+          <button type="button" className="edit-btn" onClick={turnOnEdit}>
+            <img src={edit} alt="edit" />
+          </button>
+        </div>
         <Form.Group className="p-0">
-          <Form.Label>First Name *</Form.Label>
+          <Form.Label>First Name</Form.Label>
           <Form.Control
+            disabled={!editMode}
             placeholder="Enter your first name"
             {...register('firstName', {
               required: 'Please enter your first name',
@@ -40,8 +62,9 @@ export function Profile(): JSX.Element {
           <p className="message mt-1">{errors.firstName?.message}</p>
         </Form.Group>
         <Form.Group className="p-0">
-          <Form.Label>Last Name *</Form.Label>
+          <Form.Label>Last Name</Form.Label>
           <Form.Control
+            disabled={!editMode}
             placeholder="Enter your last name"
             {...register('lastName', {
               required: 'Please enter your last name',
@@ -51,8 +74,9 @@ export function Profile(): JSX.Element {
           <p className="message mt-1">{errors.lastName?.message}</p>
         </Form.Group>
         <Form.Group className="p-0">
-          <Form.Label>Date of Birth *</Form.Label>
+          <Form.Label>Date of Birth</Form.Label>
           <Form.Control
+            disabled={!editMode}
             type="date"
             {...register('birthday', {
               validate: (value) => checkBirthday(value) || 'Minimum 13 years old',
@@ -60,7 +84,13 @@ export function Profile(): JSX.Element {
           />
           <p className="message mt-1">{errors.birthday?.message}</p>
         </Form.Group>
-        <Button type="submit" className="mt-3 w-75" variant="primary">
+        <Button
+          type="submit"
+          className="mt-3 w-75"
+          style={{ display: showSaveBtn }}
+          variant="primary"
+          onClick={turnOffEdit}
+        >
           Save changes
         </Button>
       </Form>
