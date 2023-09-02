@@ -88,6 +88,7 @@
   "dependencies": {
     "@commercetools/importapi-sdk": "^4.6.2",
     "@commercetools/platform-sdk": "^4.11.0",
+    "@commercetools/sdk-auth": "^4.0.1",
     "@commercetools/sdk-client-v2": "^2.2.0",
     "@testing-library/jest-dom": "^6.1.1",
     "@testing-library/react": "^14.0.0",

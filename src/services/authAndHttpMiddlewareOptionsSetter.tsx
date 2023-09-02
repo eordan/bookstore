@@ -5,6 +5,7 @@ import {
   type RefreshAuthMiddlewareOptions,
   type HttpMiddlewareOptions,
 } from '@commercetools/sdk-client-v2';
+// import SdkAuth from '@commercetools/sdk-auth';
 import fetch from 'node-fetch';
 import { ApiClientDetails } from '../utils/types';
 import { PROJECT_KEY, REGION } from './apiClientDetailsSetter';
@@ -70,6 +71,28 @@ export const authMiddlewareOptionsForRefreshTokenFlow = (details: ApiClientDetai
     fetch,
   };
 };
+
+// await authClient.customerPasswordFlow(
+//   {
+//     username: '...',
+//     password: '...',
+//   },
+//   {
+//     disableRefreshToken: false,
+//   }
+// )
+
+// export const authClient = new SdkAuth({
+//   host: `https://auth.${details.region}.commercetools.com`,
+//   projectKey: PROJECT_KEY,
+//   disableRefreshToken: false,
+//   credentials: {
+//     clientId: details.clientId,
+//     clientSecret: details.clientSecret,
+//   },
+//   scopes: ['view_products:test', 'manage_orders:test'],
+//   fetch,
+// });
 
 export const httpMiddlewareOptions = (): HttpMiddlewareOptions => {
   return {
