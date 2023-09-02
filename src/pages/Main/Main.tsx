@@ -18,15 +18,15 @@ export function Main(): JSX.Element {
     });
   };
 
-  useEffect(() => {
-    if (user.isEntered) {
-      notify();
-    }
-  }, [user.isEntered]);
+  // useEffect(() => {
+  //   if (user.isEntered) {
+  //     notify();
+  //   }
+  // }, [user.isEntered]);
 
-  // if (user.isEntered) {
-  //   useEffect(() => notify())
-  // }
+  if (user.isEntered) {
+    useEffect(() => notify());
+  }
 
   return (
     <section className="main">
