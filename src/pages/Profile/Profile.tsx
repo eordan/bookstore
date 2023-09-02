@@ -27,7 +27,7 @@ export function Profile(): JSX.Element {
   const [showSaveBtn, setShowSaveBtn] = useState('none');
 
   const notify = () => {
-    toast.success('Your changes have been successfuly saved!', {
+    toast.success('Changes successfuly saved!', {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 3000,
       transition: Slide,
