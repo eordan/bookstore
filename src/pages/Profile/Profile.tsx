@@ -1,9 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { Button, Container, Form, Nav } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import { ToastContainer, toast, Slide } from 'react-toastify';
 import { namesValidationRules, checkBirthday } from '../../utils/validation';
 import { Context } from '../../utils/createContext';
 
+import 'react-toastify/dist/ReactToastify.css';
 import './Profile.scss';
 import edit from '../../assets/edit.svg';
 
@@ -24,7 +26,15 @@ export function Profile(): JSX.Element {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [showSaveBtn, setShowSaveBtn] = useState('none');
 
-  const onSubmit = () => console.log('send data to server...');
+  const notify = () => {
+    toast.success('Your changes have been successfuly saved!', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+      transition: Slide,
+      theme: 'colored',
+      className: 'success-message',
+    });
+  };
 
   const turnOnEdit = () => {
     setEditMode(true);
@@ -34,10 +44,16 @@ export function Profile(): JSX.Element {
   const turnOffEdit = () => {
     setEditMode(false);
     setShowSaveBtn('none');
+    notify();
+  };
+
+  const onSubmit = () => {
+    turnOffEdit();
   };
 
   return (
     <Container className="d-flex align-self-start">
+      <ToastContainer />
       <Nav className="d-flex flex-column col-3 mt-3">
         <Nav.Link>Personal Info</Nav.Link>
         <Nav.Link>Addresses</Nav.Link>
@@ -84,13 +100,7 @@ export function Profile(): JSX.Element {
           />
           <p className="message mt-1">{errors.birthday?.message}</p>
         </Form.Group>
-        <Button
-          type="submit"
-          className="mt-3 w-75"
-          style={{ display: showSaveBtn }}
-          variant="primary"
-          onClick={turnOffEdit}
-        >
+        <Button type="submit" className="mt-3 w-75" style={{ display: showSaveBtn }} variant="primary">
           Save changes
         </Button>
       </Form>

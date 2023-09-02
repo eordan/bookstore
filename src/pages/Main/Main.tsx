@@ -4,14 +4,13 @@ import { ToastContainer, toast, Slide } from 'react-toastify';
 import { Context } from '../../utils/createContext';
 
 import 'react-toastify/dist/ReactToastify.css';
-
 import './Main.scss';
 
 export function Main(): JSX.Element {
   const user = useContext(Context);
 
   const notify = () => {
-    toast.success('Successfully logged in', {
+    toast.success('Successfully logged in!', {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 3000,
       transition: Slide,
