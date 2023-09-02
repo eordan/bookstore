@@ -3,7 +3,7 @@
   border: solid #dfdfdf 1px;
   border-radius: 10px;
   padding: 15px;
-  transition: .2s;
+  transition: 0.2s;
 }
 
 .edit-btn {
@@ -23,7 +23,7 @@
 }
 
 .form-control {
-  transition: .2s;
+  transition: 0.2s;
 
   &:disabled {
     background-color: transparent !important;
