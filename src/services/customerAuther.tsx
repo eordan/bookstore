@@ -1,6 +1,6 @@
 import { createApiBuilderFromCtpClient, MyCustomerSignin, CustomerSignInResult } from '@commercetools/platform-sdk';
+import SdkAuth from '@commercetools/sdk-auth';
 import { loginUserCtpClient } from './withPasswordFlowClientBuilder';
-// import { saveTokenCtpClient } from './withClientCredentialsFlowClientBuilder';
 import { PROJECT_KEY } from './apiClientDetailsSetter';
 
 export const loginCustomer = (request: MyCustomerSignin): Promise<CustomerSignInResult> => {
@@ -23,16 +23,16 @@ export const loginCustomer = (request: MyCustomerSignin): Promise<CustomerSignIn
     });
 };
 
-// export const receiveToken = async (name: string, password: string) => {
-//   const credentials = await saveTokenCtpClient.customerPasswordFlow(
-//     {
-//       name,
-//       password,
-//     },
-//     {
-//       disableRefreshToken: false,
-//     },
-//   );
+export const receiveToken = async (name: string, password: string) => {
+  const credentials = await SdkAuth.customerPasswordFlow(
+    {
+      name,
+      password,
+    },
+    {
+      disableRefreshToken: false,
+    },
+  );
 
-//   return credentials;
-// };
+  return credentials;
+};
