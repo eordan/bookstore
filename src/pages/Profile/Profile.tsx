@@ -32,7 +32,6 @@ export function Profile(): JSX.Element {
       autoClose: 3000,
       transition: Slide,
       theme: 'colored',
-      className: 'success-message',
     });
   };
 

@@ -58,6 +58,15 @@ export function Reg(): JSX.Element {
   const user = useContext(Context);
   const navigate = useNavigate();
 
+  const notify = () => {
+    toast.error('Email is already registered', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+      transition: Slide,
+      theme: 'colored',
+    });
+  };
+
   const signUp = async () => {
     const email = getValues('email');
     const password = getValues('password');
@@ -80,16 +89,6 @@ export function Reg(): JSX.Element {
       getValues('billingCity'),
       isBillingDefault,
     );
-
-    const notify = () => {
-      toast.error('Email has already registered', {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 3000,
-        transition: Slide,
-        theme: 'colored',
-        className: 'success-message',
-      });
-    };
 
     const data = await createCustomer(customerDetails)
       .then((response) => {
