@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Button, Container, Form, Nav } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { ToastContainer, toast, Slide } from 'react-toastify';
-import { namesValidationRules, checkBirthday } from '../../utils/validation';
+import { namesValidationRules, checkBirthday, emailValidationRules } from '../../utils/validation';
 import { Context } from '../../utils/createContext';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -20,6 +20,7 @@ export function Profile(): JSX.Element {
       firstName: `${user.firstName}`,
       lastName: `${user.lastName}`,
       birthday: `${user.dateOfBirth}`,
+      email: `${user.email}`,
     },
     mode: 'onChange',
   });
@@ -98,6 +99,13 @@ export function Profile(): JSX.Element {
             })}
           />
           <p className="message mt-1">{errors.birthday?.message}</p>
+        </Form.Group>
+        <Form.Group className="p-0">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            disabled={!editMode}
+            placeholder="Enter your email" {...register('email', emailValidationRules)} />
+          <p className="message mt-1">{errors.email?.message}</p>
         </Form.Group>
         <Button type="submit" className="mt-3 w-75" style={{ display: showSaveBtn }} variant="primary">
           Save changes

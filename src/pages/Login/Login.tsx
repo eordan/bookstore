@@ -51,6 +51,7 @@ export function Login(): JSX.Element {
       user.setFirstName(data.customer.firstName as string);
       user.setLastName(data.customer.lastName as string);
       user.setDateOfBirth(data.customer.dateOfBirth as string);
+      user.setEmail(data.customer.email as string);
       navigate(RoutesEnum.MAIN_ROUTE);
     } else {
       notify();

@@ -11,12 +11,15 @@ class User {
 
   private _dateOfBirth: string;
 
+  private _email: string;
+
   constructor() {
     this._isAuth = false;
     this._isEntered = false;
     this._firstName = '';
     this._lastName = '';
     this._dateOfBirth = '';
+    this._email = '';
     makeAutoObservable(this);
   }
 
@@ -58,6 +61,14 @@ class User {
 
   get dateOfBirth() {
     return this._dateOfBirth;
+  }
+
+  setEmail(email: string) {
+    this._email = email;
+  }
+
+  get email() {
+    return this._email;
   }
 }
 
