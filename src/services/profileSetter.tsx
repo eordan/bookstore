@@ -1,4 +1,4 @@
-import { createApiBuilderFromCtpClient, Customer } from '@commercetools/platform-sdk';
+import { createApiBuilderFromCtpClient, CustomerUpdateAction, Customer } from '@commercetools/platform-sdk';
 import { getSetCustomers } from './withClientCredentialsFlowClientBuilder';
 import { BaseAddress } from '../utils/types';
 import { Actions } from '../utils/enums';
@@ -98,7 +98,7 @@ export const setDateOfBirth = (birthday: string) => {
   };
 };
 
-export const updateCustomer = (ID: string, version: number, actions: []): Promise<Customer> => {
+export const updateCustomer = (ID: string, version: number, actions: CustomerUpdateAction[]): Promise<Customer> => {
   const apiRoot = createApiBuilderFromCtpClient(getSetCustomers).withProjectKey({
     projectKey: PROJECT_KEY,
   });
