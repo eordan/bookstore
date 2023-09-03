@@ -25,7 +25,7 @@ module.exports = {
   ],
   rules: {
     'prettier/indent': 'off',
-    indent: ['error', 2],
+    indent: 'off',
     'react/display-name': 'off',
     '@typescript-eslint/no-var-requires': 0,
     'import/prefer-default-export': 'off',
