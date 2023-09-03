@@ -10,7 +10,7 @@ import './Profile.scss';
 import edit from '../../assets/edit.svg';
 
 export function Profile(): JSX.Element {
-  const user = useContext(Context);
+  const { user } = useContext(Context);
   const {
     register,
     formState: { errors },
