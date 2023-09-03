@@ -104,7 +104,9 @@ export function Profile(): JSX.Element {
           <Form.Label>Email</Form.Label>
           <Form.Control
             disabled={!editMode}
-            placeholder="Enter your email" {...register('email', emailValidationRules)} />
+            placeholder="Enter your email"
+            {...register('email', emailValidationRules)}
+          />
           <p className="message mt-1">{errors.email?.message}</p>
         </Form.Group>
         <Button type="submit" className="mt-3 w-75" style={{ display: showSaveBtn }} variant="primary">

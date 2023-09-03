@@ -28,23 +28,21 @@ export function Header(): JSX.Element {
               <Links key={link.id} to={link.to} title={link.title} />
             ))}
           </Nav>
-          <Nav className="d-flex nav-btns">
-            {!user.isAuth && (
+          {!user.isAuth && (
+            <Nav className="d-flex nav-btns">
               <NavLink style={{ textDecoration: 'none' }} to={RoutesEnum.LOGIN_ROUTE}>
                 Login
               </NavLink>
-            )}
-            {!user.isAuth && (
               <Button className="ml-3 registration-btn" onClick={() => navigate(RoutesEnum.REGISTRATION_ROUTE)}>
                 Registration
               </Button>
-            )}
-            {user.isAuth && (
+            </Nav>
+          )}
+          {user.isAuth && (
+            <Nav className="d-flex nav-btns">
               <button type="button" className="profile-btn" onClick={() => navigate(RoutesEnum.PROFILE_ROUTE)}>
                 <img src={profile} alt="profile" />
               </button>
-            )}
-            {user.isAuth && (
               <Button
                 className="logout-btn"
                 variant="dark"
@@ -55,8 +53,8 @@ export function Header(): JSX.Element {
               >
                 Log Out
               </Button>
-            )}
-          </Nav>
+            </Nav>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>
