@@ -17,6 +17,7 @@ class Store {
         title: 'Product 1',
         price: '100$',
         category: 'Fantasy',
+        description: 'ladkjewkfnekj dkfjn ejwbf edwhd hdvfwefbw lkwdn skfn kjfb jsbdj ld. HJdhvewhkd sbs bdhj s',
       },
       {
         id: 2,
@@ -27,6 +28,7 @@ class Store {
           newPrice: '120$',
         },
         category: 'Love',
+        description: 'ladkjewkfnekj dkfjn ejwbf edwhd hdvfwefbw lkwdn skfn kjfb jsbdj ld. HJdhvewhkd sbs bdhj s',
       },
       {
         id: 3,
@@ -34,6 +36,7 @@ class Store {
         title: 'Product 3',
         price: '500$',
         category: 'Love',
+        description: 'ladkjewkfnekj dkfjn ejwbf edwhd hdvfwefbw lkwdn skfn kjfb jsbdj ld. HJdhvewhkd sbs bdhj s',
       },
       {
         id: 4,
@@ -44,6 +47,7 @@ class Store {
           newPrice: '150$',
         },
         category: 'Fantasy',
+        description: 'ladkjewkfnekj dkfjn ejwbf edwhd hdvfwefbw lkwdn skfn kjfb jsbdj ld. HJdhvewhkd sbs bdhj s',
       },
       {
         id: 5,
@@ -51,6 +55,7 @@ class Store {
         title: 'Product 5',
         price: '100$',
         category: 'History',
+        description: 'ladkjewkfnekj dkfjn ejwbf edwhd hdvfwefbw lkwdn skfn kjfb jsbdj ld. HJdhvewhkd sbs bdhj s',
       },
       {
         id: 6,
@@ -61,6 +66,7 @@ class Store {
           newPrice: '500$',
         },
         category: 'Love',
+        description: 'ladkjewkfnekj dkfjn ejwbf edwhd hdvfwefbw lkwdn skfn kjfb jsbdj ld. HJdhvewhkd sbs bdhj s',
       },
     ];
     makeAutoObservable(this);

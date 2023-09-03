@@ -7,6 +7,7 @@ import Page404 from './pages/Page404';
 import { RoutesEnum } from './utils/enums';
 import Contacts from './pages/About';
 import Products from './pages/Products';
+import DetailPage from './pages/DetailPage';
 
 export const publicRoutes = [
   {
@@ -32,5 +33,9 @@ export const publicRoutes = [
   {
     path: RoutesEnum.PRODUCTS_ROUTE,
     Component: <Products />,
+  },
+  {
+    path: `${RoutesEnum.PRODUCTS_ROUTE}/:id`,
+    Component: <DetailPage />,
   },
 ];
