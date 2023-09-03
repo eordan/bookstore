@@ -74,6 +74,26 @@ export const searchProducts = async (
   return data;
 };
 
+export const getCategory = (key: string) => {
+  const apiRoot = createApiBuilderFromCtpClient(searchProductsCtpClient).withProjectKey({
+    projectKey: PROJECT_KEY,
+  });
+
+  const data = apiRoot
+    .categories()
+    .withKey({ key })
+    .get()
+    .execute()
+    .then(({ body }) => {
+      return body;
+    })
+    .catch((error) => {
+      throw error;
+    });
+
+  return data;
+};
+
 export const getCategoriesList = (limit: number) => {
   const apiRoot = createApiBuilderFromCtpClient(searchProductsCtpClient).withProjectKey({
     projectKey: PROJECT_KEY,
