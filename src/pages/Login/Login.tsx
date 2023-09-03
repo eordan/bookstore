@@ -46,6 +46,8 @@ export function Login(): JSX.Element {
     const data = await loginCustomer({ email, password });
 
     if (data.customer) {
+      console.log(data.customer);
+
       user.setIsAuth(true);
       user.setIsEntered(true);
       user.setFirstName(data.customer.firstName as string);
