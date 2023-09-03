@@ -22,3 +22,9 @@ export const searchProductsCtpClient = new ClientBuilder()
   .withHttpMiddleware(httpMiddlewareOptions())
   .withLoggerMiddleware()
   .build();
+
+export const getSetCustomers = new ClientBuilder()
+  .withClientCredentialsFlow(authMiddlewareOptionsForClientCredentialsFlow(API_ADMIN_SCOPE))
+  .withHttpMiddleware(httpMiddlewareOptions())
+  .withLoggerMiddleware()
+  .build();
