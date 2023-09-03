@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import ErrorMessage from '@components/ErrorMessage';
+import { ToastContainer, toast, Slide } from 'react-toastify';
 import { RoutesEnum } from '../../utils/enums';
 import { getCustomerDetails, createCustomer } from '../../services/customerCreator';
 import { loginCustomer } from '../../services/customerAuther';
@@ -15,6 +15,7 @@ import {
   passwordValidationRules,
 } from '../../utils/validation';
 
+import 'react-toastify/dist/ReactToastify.css';
 import './Reg.scss';
 
 import view from '../../assets/view.png';
@@ -26,7 +27,6 @@ export function Reg(): JSX.Element {
   const [isShippingDefault, setShippingDefault] = useState(false);
   const [passwordType, setPasswordType] = useState('password');
   const [rePasswordType, setRePasswordType] = useState('password');
-  const [isErrorShowing, setIsErrorShowing] = useState<boolean>(false);
   const {
     register,
     getValues,
@@ -57,6 +57,15 @@ export function Reg(): JSX.Element {
 
   const { user } = useContext(Context);
   const navigate = useNavigate();
+
+  const notify = () => {
+    toast.error('Email is already registered', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+      transition: Slide,
+      theme: 'colored',
+    });
+  };
 
   const signUp = async () => {
     const email = getValues('email');
@@ -98,7 +107,7 @@ export function Reg(): JSX.Element {
         navigate(RoutesEnum.MAIN_ROUTE);
       }
     } else {
-      setIsErrorShowing(true);
+      notify();
     }
   };
 
@@ -124,7 +133,7 @@ export function Reg(): JSX.Element {
     <Container className="d-flex flex-column justify-content-center align-items-center login-container mt-4">
       {user.isAuth && <Navigate to={RoutesEnum.MAIN_ROUTE} />}
       <h2>Sign up for free</h2>
-      {isErrorShowing && <ErrorMessage handle={setIsErrorShowing} message="Email has already registered" />}
+      <ToastContainer />
       <Form className="d-flex flex-column forms" onSubmit={handleSubmit(onSubmit)}>
         <Row className="mt-3 form-block">
           <h5>Account</h5>
@@ -293,8 +302,8 @@ export function Reg(): JSX.Element {
                 })}
               >
                 <option>Choose...</option>
-                <option>Belarus</option>
-                <option>Poland</option>
+                <option>Canada</option>
+                <option>United States</option>
               </Form.Select>
               <p className="message mt-2">{errors.shippingCountry?.message}</p>
             </Form.Group>
@@ -355,8 +364,8 @@ export function Reg(): JSX.Element {
                 })}
               >
                 <option>Choose...</option>
-                <option>Belarus</option>
-                <option>Poland</option>
+                <option>Canada</option>
+                <option>United States</option>
               </Form.Select>
               <p className="message mt-2">{errors.billingCountry?.message}</p>
             </Form.Group>

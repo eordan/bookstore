@@ -3,6 +3,7 @@ import Login from './pages/Login';
 import Reg from './pages/Reg';
 import Main from './pages/Main';
 import Page404 from './pages/Page404';
+import Profile from './pages/Profile';
 
 import { RoutesEnum } from './utils/enums';
 import Contacts from './pages/About';
@@ -37,5 +38,9 @@ export const publicRoutes = [
   {
     path: `${RoutesEnum.PRODUCTS_ROUTE}/:id`,
     Component: <DetailPage />,
+  },
+  {
+    path: RoutesEnum.PROFILE_ROUTE,
+    Component: <Profile />,
   },
 ];

@@ -31,13 +31,15 @@ export const checkBirthday = (date: string): boolean => {
 };
 
 export const checkPostalCode = (country: string, code: string): boolean => {
+  const canadaPattern = /^[ABCEGHJ-NPRSTVXY][0-9][ABCEGHJ-NPRSTV-Z][ ]?[0-9][ABCEGHJ-NPRSTV-Z][0-9]$/;
+  const usPattern = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
   if (country === 'Choose...') {
     return true;
   }
-  if (country === 'Belarus' && /^\d{6}$/.test(code)) {
+  if (country === 'Canada' && canadaPattern.test(code)) {
     return true;
   }
-  if (country === 'Poland' && /^\d{2}-\d{3}$/.test(code)) {
+  if (country === 'United States' && usPattern.test(code)) {
     return true;
   }
   return false;
