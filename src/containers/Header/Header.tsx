@@ -13,7 +13,7 @@ import profile from '../../assets/profile.svg';
 
 export function Header(): JSX.Element {
   const navigate = useNavigate();
-  const user = useContext(Context);
+  const { user } = useContext(Context);
 
   return (
     <Navbar collapseOnSelect expand="md" className="p-3">

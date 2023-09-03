@@ -28,7 +28,7 @@ export function Login(): JSX.Element {
     },
     mode: 'onChange',
   });
-  const user = useContext(Context);
+  const { user } = useContext(Context);
   const navigate = useNavigate();
 
   const notify = () => {

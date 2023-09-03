@@ -1,3 +1,7 @@
+export type StringUndefined = string | undefined;
+
+export type NumberUndefined = number | undefined;
+
 export interface ApiClientDetails {
   readonly clientSecret: string;
   readonly clientId: string;
@@ -30,4 +34,19 @@ export interface BaseAddress {
 export interface EmailCheck {
   emailDoesExist: boolean;
   message: string;
+}
+
+export interface ProductProjectionsQueryParameters {
+  text: StringUndefined;
+  fuzzy: boolean | undefined;
+  limit: NumberUndefined;
+  offset: NumberUndefined;
+  filter: string[] | StringUndefined;
+  sort: StringUndefined;
+  currency: Currency | undefined;
+}
+
+export interface Currency {
+  currency: string;
+  country: string;
 }
