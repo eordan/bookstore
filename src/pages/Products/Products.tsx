@@ -11,9 +11,10 @@ export function Products(): JSX.Element {
           <Row>
             <Col>
               <Form.Select>
-                <option value="1">Cheap ones first</option>
-                <option value="2">Expensive ones first</option>
-                <option value="3">Alphabetically</option>
+                <option value="name.en asc">Alphabetically Ascending</option>
+                <option value="name.en asc">Alphabetically Descending</option>
+                <option value="price asc">By Price Ascending</option>
+                <option value="price desc">By Price Descending</option>
               </Form.Select>
             </Col>
             <Col className="d-flex align-items-center">
