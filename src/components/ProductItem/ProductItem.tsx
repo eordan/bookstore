@@ -14,7 +14,7 @@ export function ProductItem({ product }: ProductProps): JSX.Element {
   const navigate = useNavigate();
   let url = '';
   let category = '';
-  let price = 0;
+  let price = '';
 
   if (product.masterVariant.images) {
     const img = product.masterVariant.images[0];
@@ -28,7 +28,7 @@ export function ProductItem({ product }: ProductProps): JSX.Element {
   });
 
   if (product.masterVariant.prices) {
-    price = product.masterVariant.prices[0].value.centAmount;
+    price = (product.masterVariant.prices[0].value.centAmount / 100).toFixed(2);
   }
 
   return (
@@ -45,7 +45,9 @@ export function ProductItem({ product }: ProductProps): JSX.Element {
           {product.masterVariant.scopedPriceDiscounted ? (
             <div className="d-flex align-items-center">
               <p className="old-price">{price}</p>
-              <p className="price">{product.masterVariant.scopedPrice?.currentValue.centAmount}</p>
+              <p className="price">
+                {((product.masterVariant.scopedPrice?.currentValue.centAmount as number) / 100).toFixed(2)}
+              </p>
             </div>
           ) : (
             <Card.Text className="price">{price}</Card.Text>
