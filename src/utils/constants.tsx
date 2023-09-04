@@ -72,3 +72,27 @@ export const CATEGORIES = {
   Film: '5d9f9810-ae83-482a-887f-c52220a9d252',
   Politics: 'c7872843-ada5-409c-86ce-d251f9706eee',
 };
+
+export const AUTHORS = {
+  'Antoine de Saint-Exupéry':
+    'Antoine de Saint-Exupéry, Richard Howard (Translator), Ivan Minatti (Translator), Nguyễn Thành Vũ (Illustrator)',
+  'Arthur Conan Doyle': 'Arthur Conan Doyle',
+  'Astrid Lindgren': 'Astrid Lindgren, Ilon Wikland (Illustrator), Jill M. Morgan (Translator)',
+  'C.S. Lewis': 'C.S. Lewis',
+  'Carl Sagan': 'Carl Sagan, Ann Druyan (Goodreads Author)',
+  'David Foster Wallace': 'David Foster Wallace',
+  'Douglas Adams': 'Douglas Adams',
+  'Fredrik Backman': 'Fredrik Backman (Goodreads Author), Henning Koch (Goodreads Author) (Translator)',
+  'George Orwell': 'George Orwell',
+  'George R.R. Martin': 'George R.R. Martin',
+  'Harper Lee': 'Harper Lee',
+  'J.K. Rowling': 'J.K. Rowling',
+  'J.R.R. Tolkien': 'J.R.R. Tolkien',
+  'John Steinbeck': 'John Steinbeck',
+  'Marcel Proust': 'Marcel Proust, James Grieve (Translator), Christopher Prendergast (Editor)',
+  'Markus Zusak': 'Markus Zusak (Goodreads Author)',
+  'Oscar Wilde': 'Oscar Wilde',
+  'Roger Zelazny': 'Roger Zelazny',
+  'Stephen King': 'Stephen King (Goodreads Author)',
+  'Terry Pratchett': 'Terry Pratchett',
+};
