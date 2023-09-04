@@ -2,6 +2,7 @@ import React from 'react';
 import { Accordion, Form } from 'react-bootstrap';
 
 import './Filters.scss';
+import { CATEGORIES } from '../../utils/constants';
 
 export function Filters(): JSX.Element {
   return (
@@ -9,10 +10,10 @@ export function Filters(): JSX.Element {
       <Accordion defaultActiveKey={['']} alwaysOpen>
         <Accordion.Item eventKey="0">
           <Accordion.Header>Category</Accordion.Header>
-          <Accordion.Body>
-            <Form.Check type="checkbox" label="Fantasy" aria-label="Fantasy" />
-            <Form.Check type="checkbox" label="Love" aria-label="Love" />
-            <Form.Check type="checkbox" label="History" aria-label="History" />
+          <Accordion.Body className="categories">
+            {Object.entries(CATEGORIES).map((category) => (
+              <Form.Check key={category[1]} type="checkbox" label={category[0]} aria-label={category[0]} />
+            ))}
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="1">
