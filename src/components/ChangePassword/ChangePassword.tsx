@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { passwordValidationRules } from '../../utils/validation';
+import { Context } from '../../utils/createContext';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './ChangePassword.scss';
 
 import view from '../../assets/view.png';
 import noView from '../../assets/no-view.png';
+import { updateCustomerPassword } from '../../services/profileSetter';
 
 export function ChangePassword(): JSX.Element {
   const {
@@ -27,9 +29,19 @@ export function ChangePassword(): JSX.Element {
   });
   const [passwordType, setPasswordType] = useState('password');
   const [rePasswordType, setRePasswordType] = useState('password');
+  const { user } = useContext(Context);
 
   const notify = () => {
     toast.success('Changes successfuly saved!', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+      transition: Slide,
+      theme: 'colored',
+    });
+  };
+
+  const showError = () => {
+    toast.error('Wrong password', {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 3000,
       transition: Slide,
@@ -53,8 +65,14 @@ export function ChangePassword(): JSX.Element {
     setRePasswordType('password');
   };
 
-  const onSubmit = () => {
-    notify();
+  const onSubmit = async () => {
+    const data = await updateCustomerPassword(user.id, user.version, getValues('password'), getValues('newPassword'));
+    if (data.version) {
+      user.setVersion(data.version);
+      notify();
+    } else {
+      showError();
+    }
   };
 
   return (

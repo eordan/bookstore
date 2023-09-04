@@ -1,26 +1,33 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { namesValidationRules, checkBirthday, emailValidationRules } from '../../utils/validation';
-import { Context } from '../../utils/createContext';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './PersonalInfo.scss';
 import edit from '../../assets/edit.svg';
+import { setFirstName } from '../../services/profileSetter';
 
-export function PersonalInfo(): JSX.Element {
-  const { user } = useContext(Context);
+export type Info = {
+  firstName: string;
+  lastName: string;
+  birth: string;
+  email: string;
+};
+
+export function PersonalInfo({ firstName, lastName, birth, email }: Info): JSX.Element {
   const {
     register,
     formState: { errors },
     handleSubmit,
+    getValues,
   } = useForm({
     defaultValues: {
-      firstName: `${user.firstName}`,
-      lastName: `${user.lastName}`,
-      birthday: `${user.dateOfBirth}`,
-      email: `${user.email}`,
+      firstName,
+      lastName,
+      birthday: birth,
+      email,
     },
     mode: 'onChange',
   });
@@ -48,6 +55,7 @@ export function PersonalInfo(): JSX.Element {
   };
 
   const onSubmit = () => {
+    setFirstName(getValues('firstName'));
     turnOffEdit();
   };
 

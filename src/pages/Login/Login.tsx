@@ -46,14 +46,12 @@ export function Login(): JSX.Element {
     const data = await loginCustomer({ email, password });
 
     if (data.customer) {
-      console.log(data.customer);
+      // console.log(data.customer);
 
       user.setIsAuth(true);
       user.setIsEntered(true);
-      user.setFirstName(data.customer.firstName as string);
-      user.setLastName(data.customer.lastName as string);
-      user.setDateOfBirth(data.customer.dateOfBirth as string);
-      user.setEmail(data.customer.email as string);
+      user.setId(data.customer.id as string);
+      user.setVersion(data.customer.version as number);
       navigate(RoutesEnum.MAIN_ROUTE);
     } else {
       notify();
