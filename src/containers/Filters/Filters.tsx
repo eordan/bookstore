@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Accordion, Form } from 'react-bootstrap';
 
 import './Filters.scss';
@@ -8,6 +8,9 @@ import { Context } from '../../utils/createContext';
 
 export function Filters(): JSX.Element {
   const { store } = useContext(Context);
+
+  const [isHardcover, setIsHardcover] = useState(false);
+  const [isPaperback, setIsPaperback] = useState(false);
 
   let categoriesChecked: string[] = [];
   let categoriesFilter = '';
@@ -19,6 +22,8 @@ export function Filters(): JSX.Element {
     const filtersArray: string[] = [];
     if (categoriesFilter) filtersArray.push(categoriesFilter);
     if (authorsFilter) filtersArray.push(authorsFilter);
+    if (isHardcover) filtersArray.push('variants.attributes.bookFormat:"Hardcover"');
+    if (isPaperback) filtersArray.push('variants.attributes.bookFormat:"Paperback"');
     return filtersArray;
   };
 
@@ -98,17 +103,41 @@ export function Filters(): JSX.Element {
         <Accordion.Item eventKey="2">
           <Accordion.Header>Book cover</Accordion.Header>
           <Accordion.Body>
-            <Form.Check type="checkbox" label="Hardcover" aria-label="Hardcover" />
-            <Form.Check type="checkbox" label="Paperback" aria-label="Paperback" />
+            <Form.Check
+              type="radio"
+              label="Hardcover"
+              aria-label="Hardcover"
+              checked={isHardcover}
+              onChange={() => {
+                if (isPaperback) {
+                  setIsPaperback(false);
+                }
+                setIsHardcover(true);
+                filters();
+              }}
+            />
+            <Form.Check
+              type="radio"
+              label="Paperback"
+              aria-label="Paperback"
+              checked={isPaperback}
+              onChange={() => {
+                if (isHardcover) {
+                  setIsHardcover(false);
+                }
+                setIsPaperback(true);
+                filters();
+              }}
+            />
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
       <Form.Group className="mt-2">
         <Form.Label className="price-label">Price</Form.Label>
         <div className="d-flex">
-          <input type="number" className="price-input" min="0" value="0" />
+          <input type="number" className="price-input" min="0" step={0.01} />
           <span>&ensp;-&ensp;</span>
-          <input type="number" max="500" className="price-input" value="500" />
+          <input type="number" max="500" className="price-input" />
         </div>
       </Form.Group>
       <Form.Check type="checkbox" label="Show discounted products" className="mt-3" />
