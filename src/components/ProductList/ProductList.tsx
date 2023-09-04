@@ -3,15 +3,14 @@ import React, { useContext, useEffect } from 'react';
 import { Row } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
 import { Context } from '../../utils/createContext';
-import { searchProducts } from '../../services/productsSearcher';
+import { getQueryDetails, searchProducts } from '../../services/productsSearcher';
 
 export const ProductList = observer(() => {
   const { store } = useContext(Context);
 
   useEffect(() => {
-    searchProducts(store.storeDetailes).then((data) => {
+    searchProducts(getQueryDetails()).then((data) => {
       store.setProducts(data.results);
-      console.log(data);
     });
   }, []);
 

@@ -3,7 +3,7 @@ import { searchProductsCtpClient } from './withClientCredentialsFlowClientBuilde
 import { ProductProjectionsQueryParameters, Currency, type StringUndefined } from '../utils/types';
 import { PROJECT_KEY } from './apiClientDetailsSetter';
 
-const defaultResultsLimit = 15;
+const defaultResultsLimit = 20;
 
 const getCurrencyData = (country: string): Currency => {
   if (country === 'CA') {

@@ -1,10 +1,43 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Accordion, Form } from 'react-bootstrap';
 
 import './Filters.scss';
 import { CATEGORIES } from '../../utils/constants';
+import { searchProducts, getQueryDetails } from '../../services/productsSearcher';
+import { Context } from '../../utils/createContext';
 
 export function Filters(): JSX.Element {
+  let categoriesChecked: string[] = [];
+  const { store } = useContext(Context);
+  let categoriesFilter = '';
+
+  const getFiltersArray = () => {
+    const filtersArray: string[] = [];
+    if (categoriesFilter) filtersArray.push(categoriesFilter);
+    return filtersArray;
+  };
+
+  const filters = () => {
+    searchProducts(getQueryDetails(undefined, getFiltersArray())).then((data) => {
+      console.log(data);
+      store.setProducts(data.results);
+    });
+  };
+
+  const categoriesControl = (isChecked: boolean, categoryId: string) => {
+    if (isChecked) {
+      categoriesChecked.push(`"${categoryId}"`);
+    } else {
+      categoriesChecked = categoriesChecked.filter((id) => id !== `"${categoryId}"`);
+    }
+    if (categoriesChecked.length) {
+      categoriesFilter = `categories.id:${categoriesChecked.join(', ')}`;
+    } else {
+      categoriesFilter = '';
+    }
+    filters();
+  };
+
   return (
     <Form>
       <Accordion defaultActiveKey={['']} alwaysOpen>
@@ -12,7 +45,14 @@ export function Filters(): JSX.Element {
           <Accordion.Header>Category</Accordion.Header>
           <Accordion.Body className="categories">
             {Object.entries(CATEGORIES).map((category) => (
-              <Form.Check key={category[1]} type="checkbox" label={category[0]} aria-label={category[0]} />
+              <Form.Check
+                key={category[1]}
+                value={category[1]}
+                type="checkbox"
+                label={category[0]}
+                aria-label={category[0]}
+                onChange={(e) => categoriesControl(e.target.checked, e.target.value)}
+              />
             ))}
           </Accordion.Body>
         </Accordion.Item>
