@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Carousel, Col, Container, Row, Image } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { ProductCatalogData } from '@commercetools/platform-sdk';
+import SliderModal from '@containers/SliderModal';
 import { getProduct } from '../../services/productsSearcher';
 
 import './DetailPage.scss';
@@ -15,11 +16,11 @@ export function DetailPage(): JSX.Element {
   const [author, setAuthor] = useState('');
   const [price, setPrice] = useState('');
   const [discountedPrice, setDiscountedPrice] = useState<number>();
+  const [modalShow, setModalShow] = useState(false);
 
   useEffect(() => {
     if (id) {
       getProduct(id, 'US').then((data) => {
-        console.log(data);
         setProduct(data.masterData);
         if (data.masterData.staged.masterVariant.images) {
           const img = data.masterData.staged.masterVariant.images[0];
@@ -43,8 +44,9 @@ export function DetailPage(): JSX.Element {
   return (
     <Container>
       <Row>
+        <SliderModal show={modalShow} onHide={() => setModalShow(false)} url={url} />
         <Col md={4}>
-          <Carousel variant="dark">
+          <Carousel variant="dark" onClick={() => setModalShow(true)}>
             <Carousel.Item>
               <Image className="w-100" src={url} fluid />
             </Carousel.Item>
