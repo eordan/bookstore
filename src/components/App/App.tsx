@@ -7,7 +7,7 @@ import Footer from '@containers/Footer';
 
 export function App(): JSX.Element {
   // eslint-disable-next-line no-alert
-  alert('Привет! Пожалуйста, проверьте в последний день! Заранее больше спасибо)');
+  alert('Привет! Пожалуйста, проверьте в последний день! Заранее большое спасибо)');
 
   return (
     <BrowserRouter>
