@@ -1,26 +1,51 @@
 import ProductList from '@components/ProductList';
 import Filters from '@containers/Filters';
-import React from 'react';
-import { Button, Col, Container, FloatingLabel, Form, Row } from 'react-bootstrap';
+import React, { useContext, useState } from 'react';
+import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { getQueryDetails, searchProducts } from '../../services/productsSearcher';
+import { Context } from '../../utils/createContext';
 
 export function Products(): JSX.Element {
+  const { store } = useContext(Context);
+
+  const [search, setSearch] = useState('');
+
+  const filters = () => {
+    store.setText(search);
+    searchProducts(getQueryDetails(store.text, store.filter, store.sort)).then((data) => {
+      store.setProducts(data.results);
+    });
+  };
+
   return (
     <section className=" mt-3 bg-light">
       <Container>
         <Form className="d-flex justify-content-end pt-4">
           <Row>
             <Col>
-              <FloatingLabel label="Arrange">
-                <Form.Select>
-                  <option value="1">Cheap ones first</option>
-                  <option value="2">Expensive ones first</option>
-                  <option value="3">Alphabetically</option>
-                </Form.Select>
-              </FloatingLabel>
+              <Form.Select
+                onChange={(e) => {
+                  store.setSort(e.target.value);
+                  filters();
+                }}
+              >
+                <option value="name.en asc">Alphabetically Ascending</option>
+                <option value="name.en desc">Alphabetically Descending</option>
+                <option value="price asc">By Price Ascending</option>
+                <option value="price desc">By Price Descending</option>
+              </Form.Select>
             </Col>
             <Col className="d-flex align-items-center">
-              <Form.Control type="search" placeholder="Search" className="me-2" />
-              <Button variant="outline-success">Search</Button>
+              <Form.Control
+                type="search"
+                placeholder="Search"
+                className="me-2"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+              <Button variant="outline-success" onClick={filters}>
+                Search
+              </Button>
             </Col>
           </Row>
         </Form>
