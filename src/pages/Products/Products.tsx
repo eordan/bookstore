@@ -1,18 +1,34 @@
 import ProductList from '@components/ProductList';
 import Filters from '@containers/Filters';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { getQueryDetails, searchProducts } from '../../services/productsSearcher';
+import { Context } from '../../utils/createContext';
 
 export function Products(): JSX.Element {
+  const { store } = useContext(Context);
+
+  const filters = () => {
+    searchProducts(getQueryDetails(store.text, store.filter, store.sort)).then((data) => {
+      console.log(data);
+      store.setProducts(data.results);
+    });
+  };
+
   return (
     <section className=" mt-3 bg-light">
       <Container>
         <Form className="d-flex justify-content-end pt-4">
           <Row>
             <Col>
-              <Form.Select>
+              <Form.Select
+                onChange={(e) => {
+                  store.setSort(e.target.value);
+                  filters();
+                }}
+              >
                 <option value="name.en asc">Alphabetically Ascending</option>
-                <option value="name.en asc">Alphabetically Descending</option>
+                <option value="name.en desc">Alphabetically Descending</option>
                 <option value="price asc">By Price Ascending</option>
                 <option value="price desc">By Price Descending</option>
               </Form.Select>

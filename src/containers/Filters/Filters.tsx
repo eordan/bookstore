@@ -16,7 +16,7 @@ export function Filters(): JSX.Element {
   let isDiscount = false;
 
   let minValue = 0;
-  let maxValue = 500;
+  let maxValue = 550;
 
   let categoriesChecked: string[] = [];
   let categoriesFilter = '';
@@ -32,11 +32,12 @@ export function Filters(): JSX.Element {
     if (isPaperback) filtersArray.push('variants.attributes.bookFormat:"Paperback"');
     if (isDiscount) filtersArray.push('variants.scopedPriceDiscounted:true');
     filtersArray.push(`variants.price.centAmount:range (${minValue * 100} to ${maxValue * 100})`);
+    store.setFilter(filtersArray);
     return filtersArray;
   };
 
   const filters = () => {
-    searchProducts(getQueryDetails(undefined, getFiltersArray())).then((data) => {
+    searchProducts(getQueryDetails(store.text, getFiltersArray(), store.sort)).then((data) => {
       console.log(data);
       store.setProducts(data.results);
     });
@@ -144,7 +145,7 @@ export function Filters(): JSX.Element {
         <Form.Label className="price-label">Price</Form.Label>
         <MultiRangeSlider
           min={0}
-          max={500}
+          max={550}
           minValue={minValue}
           maxValue={maxValue}
           ruler={false}

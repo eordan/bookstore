@@ -1,29 +1,21 @@
 import { makeAutoObservable } from 'mobx';
 import { ProductProjection } from '@commercetools/platform-sdk';
-import { ProductProjectionsQueryParameters } from './types';
+import { StringUndefined } from './types';
 
 class Store {
   private _products: ProductProjection[];
 
-  private _storeDetails: ProductProjectionsQueryParameters;
+  private _text: StringUndefined;
 
-  private _maxPrice: number;
+  private _sort: string;
 
-  private _minPrice: number;
+  private _filter: string[];
 
   constructor() {
     this._products = [];
-    this._storeDetails = {
-      text: undefined,
-      fuzzy: undefined,
-      limit: undefined,
-      offset: undefined,
-      filter: undefined,
-      sort: undefined,
-      currency: undefined,
-    };
-    this._maxPrice = 0;
-    this._minPrice = 0;
+    this._text = undefined;
+    this._sort = 'name.en asc';
+    this._filter = [];
     makeAutoObservable(this);
   }
 
@@ -35,28 +27,28 @@ class Store {
     return this._products;
   }
 
-  get maxPrice() {
-    return this._maxPrice;
+  get text() {
+    return this._text;
   }
 
-  set maxPrice(value: number) {
-    this._maxPrice = value;
+  setText(value: StringUndefined) {
+    this._text = value;
   }
 
-  get minPrice() {
-    return this._minPrice;
+  get sort() {
+    return this._sort;
   }
 
-  set minPrice(value: number) {
-    this._minPrice = value;
+  setSort(value: string) {
+    this._sort = value;
   }
 
-  get storeDetails() {
-    return this._storeDetails;
+  get filter() {
+    return this._filter;
   }
 
-  set storeDetails(value: ProductProjectionsQueryParameters) {
-    this._storeDetails = value;
+  setFilter(value: string[]) {
+    this._filter = value;
   }
 }
 
