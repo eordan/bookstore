@@ -1,0 +1,56 @@
+.form-block {
+  width: 500px !important;
+  height: fit-content;
+  flex-direction: column;
+  padding: 15px;
+  border: solid #dfdfdf 1px;
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+.form-control {
+  transition: 0.2s;
+
+  &:disabled {
+    border: transparent;
+    background-color: transparent !important;
+    font-weight: 500;
+  }
+}
+
+.edit-btn,
+.delete-btn {
+  border: unset;
+  background: transparent;
+  opacity: 0.6;
+  transition: 0.2s;
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.delete-btn img {
+  width: 23px !important;
+  height: 23px !important;
+}
+
+.save-btn {
+  width: 200px;
+}
+
+.form-select:disabled {
+  --bs-form-select-bg-img: none;
+  border: transparent;
+  background-color: transparent !important;
+  font-weight: 500;
+}
+
+.address-status {
+  font-weight: 500 !important;
+}

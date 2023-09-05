@@ -4,39 +4,39 @@ import { BaseAddress } from '../utils/types';
 import { Actions } from '../utils/enums';
 import { PROJECT_KEY } from './apiClientDetailsSetter';
 
-export const changeEmail = (email: string) => {
+export const changeEmail = (email: string): CustomerUpdateAction => {
   return {
     action: Actions.changeEmail,
     email,
   };
 };
 
-export const setFirstName = (firstName: string) => {
+export const setFirstName = (firstName: string): CustomerUpdateAction => {
   return {
     action: Actions.setFirstName,
     firstName,
   };
 };
 
-export const setLastName = (lastName: string) => {
+export const setLastName = (lastName: string): CustomerUpdateAction => {
   return {
     action: Actions.setLastName,
     lastName,
   };
 };
 
-export const addAddress = (addressId: string, address: BaseAddress) => {
+export const addAddress = (address: BaseAddress) => {
   return {
     action: Actions.addAddress,
     address,
   };
 };
 
-export const changeAddress = (addressId: string, email: string) => {
+export const changeAddress = (addressId: string, address: BaseAddress) => {
   return {
     action: Actions.changeAddress,
     addressId,
-    email,
+    address,
   };
 };
 
@@ -47,7 +47,7 @@ export const removeAddress = (addressId: string) => {
   };
 };
 
-export const setDefaultShippingAddress = (addressId: string) => {
+export const setDefaultShippingAddress = (addressId?: string) => {
   return {
     action: Actions.setDefaultShippingAddress,
     addressId,
@@ -68,7 +68,7 @@ export const removeShippingAddressId = (addressId: string) => {
   };
 };
 
-export const setDefaultBillingAddress = (addressId: string) => {
+export const setDefaultBillingAddress = (addressId?: string) => {
   return {
     action: Actions.setDefaultBillingAddress,
     addressId,
@@ -89,7 +89,7 @@ export const removeBillingAddressId = (addressId: string) => {
   };
 };
 
-export const setDateOfBirth = (birthday: string) => {
+export const setDateOfBirth = (birthday: string): CustomerUpdateAction => {
   const dateOfBirth = new Date(birthday).toISOString().split('T')[0];
 
   return {

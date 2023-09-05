@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Col } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { passwordValidationRules } from '../../utils/validation';
@@ -76,11 +76,11 @@ export function ChangePassword(): JSX.Element {
   };
 
   return (
-    <Form className="my-3 d-flex flex-column form-block col-4" onSubmit={handleSubmit(onSubmit)}>
+    <Form className="my-3 d-flex flex-column form-block" onSubmit={handleSubmit(onSubmit)}>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h5 className="m-0">Change Password</h5>
       </div>
-      <Form.Group className="p-0">
+      <Form.Group as={Col} className="p-0">
         <Form.Label>Password *</Form.Label>
         <div className="password">
           <Form.Control
@@ -98,7 +98,7 @@ export function ChangePassword(): JSX.Element {
         </div>
         <p className="message mt-2">{errors.password?.message}</p>
       </Form.Group>
-      <Form.Group className="p-0">
+      <Form.Group as={Col} className="p-0">
         <Form.Label>New Password *</Form.Label>
         <div className="password">
           <Form.Control
@@ -117,7 +117,7 @@ export function ChangePassword(): JSX.Element {
         </div>
         <p className="message mt-2">{errors.password?.message}</p>
       </Form.Group>
-      <Form.Group className="p-0">
+      <Form.Group as={Col} className="p-0">
         <Form.Label>New password *</Form.Label>
         <div className="password">
           <Form.Control
