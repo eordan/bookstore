@@ -1,6 +1,6 @@
 import ProductList from '@components/ProductList';
 import Filters from '@containers/Filters';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { getQueryDetails, searchProducts } from '../../services/productsSearcher';
 import { Context } from '../../utils/createContext';
@@ -8,9 +8,11 @@ import { Context } from '../../utils/createContext';
 export function Products(): JSX.Element {
   const { store } = useContext(Context);
 
+  const [search, setSearch] = useState('');
+
   const filters = () => {
+    store.setText(search);
     searchProducts(getQueryDetails(store.text, store.filter, store.sort)).then((data) => {
-      console.log(data);
       store.setProducts(data.results);
     });
   };
@@ -34,8 +36,16 @@ export function Products(): JSX.Element {
               </Form.Select>
             </Col>
             <Col className="d-flex align-items-center">
-              <Form.Control type="search" placeholder="Search" className="me-2" />
-              <Button variant="outline-success">Search</Button>
+              <Form.Control
+                type="search"
+                placeholder="Search"
+                className="me-2"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+              <Button variant="outline-success" onClick={filters}>
+                Search
+              </Button>
             </Col>
           </Row>
         </Form>

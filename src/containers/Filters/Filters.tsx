@@ -38,7 +38,6 @@ export function Filters(): JSX.Element {
 
   const filters = () => {
     searchProducts(getQueryDetails(store.text, getFiltersArray(), store.sort)).then((data) => {
-      console.log(data);
       store.setProducts(data.results);
     });
   };
