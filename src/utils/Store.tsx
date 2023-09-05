@@ -7,6 +7,10 @@ class Store {
 
   private _storeDetails: ProductProjectionsQueryParameters;
 
+  private _maxPrice: number;
+
+  private _minPrice: number;
+
   constructor() {
     this._products = [];
     this._storeDetails = {
@@ -18,6 +22,8 @@ class Store {
       sort: undefined,
       currency: undefined,
     };
+    this._maxPrice = 0;
+    this._minPrice = 0;
     makeAutoObservable(this);
   }
 
@@ -29,8 +35,20 @@ class Store {
     return this._products;
   }
 
-  get storeDetailes() {
-    return this._storeDetails;
+  get maxPrice() {
+    return this._maxPrice;
+  }
+
+  set maxPrice(value: number) {
+    this._maxPrice = value;
+  }
+
+  get minPrice() {
+    return this._minPrice;
+  }
+
+  set minPrice(value: number) {
+    this._minPrice = value;
   }
 }
 

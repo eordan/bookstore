@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Accordion, Form } from 'react-bootstrap';
+import MultiRangeSlider, { ChangeResult } from 'multi-range-slider-react';
 
 import './Filters.scss';
 import { AUTHORS, CATEGORIES } from '../../utils/constants';
@@ -11,6 +12,9 @@ export function Filters(): JSX.Element {
 
   const [isHardcover, setIsHardcover] = useState(false);
   const [isPaperback, setIsPaperback] = useState(false);
+
+  let minValue = 0;
+  let maxValue = 500;
 
   let categoriesChecked: string[] = [];
   let categoriesFilter = '';
@@ -24,6 +28,7 @@ export function Filters(): JSX.Element {
     if (authorsFilter) filtersArray.push(authorsFilter);
     if (isHardcover) filtersArray.push('variants.attributes.bookFormat:"Hardcover"');
     if (isPaperback) filtersArray.push('variants.attributes.bookFormat:"Paperback"');
+    filtersArray.push(`variants.price.centAmount:range (${minValue * 100} to ${maxValue * 100})`);
     return filtersArray;
   };
 
@@ -134,11 +139,19 @@ export function Filters(): JSX.Element {
       </Accordion>
       <Form.Group className="mt-2">
         <Form.Label className="price-label">Price</Form.Label>
-        <div className="d-flex">
-          <input type="number" className="price-input" min="0" step={0.01} />
-          <span>&ensp;-&ensp;</span>
-          <input type="number" max="500" className="price-input" />
-        </div>
+        <MultiRangeSlider
+          min={0}
+          max={500}
+          minValue={minValue}
+          maxValue={maxValue}
+          ruler={false}
+          style={{ border: 'none', boxShadow: 'none' }}
+          onChange={(e: ChangeResult) => {
+            minValue = e.minValue;
+            maxValue = e.maxValue;
+            filters();
+          }}
+        />
       </Form.Group>
       <Form.Check type="checkbox" label="Show discounted products" className="mt-3" />
     </Form>
