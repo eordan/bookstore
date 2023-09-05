@@ -50,6 +50,14 @@ class Store {
   set minPrice(value: number) {
     this._minPrice = value;
   }
+
+  get storeDetails() {
+    return this._storeDetails;
+  }
+
+  set storeDetails(value: ProductProjectionsQueryParameters) {
+    this._storeDetails = value;
+  }
 }
 
 export default new Store();

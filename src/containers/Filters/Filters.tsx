@@ -13,6 +13,8 @@ export function Filters(): JSX.Element {
   const [isHardcover, setIsHardcover] = useState(false);
   const [isPaperback, setIsPaperback] = useState(false);
 
+  let isDiscount = false;
+
   let minValue = 0;
   let maxValue = 500;
 
@@ -28,6 +30,7 @@ export function Filters(): JSX.Element {
     if (authorsFilter) filtersArray.push(authorsFilter);
     if (isHardcover) filtersArray.push('variants.attributes.bookFormat:"Hardcover"');
     if (isPaperback) filtersArray.push('variants.attributes.bookFormat:"Paperback"');
+    if (isDiscount) filtersArray.push('variants.scopedPriceDiscounted:true');
     filtersArray.push(`variants.price.centAmount:range (${minValue * 100} to ${maxValue * 100})`);
     return filtersArray;
   };
@@ -153,7 +156,15 @@ export function Filters(): JSX.Element {
           }}
         />
       </Form.Group>
-      <Form.Check type="checkbox" label="Show discounted products" className="mt-3" />
+      <Form.Check
+        type="checkbox"
+        label="Show discounted products"
+        className="mt-3"
+        onChange={(e) => {
+          isDiscount = e.target.checked;
+          filters();
+        }}
+      />
     </Form>
   );
 }
