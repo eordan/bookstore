@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 import AppRouter from '@components/AppRouter';
 import Header from '@containers/Header';
 import Footer from '@containers/Footer';
+import { Context } from '../../utils/createContext';
 
 export function App(): JSX.Element {
+  const { user } = useContext(Context);
   // eslint-disable-next-line no-alert
-  alert('Привет! Пожалуйста, проверьте в последний день! Заранее большое спасибо)');
+  // alert('Привет! Пожалуйста, проверьте в последний день! Заранее большое спасибо)');
+
+  if (localStorage.getItem('isAuth') === 'true') {
+    user.setIsAuth(true);
+    user.setId(localStorage.getItem('userID') as string);
+    user.setVersion(Number(localStorage.getItem('userVersion')));
+  }
 
   return (
     <BrowserRouter>

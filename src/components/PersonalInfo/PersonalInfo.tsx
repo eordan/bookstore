@@ -55,6 +55,7 @@ export function PersonalInfo(props: Customer): JSX.Element {
     ]).then((data) => {
       if (data.version) {
         user.setVersion(data.version);
+        localStorage.setItem('userVersion', `${data.version}`);
       }
       turnOffEdit();
       notify();

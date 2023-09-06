@@ -49,6 +49,8 @@ export function Header(): JSX.Element {
                 onClick={() => {
                   user.setIsAuth(false);
                   localStorage.setItem('isAuth', 'false');
+                  localStorage.removeItem('userID');
+                  localStorage.removeItem('userVersion');
                   navigate(RoutesEnum.MAIN_ROUTE);
                 }}
               >

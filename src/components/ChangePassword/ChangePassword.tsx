@@ -69,6 +69,7 @@ export function ChangePassword(): JSX.Element {
     const data = await updateCustomerPassword(user.id, user.version, getValues('password'), getValues('newPassword'));
     if (data.version) {
       user.setVersion(data.version);
+      localStorage.setItem('userVersion', `${data.version}`);
       notify();
     } else {
       showError();
