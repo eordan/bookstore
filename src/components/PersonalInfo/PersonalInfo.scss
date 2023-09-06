@@ -1,4 +1,4 @@
-.form-block {
+.personal-block {
   min-width: 400px;
   height: fit-content;
   flex-direction: column;
@@ -36,4 +36,10 @@
 
 .save-btn {
   min-width: 120px;
+}
+
+@media screen and (max-width: 450px) {
+  .personal-block {
+    min-width: 300px;
+  }
 }

@@ -24,6 +24,8 @@ type AddressProps = {
   id: string;
   isBilling: boolean;
   isShipping: boolean;
+  billingId: string;
+  shippingId: string;
   loadData: () => void;
   notify: (message: string) => void;
 };
@@ -36,6 +38,8 @@ export function Address({
   id,
   isBilling,
   isShipping,
+  billingId,
+  shippingId,
   loadData,
   notify,
 }: AddressProps): JSX.Element {
@@ -68,7 +72,10 @@ export function Address({
     }
   };
 
-  useEffect(() => changeColor());
+  useEffect(() => {
+    changeColor();
+    // loadData();
+  });
 
   const turnOnEdit = () => {
     setEditMode(true);
@@ -88,6 +95,46 @@ export function Address({
     });
   };
 
+  // const setBilling = () => {
+  //   if (!isBillingDefault) {
+  //     updateCustomer(user.id, user.version, [setDefaultBillingAddress(id)])
+  //     .then((data) => {
+  //       if (data.version) {
+  //         user.setVersion(data.version);
+  //       }
+  //       loadData();
+  //     })
+  //   } else {
+  //     updateCustomer(user.id, user.version, [setDefaultBillingAddress()])
+  //     .then((data) => {
+  //       if (data.version) {
+  //         user.setVersion(data.version);
+  //       }
+  //       loadData();
+  //     })
+  //   }
+  // };
+
+  // const setShipping = () => {
+  //   if (!isShippingDefault) {
+  //     updateCustomer(user.id, user.version, [setDefaultShippingAddress(id)])
+  //     .then((data) => {
+  //       if (data.version) {
+  //         user.setVersion(data.version);
+  //       }
+  //       loadData();
+  //     })
+  //   } else {
+  //     updateCustomer(user.id, user.version, [setDefaultShippingAddress()])
+  //     .then((data) => {
+  //       if (data.version) {
+  //         user.setVersion(data.version);
+  //       }
+  //       loadData();
+  //     })
+  //   }
+  // };
+
   const onSubmit = () => {
     const address = changeAddress(id, {
       streetName: getValues('street'),
@@ -95,27 +142,32 @@ export function Address({
       postalCode: getValues('postalCode'),
       country: `${toAlpha2.getCode(getValues('country'))}`,
     });
-    const billing = setDefaultBillingAddress(isBillingDefault ? id : undefined);
-    const shipping = setDefaultShippingAddress(isShippingDefault ? id : undefined);
-    updateCustomer(user.id, user.version, [address, billing, shipping]).then((data) => {
+    const billing = isBillingDefault ? id : billingId;
+    const shipping = isShippingDefault ? id : shippingId;
+    updateCustomer(user.id, user.version, [
+      address,
+      setDefaultBillingAddress(billing),
+      setDefaultShippingAddress(shipping),
+    ]).then((data) => {
       if (data.version) {
         user.setVersion(data.version);
       }
       turnOffEdit();
       notify('Changes successfuly saved!');
+      loadData();
     });
   };
 
   return (
     <Form
-      className="m-3 d-flex flex-column form-block address"
+      className="me-3 mt-3 d-flex flex-column form-block address"
       onSubmit={handleSubmit(onSubmit)}
       style={{ borderColor: color }}
     >
-      <Container className="d-flex align-items-start mb-3 p-0">
+      <Container className="d-flex align-items-start mb-1 p-0">
         <Col>
-          {isBillingDefault && !editMode && <p className="m-0 font-weight-500 address-status">Default billing</p>}
-          {isShippingDefault && !editMode && <p className="m-0 font-weight-500 address-status">Default shipping</p>}
+          {isBillingDefault && !editMode && <p className="m-0 address-status">Default billing</p>}
+          {isShippingDefault && !editMode && <p className="m-0 address-status">Default shipping</p>}
         </Col>
         {!editMode && (
           <Col className="d-flex justify-content-end">
@@ -214,10 +266,10 @@ export function Address({
       )}
       {editMode && (
         <Container className="d-flex justify-content-between">
-          <Button type="button" className="mt-3 me-3 col-5" variant="secondary" onClick={() => turnOffEdit()}>
+          <Button type="button" className="mt-3 me-1 col-5 save-btn" variant="secondary" onClick={() => turnOffEdit()}>
             Cancel
           </Button>
-          <Button type="submit" className="mt-3 col-5" variant="primary">
+          <Button type="submit" className="mt-3 col-5 save-btn" variant="primary">
             Save changes
           </Button>
         </Container>

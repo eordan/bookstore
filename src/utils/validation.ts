@@ -40,7 +40,7 @@ export const checkPostalCode = (country: string, code: string): boolean => {
   if (country === 'Canada' && canadaPattern.test(code)) {
     return true;
   }
-  if ('United States' && usPattern.test(code)) {
+  if (country === 'United States' && usPattern.test(code)) {
     return true;
   }
   return false;

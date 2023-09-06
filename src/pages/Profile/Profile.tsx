@@ -48,8 +48,8 @@ export function Profile(): JSX.Element {
   }
 
   return (
-    <Container className="d-flex align-self-start" style={{ height: '-webkit-fill-available' }}>
-      <ListGroup variant="flush" className="d-flex flex-column mt-3 me-5 sidebar">
+    <Container className="d-flex profile">
+      <ListGroup variant="flush" className="mt-3">
         {categories.map((category: string) => (
           <ListGroup.Item
             key={category}
@@ -65,7 +65,7 @@ export function Profile(): JSX.Element {
           </ListGroup.Item>
         ))}
       </ListGroup>
-      <div className="tab">{showCategory()}</div>
+      <div>{showCategory()}</div>
     </Container>
   );
 }

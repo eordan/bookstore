@@ -62,7 +62,7 @@ export function PersonalInfo(props: Customer): JSX.Element {
   };
 
   return (
-    <Form className="my-3 d-flex flex-column form-block" onSubmit={handleSubmit(onSubmit)}>
+    <Form className="my-3 d-flex flex-column personal-block" onSubmit={handleSubmit(onSubmit)}>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h5 className="m-0">Personal Info</h5>
         {!editMode && (
@@ -133,7 +133,7 @@ export function PersonalInfo(props: Customer): JSX.Element {
       </Form.Group>
       {editMode && (
         <Container className="d-flex justify-content-between">
-          <Button type="button" className="mt-3 me-3 save-btn col-5" variant="secondary" onClick={() => turnOffEdit()}>
+          <Button type="button" className="mt-3 me-1 save-btn col-5" variant="secondary" onClick={() => turnOffEdit()}>
             Cancel
           </Button>
           <Button type="submit" className="mt-3 save-btn col-5" variant="primary">

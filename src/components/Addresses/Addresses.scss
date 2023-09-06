@@ -7,8 +7,9 @@
   transition: 0.2s;
 }
 
-.address {
-  max-width: 300px;
+.addresses {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .form-control {
@@ -55,6 +56,12 @@
 }
 
 .address-status {
-  color: #07bc0c;
   font-weight: 500 !important;
+  color: #07bc0c;
+}
+
+@media screen and (max-width: 1200px) {
+  .addresses {
+    grid-template-columns: 1fr;
+  }
 }

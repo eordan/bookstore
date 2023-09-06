@@ -38,7 +38,7 @@ export function Addresses({ userData, loadData }: AddressesProps): JSX.Element {
           </Button>
         )}
       </div>
-      <div className="addresses">
+      <div className="mb-3 addresses">
         {!isAddMode &&
           userData.addresses.map((address) => (
             <Address
@@ -50,6 +50,8 @@ export function Addresses({ userData, loadData }: AddressesProps): JSX.Element {
               id={address.id as string}
               isBilling={userData.defaultBillingAddressId === address.id}
               isShipping={userData.defaultShippingAddressId === address.id}
+              billingId={userData.defaultBillingAddressId as string}
+              shippingId={userData.defaultShippingAddressId as string}
               loadData={loadData}
               notify={notify}
             />

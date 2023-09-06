@@ -51,7 +51,7 @@ export function NewAddress({ addMode, notify, loadData }: NewAddressProps): JSX.
   };
 
   return (
-    <Form className="mx-3 d-flex flex-column form-block" onSubmit={handleSubmit(onSubmit)}>
+    <Form className="mx-3 mb-3 d-flex flex-column form-block" onSubmit={handleSubmit(onSubmit)}>
       <Form.Group>
         <Form.Label>Street *</Form.Label>
         <Form.Control
@@ -98,7 +98,7 @@ export function NewAddress({ addMode, notify, loadData }: NewAddressProps): JSX.
         <p className="message mt-2">{errors.country?.message}</p>
       </Form.Group>
       <Container className="d-flex justify-content-between">
-        <Button type="button" className="mt-3 me-3 col-5 save-btn" variant="secondary" onClick={() => addMode(false)}>
+        <Button type="button" className="mt-3 me-1 col-5 save-btn" variant="secondary" onClick={() => addMode(false)}>
           Cancel
         </Button>
         <Button type="submit" className="mt-3 col-5 save-btn" variant="primary">
