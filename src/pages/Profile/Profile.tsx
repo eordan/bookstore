@@ -20,9 +20,11 @@ export function Profile(): JSX.Element {
 
   const categories = ['Personal Info', 'Change Password', 'Addresses'];
 
-  if (localStorage.getItem('isAuth') === 'false') {
-    navigate(RoutesEnum.LOGIN_ROUTE);
-  }
+  useEffect(() => {
+    if (localStorage.getItem('isAuth') === 'false') {
+      navigate(RoutesEnum.LOGIN_ROUTE);
+    }
+  }, [localStorage.getItem('isAuth')]);
 
   const loadData = () => {
     getCustomer(user.id).then((data) => {
