@@ -4,92 +4,92 @@ import { BaseAddress } from '../utils/types';
 import { Actions } from '../utils/enums';
 import { PROJECT_KEY } from './apiClientDetailsSetter';
 
-export const changeEmail = (email: string) => {
+export const changeEmail = (email: string): CustomerUpdateAction => {
   return {
     action: Actions.changeEmail,
     email,
   };
 };
 
-export const setFirstName = (firstName: string) => {
+export const setFirstName = (firstName: string): CustomerUpdateAction => {
   return {
     action: Actions.setFirstName,
     firstName,
   };
 };
 
-export const setLastName = (lastName: string) => {
+export const setLastName = (lastName: string): CustomerUpdateAction => {
   return {
     action: Actions.setLastName,
     lastName,
   };
 };
 
-export const addAddress = (addressId: string, address: BaseAddress) => {
+export const addAddress = (address: BaseAddress): CustomerUpdateAction => {
   return {
     action: Actions.addAddress,
     address,
   };
 };
 
-export const changeAddress = (addressId: string, email: string) => {
+export const changeAddress = (addressId: string, address: BaseAddress): CustomerUpdateAction => {
   return {
     action: Actions.changeAddress,
     addressId,
-    email,
+    address,
   };
 };
 
-export const removeAddress = (addressId: string) => {
+export const removeAddress = (addressId: string): CustomerUpdateAction => {
   return {
     action: Actions.removeAddress,
     addressId,
   };
 };
 
-export const setDefaultShippingAddress = (addressId: string) => {
+export const setDefaultShippingAddress = (addressId?: string): CustomerUpdateAction => {
   return {
     action: Actions.setDefaultShippingAddress,
     addressId,
   };
 };
 
-export const addShippingAddressId = (addressId: string) => {
+export const addShippingAddressId = (addressId: string): CustomerUpdateAction => {
   return {
     action: Actions.addShippingAddressId,
     addressId,
   };
 };
 
-export const removeShippingAddressId = (addressId: string) => {
+export const removeShippingAddressId = (addressId: string): CustomerUpdateAction => {
   return {
     action: Actions.removeShippingAddressId,
     addressId,
   };
 };
 
-export const setDefaultBillingAddress = (addressId: string) => {
+export const setDefaultBillingAddress = (addressId?: string): CustomerUpdateAction => {
   return {
     action: Actions.setDefaultBillingAddress,
     addressId,
   };
 };
 
-export const addBillingAddressId = (addressId: string) => {
+export const addBillingAddressId = (addressId: string): CustomerUpdateAction => {
   return {
     action: Actions.addBillingAddressId,
     addressId,
   };
 };
 
-export const removeBillingAddressId = (addressId: string) => {
+export const removeBillingAddressId = (addressId: string): CustomerUpdateAction => {
   return {
     action: Actions.removeBillingAddressId,
     addressId,
   };
 };
 
-export const setDateOfBirth = (birthday: string) => {
+export const setDateOfBirth = (birthday: string): CustomerUpdateAction => {
   const dateOfBirth = new Date(birthday).toISOString().split('T')[0];
 
   return {

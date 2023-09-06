@@ -1,4 +1,5 @@
-.form-block {
+.personal-block {
+  min-width: 400px;
   height: fit-content;
   flex-direction: column;
   padding: 15px;
@@ -30,5 +31,15 @@
 
   &:hover {
     opacity: 1;
+  }
+}
+
+.save-btn {
+  min-width: 120px;
+}
+
+@media screen and (max-width: 450px) {
+  .personal-block {
+    min-width: 300px;
   }
 }

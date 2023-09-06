@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import React, { useState, useContext } from 'react';
+import { Button, Form, Col } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { passwordValidationRules } from '../../utils/validation';
+import { Context } from '../../utils/createContext';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './ChangePassword.scss';
 
 import view from '../../assets/view.png';
 import noView from '../../assets/no-view.png';
+import { updateCustomerPassword } from '../../services/profileSetter';
 
 export function ChangePassword(): JSX.Element {
   const {
@@ -27,9 +29,19 @@ export function ChangePassword(): JSX.Element {
   });
   const [passwordType, setPasswordType] = useState('password');
   const [rePasswordType, setRePasswordType] = useState('password');
+  const { user } = useContext(Context);
 
   const notify = () => {
     toast.success('Changes successfuly saved!', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+      transition: Slide,
+      theme: 'colored',
+    });
+  };
+
+  const showError = () => {
+    toast.error('Wrong password', {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 3000,
       transition: Slide,
@@ -53,16 +65,22 @@ export function ChangePassword(): JSX.Element {
     setRePasswordType('password');
   };
 
-  const onSubmit = () => {
-    notify();
+  const onSubmit = async () => {
+    const data = await updateCustomerPassword(user.id, user.version, getValues('password'), getValues('newPassword'));
+    if (data.version) {
+      user.setVersion(data.version);
+      notify();
+    } else {
+      showError();
+    }
   };
 
   return (
-    <Form className="my-3 d-flex flex-column form-block col-4" onSubmit={handleSubmit(onSubmit)}>
+    <Form className="my-3 d-flex flex-column form-block" onSubmit={handleSubmit(onSubmit)}>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h5 className="m-0">Change Password</h5>
       </div>
-      <Form.Group className="p-0">
+      <Form.Group as={Col} className="p-0">
         <Form.Label>Password *</Form.Label>
         <div className="password">
           <Form.Control
@@ -80,7 +98,7 @@ export function ChangePassword(): JSX.Element {
         </div>
         <p className="message mt-2">{errors.password?.message}</p>
       </Form.Group>
-      <Form.Group className="p-0">
+      <Form.Group as={Col} className="p-0">
         <Form.Label>New Password *</Form.Label>
         <div className="password">
           <Form.Control
@@ -99,7 +117,7 @@ export function ChangePassword(): JSX.Element {
         </div>
         <p className="message mt-2">{errors.password?.message}</p>
       </Form.Group>
-      <Form.Group className="p-0">
+      <Form.Group as={Col} className="p-0">
         <Form.Label>New password *</Form.Label>
         <div className="password">
           <Form.Control
@@ -116,7 +134,7 @@ export function ChangePassword(): JSX.Element {
         </div>
         <p className="message mt-2">{errors.repeatNewPassword?.message}</p>
       </Form.Group>
-      <Button type="submit" className="mt-3 w-75" variant="primary">
+      <Button type="submit" className="mt-3 col-5 mx-auto" variant="primary">
         Save changes
       </Button>
       <ToastContainer />

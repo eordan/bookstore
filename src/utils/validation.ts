@@ -33,6 +33,7 @@ export const checkBirthday = (date: string): boolean => {
 export const checkPostalCode = (country: string, code: string): boolean => {
   const canadaPattern = /^[ABCEGHJ-NPRSTVXY][0-9][ABCEGHJ-NPRSTV-Z][ ]?[0-9][ABCEGHJ-NPRSTV-Z][0-9]$/;
   const usPattern = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
+
   if (country === 'Choose...') {
     return true;
   }

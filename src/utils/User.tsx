@@ -5,21 +5,15 @@ class User {
 
   private _isEntered: boolean;
 
-  private _firstName: string;
+  private _id: string;
 
-  private _lastName: string;
-
-  private _dateOfBirth: string;
-
-  private _email: string;
+  private _version: number;
 
   constructor() {
     this._isAuth = false;
     this._isEntered = false;
-    this._firstName = '';
-    this._lastName = '';
-    this._dateOfBirth = '';
-    this._email = '';
+    this._id = '';
+    this._version = 0;
     makeAutoObservable(this);
   }
 
@@ -39,36 +33,20 @@ class User {
     return this._isEntered;
   }
 
-  setFirstName(name: string) {
-    this._firstName = name;
+  setId(id: string) {
+    this._id = id;
   }
 
-  get firstName() {
-    return this._firstName;
+  get id() {
+    return this._id;
   }
 
-  setLastName(name: string) {
-    this._lastName = name;
+  setVersion(version: number) {
+    this._version = version;
   }
 
-  get lastName() {
-    return this._lastName;
-  }
-
-  setDateOfBirth(date: string) {
-    this._dateOfBirth = date;
-  }
-
-  get dateOfBirth() {
-    return this._dateOfBirth;
-  }
-
-  setEmail(email: string) {
-    this._email = email;
-  }
-
-  get email() {
-    return this._email;
+  get version() {
+    return this._version;
   }
 }
 
