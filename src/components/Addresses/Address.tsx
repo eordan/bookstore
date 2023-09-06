@@ -89,6 +89,7 @@ export function Address({
     updateCustomer(user.id, user.version, [removeAddress(id)]).then((data) => {
       if (data.version) {
         user.setVersion(data.version);
+        localStorage.setItem('userVersion', `${data.version}`);
       }
       loadData();
       notify('Address successfuly removed!');
@@ -151,6 +152,7 @@ export function Address({
     ]).then((data) => {
       if (data.version) {
         user.setVersion(data.version);
+        localStorage.setItem('userVersion', `${data.version}`);
       }
       turnOffEdit();
       notify('Changes successfuly saved!');
