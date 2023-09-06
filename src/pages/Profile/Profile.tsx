@@ -35,7 +35,7 @@ export function Profile(): JSX.Element {
         case 'Change Password':
           return <ChangePassword />;
         case 'Addresses':
-          return <Addresses {...userData} />;
+          return <Addresses userData={userData} loadData={loadData} />;
         default:
           return <PersonalInfo {...userData} />;
       }

@@ -25,14 +25,14 @@ export const setLastName = (lastName: string): CustomerUpdateAction => {
   };
 };
 
-export const addAddress = (address: BaseAddress) => {
+export const addAddress = (address: BaseAddress): CustomerUpdateAction => {
   return {
     action: Actions.addAddress,
     address,
   };
 };
 
-export const changeAddress = (addressId: string, address: BaseAddress) => {
+export const changeAddress = (addressId: string, address: BaseAddress): CustomerUpdateAction => {
   return {
     action: Actions.changeAddress,
     addressId,
@@ -40,49 +40,49 @@ export const changeAddress = (addressId: string, address: BaseAddress) => {
   };
 };
 
-export const removeAddress = (addressId: string) => {
+export const removeAddress = (addressId: string): CustomerUpdateAction => {
   return {
     action: Actions.removeAddress,
     addressId,
   };
 };
 
-export const setDefaultShippingAddress = (addressId?: string) => {
+export const setDefaultShippingAddress = (addressId?: string): CustomerUpdateAction => {
   return {
     action: Actions.setDefaultShippingAddress,
     addressId,
   };
 };
 
-export const addShippingAddressId = (addressId: string) => {
+export const addShippingAddressId = (addressId: string): CustomerUpdateAction => {
   return {
     action: Actions.addShippingAddressId,
     addressId,
   };
 };
 
-export const removeShippingAddressId = (addressId: string) => {
+export const removeShippingAddressId = (addressId: string): CustomerUpdateAction => {
   return {
     action: Actions.removeShippingAddressId,
     addressId,
   };
 };
 
-export const setDefaultBillingAddress = (addressId?: string) => {
+export const setDefaultBillingAddress = (addressId?: string): CustomerUpdateAction => {
   return {
     action: Actions.setDefaultBillingAddress,
     addressId,
   };
 };
 
-export const addBillingAddressId = (addressId: string) => {
+export const addBillingAddressId = (addressId: string): CustomerUpdateAction => {
   return {
     action: Actions.addBillingAddressId,
     addressId,
   };
 };
 
-export const removeBillingAddressId = (addressId: string) => {
+export const removeBillingAddressId = (addressId: string): CustomerUpdateAction => {
   return {
     action: Actions.removeBillingAddressId,
     addressId,

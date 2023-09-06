@@ -1,15 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Button, Form, Col, Row, Container } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { ToastContainer, toast, Slide } from 'react-toastify';
+import toAlpha2 from 'iso-3166-1-alpha-2';
 import { checkPostalCode } from '../../utils/validation';
+import {
+  changeAddress,
+  removeAddress,
+  setDefaultBillingAddress,
+  setDefaultShippingAddress,
+  updateCustomer,
+} from '../../services/profileSetter';
+import { Context } from '../../utils/createContext';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './Addresses.scss';
 import edit from '../../assets/edit.svg';
 import del from '../../assets/delete.svg';
 
-type AddressInfo = {
+type AddressProps = {
   streetName: string;
   city: string;
   postalCode: string;
@@ -17,6 +26,7 @@ type AddressInfo = {
   id: string;
   isBilling: boolean;
   isShipping: boolean;
+  loadData: () => void;
 };
 
 export function Address({
@@ -27,7 +37,8 @@ export function Address({
   id,
   isBilling,
   isShipping,
-}: AddressInfo): JSX.Element {
+  loadData,
+}: AddressProps): JSX.Element {
   const {
     register,
     formState: { errors },
@@ -39,7 +50,7 @@ export function Address({
       street: streetName,
       city,
       postalCode,
-      country: `${country === 'US' ? 'United States' : 'Canada'}`,
+      country: `${toAlpha2.getCountry(country)}`,
     },
     mode: 'onChange',
   });
@@ -47,19 +58,29 @@ export function Address({
   const [isBillingDefault, setBillingDefault] = useState(isBilling);
   const [isShippingDefault, setShippingDefault] = useState(isShipping);
   const [color, setColor] = useState('');
+  const { user } = useContext(Context);
 
   const changeColor = () => {
     if (isBillingDefault || isShippingDefault) {
-      setColor('#38c50021');
+      setColor('#07bc0c');
     } else {
-      setColor('transparent');
+      setColor('#dfdfdf');
     }
   };
 
   useEffect(() => changeColor());
 
-  const notify = () => {
+  const notifySave = () => {
     toast.success('Changes successfuly saved!', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+      transition: Slide,
+      theme: 'colored',
+    });
+  };
+
+  const notifyDelete = () => {
+    toast.success('Address successfuly removed!', {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 3000,
       transition: Slide,
@@ -73,30 +94,57 @@ export function Address({
 
   const turnOffEdit = () => {
     setEditMode(false);
-    notify();
   };
 
-  const onSubmit = async () => {
-    console.log(id);
+  const deleteAddress = () => {
+    updateCustomer(user.id, user.version, [removeAddress(id)]).then((data) => {
+      if (data.version) {
+        user.setVersion(data.version);
+      }
+      loadData();
+      notifyDelete();
+    });
+  };
 
-    turnOffEdit();
+  const onSubmit = () => {
+    const address = changeAddress(id, {
+      streetName: getValues('street'),
+      city: getValues('city'),
+      postalCode: getValues('postalCode'),
+      country: `${toAlpha2.getCode(getValues('country'))}`,
+    });
+    const billing = setDefaultBillingAddress(isBillingDefault ? id : undefined);
+    const shipping = setDefaultShippingAddress(isShippingDefault ? id : undefined);
+    updateCustomer(user.id, user.version, [address, billing, shipping]).then((data) => {
+      if (data.version) {
+        user.setVersion(data.version);
+      }
+      turnOffEdit();
+      notifySave();
+    });
   };
 
   return (
-    <Form className="m-3 d-flex flex-column form-block" onSubmit={handleSubmit(onSubmit)} style={{ background: color }}>
-      <Container className="d-flex justify-content-between align-items-start mb-3 p-0">
+    <Form
+      className="m-3 d-flex flex-column form-block address"
+      onSubmit={handleSubmit(onSubmit)}
+      style={{ borderColor: color }}
+    >
+      <Container className="d-flex align-items-start mb-3 p-0">
         <Col>
           {isBillingDefault && !editMode && <p className="m-0 font-weight-500 address-status">Default billing</p>}
           {isShippingDefault && !editMode && <p className="m-0 font-weight-500 address-status">Default shipping</p>}
         </Col>
-        <Col className="d-flex justify-content-end">
-          <button type="button" className="edit-btn" onClick={turnOnEdit} disabled={editMode}>
-            <img src={edit} alt="edit" />
-          </button>
-          <button type="button" className="delete-btn" onClick={turnOnEdit}>
-            <img src={del} alt="delete" />
-          </button>
-        </Col>
+        {!editMode && (
+          <Col className="d-flex justify-content-end">
+            <button type="button" className="edit-btn" onClick={turnOnEdit}>
+              <img src={edit} alt="edit" />
+            </button>
+            <button type="button" className="delete-btn" onClick={deleteAddress}>
+              <img src={del} alt="delete" />
+            </button>
+          </Col>
+        )}
       </Container>
       <Form.Group as={Row}>
         <Form.Label column sm={4}>
@@ -113,7 +161,7 @@ export function Address({
           {editMode && <p className="message mt-1">{errors.street?.message}</p>}
         </Col>
       </Form.Group>
-      <Form.Group as={Row} className="mt-2">
+      <Form.Group as={Row}>
         <Form.Label column sm={4}>
           City
         </Form.Label>
@@ -128,7 +176,7 @@ export function Address({
           {editMode && <p className="message mt-1">{errors.city?.message}</p>}
         </Col>
       </Form.Group>
-      <Form.Group as={Row} className="mt-2">
+      <Form.Group as={Row}>
         <Form.Label column sm={4}>
           Postal code
         </Form.Label>
@@ -143,7 +191,7 @@ export function Address({
           {editMode && <p className="message mt-1">{errors.postalCode?.message}</p>}
         </Col>
       </Form.Group>
-      <Form.Group as={Row} className="mt-2">
+      <Form.Group as={Row}>
         <Form.Label column sm={4}>
           Country
         </Form.Label>
@@ -183,9 +231,14 @@ export function Address({
         />
       )}
       {editMode && (
-        <Button type="submit" className="mt-3 save-btn" variant="primary">
-          Save changes
-        </Button>
+        <Container className="d-flex justify-content-between">
+          <Button type="button" className="mt-3 me-3 col-5" variant="secondary" onClick={() => turnOffEdit()}>
+            Cancel
+          </Button>
+          <Button type="submit" className="mt-3 col-5" variant="primary">
+            Save changes
+          </Button>
+        </Container>
       )}
       <ToastContainer />
     </Form>

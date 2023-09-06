@@ -1,11 +1,14 @@
 .form-block {
-  width: 500px !important;
   height: fit-content;
   flex-direction: column;
   padding: 15px;
   border: solid #dfdfdf 1px;
   border-radius: 10px;
   transition: 0.2s;
+}
+
+.address {
+  max-width: 300px;
 }
 
 .form-control {
@@ -41,7 +44,7 @@
 }
 
 .save-btn {
-  width: 200px;
+  min-width: 120px;
 }
 
 .form-select:disabled {
@@ -52,5 +55,6 @@
 }
 
 .address-status {
+  color: #07bc0c;
   font-weight: 500 !important;
 }

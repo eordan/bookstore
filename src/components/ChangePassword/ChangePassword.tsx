@@ -134,7 +134,7 @@ export function ChangePassword(): JSX.Element {
         </div>
         <p className="message mt-2">{errors.repeatNewPassword?.message}</p>
       </Form.Group>
-      <Button type="submit" className="mt-3 w-75" variant="primary">
+      <Button type="submit" className="mt-3 col-5 mx-auto" variant="primary">
         Save changes
       </Button>
       <ToastContainer />

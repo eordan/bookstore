@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Button, Form, Col } from 'react-bootstrap';
+import { Button, Form, Col, Container, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { Customer } from '@commercetools/platform-sdk';
@@ -27,7 +27,6 @@ export function PersonalInfo(props: Customer): JSX.Element {
     mode: 'onChange',
   });
   const [editMode, setEditMode] = useState<boolean>(false);
-  const [showSaveBtn, setShowSaveBtn] = useState('none');
   const { user } = useContext(Context);
 
   const notify = () => {
@@ -41,80 +40,107 @@ export function PersonalInfo(props: Customer): JSX.Element {
 
   const turnOnEdit = () => {
     setEditMode(true);
-    setShowSaveBtn('block');
   };
 
   const turnOffEdit = () => {
     setEditMode(false);
-    setShowSaveBtn('none');
-    notify();
   };
 
-  const onSubmit = async () => {
-    await updateCustomer(user.id, user.version, [
+  const onSubmit = () => {
+    updateCustomer(user.id, user.version, [
       setFirstName(getValues('firstName')),
       setLastName(getValues('lastName')),
       setDateOfBirth(getValues('birthday')),
       changeEmail(getValues('email')),
-    ]);
-    turnOffEdit();
+    ]).then((data) => {
+      if (data.version) {
+        user.setVersion(data.version);
+      }
+      turnOffEdit();
+      notify();
+    });
   };
 
   return (
     <Form className="my-3 d-flex flex-column form-block" onSubmit={handleSubmit(onSubmit)}>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h5 className="m-0">Personal Info</h5>
-        <button type="button" className="edit-btn" onClick={turnOnEdit}>
-          <img src={edit} alt="edit" />
-        </button>
+        {!editMode && (
+          <button type="button" className="edit-btn" onClick={turnOnEdit}>
+            <img src={edit} alt="edit" />
+          </button>
+        )}
       </div>
-      <Form.Group as={Col} className="p-0">
-        <Form.Label>First Name</Form.Label>
-        <Form.Control
-          disabled={!editMode}
-          placeholder="Enter your first name"
-          {...register('firstName', {
-            required: 'Please enter your first name',
-            validate: namesValidationRules,
-          })}
-        />
-        <p className="message mt-1">{errors.firstName?.message}</p>
+      <Form.Group as={Row} className="p-0">
+        <Form.Label column sm={4}>
+          First Name
+        </Form.Label>
+        <Col sm={8}>
+          <Form.Control
+            disabled={!editMode}
+            placeholder="Enter your first name"
+            {...register('firstName', {
+              required: 'Please enter your first name',
+              validate: namesValidationRules,
+            })}
+          />
+          {editMode && <p className="message mt-1">{errors.firstName?.message}</p>}
+        </Col>
       </Form.Group>
-      <Form.Group as={Col} className="p-0">
-        <Form.Label>Last Name</Form.Label>
-        <Form.Control
-          disabled={!editMode}
-          placeholder="Enter your last name"
-          {...register('lastName', {
-            required: 'Please enter your last name',
-            validate: namesValidationRules,
-          })}
-        />
-        <p className="message mt-1">{errors.lastName?.message}</p>
+      <Form.Group as={Row} className="p-0">
+        <Form.Label column sm={4}>
+          Last Name
+        </Form.Label>
+        <Col sm={8}>
+          <Form.Control
+            disabled={!editMode}
+            placeholder="Enter your last name"
+            {...register('lastName', {
+              required: 'Please enter your last name',
+              validate: namesValidationRules,
+            })}
+          />
+          {editMode && <p className="message mt-1">{errors.lastName?.message}</p>}
+        </Col>
       </Form.Group>
-      <Form.Group as={Col} className="p-0">
-        <Form.Label>Date of Birth</Form.Label>
-        <Form.Control
-          disabled={!editMode}
-          type="date"
-          {...register('birthday', {
-            validate: (value) => checkBirthday(value) || 'Minimum 13 years old',
-          })}
-        />
-        <p className="message mt-1">{errors.birthday?.message}</p>
+      <Form.Group as={Row} className="p-0">
+        <Form.Label column sm={4}>
+          Date of Birth
+        </Form.Label>
+        <Col sm={8}>
+          <Form.Control
+            disabled={!editMode}
+            type="date"
+            {...register('birthday', {
+              validate: (value) => checkBirthday(value) || 'Minimum 13 years old',
+            })}
+          />
+          {editMode && <p className="message mt-1">{errors.birthday?.message}</p>}
+        </Col>
       </Form.Group>
-      <Form.Group as={Col} className="p-0">
-        <Form.Label>Email</Form.Label>
-        <Form.Control
-          disabled={!editMode}
-          placeholder="Enter your email"
-          {...register('email', emailValidationRules)}
-        />
-        <p className="message mt-1">{errors.email?.message}</p>
+      <Form.Group as={Row} className="p-0">
+        <Form.Label column sm={4}>
+          Email
+        </Form.Label>
+        <Col sm={8}>
+          <Form.Control
+            disabled={!editMode}
+            placeholder="Enter your email"
+            {...register('email', emailValidationRules)}
+          />
+          {editMode && <p className="message mt-1">{errors.email?.message}</p>}
+        </Col>
       </Form.Group>
-      <Button type="submit" className="mt-3 save-btn" style={{ display: showSaveBtn }} variant="primary">
-        Save changes
-      </Button>
+      {editMode && (
+        <Container className="d-flex justify-content-between">
+          <Button type="button" className="mt-3 me-3 save-btn col-5" variant="secondary" onClick={() => turnOffEdit()}>
+            Cancel
+          </Button>
+          <Button type="submit" className="mt-3 save-btn col-5" variant="primary">
+            Save changes
+          </Button>
+        </Container>
+      )}
       <ToastContainer />
     </Form>
   );
