@@ -20,8 +20,8 @@ export function Addresses({ userData, loadData }: AddressesProps): JSX.Element {
     setAddMode(true);
   };
 
-  const notify = () => {
-    toast.success('Changes successfuly saved!', {
+  const notify = (message: string) => {
+    toast.success(message, {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 3000,
       transition: Slide,
@@ -51,6 +51,7 @@ export function Addresses({ userData, loadData }: AddressesProps): JSX.Element {
               isBilling={userData.defaultBillingAddressId === address.id}
               isShipping={userData.defaultShippingAddressId === address.id}
               loadData={loadData}
+              notify={notify}
             />
           ))}
       </div>

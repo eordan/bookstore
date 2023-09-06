@@ -9,7 +9,7 @@ import { addAddress, updateCustomer } from '../../services/profileSetter';
 
 type NewAddressProps = {
   addMode: (isAddMode: boolean) => void;
-  notify: () => void;
+  notify: (message: string) => void;
   loadData: () => void;
 };
 
@@ -44,7 +44,7 @@ export function NewAddress({ addMode, notify, loadData }: NewAddressProps): JSX.
       if (data.version) {
         user.setVersion(data.version);
       }
-      notify();
+      notify('Changes successfuly saved!');
       loadData();
       addMode(false);
     });

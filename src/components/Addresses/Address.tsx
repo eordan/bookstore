@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Button, Form, Col, Row, Container } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import { ToastContainer, toast, Slide } from 'react-toastify';
 import toAlpha2 from 'iso-3166-1-alpha-2';
 import { checkPostalCode } from '../../utils/validation';
 import {
@@ -13,7 +12,6 @@ import {
 } from '../../services/profileSetter';
 import { Context } from '../../utils/createContext';
 
-import 'react-toastify/dist/ReactToastify.css';
 import './Addresses.scss';
 import edit from '../../assets/edit.svg';
 import del from '../../assets/delete.svg';
@@ -27,6 +25,7 @@ type AddressProps = {
   isBilling: boolean;
   isShipping: boolean;
   loadData: () => void;
+  notify: (message: string) => void;
 };
 
 export function Address({
@@ -38,6 +37,7 @@ export function Address({
   isBilling,
   isShipping,
   loadData,
+  notify,
 }: AddressProps): JSX.Element {
   const {
     register,
@@ -70,24 +70,6 @@ export function Address({
 
   useEffect(() => changeColor());
 
-  const notifySave = () => {
-    toast.success('Changes successfuly saved!', {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 3000,
-      transition: Slide,
-      theme: 'colored',
-    });
-  };
-
-  const notifyDelete = () => {
-    toast.success('Address successfuly removed!', {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 3000,
-      transition: Slide,
-      theme: 'colored',
-    });
-  };
-
   const turnOnEdit = () => {
     setEditMode(true);
   };
@@ -102,7 +84,7 @@ export function Address({
         user.setVersion(data.version);
       }
       loadData();
-      notifyDelete();
+      notify('Address successfuly removed!');
     });
   };
 
@@ -120,7 +102,7 @@ export function Address({
         user.setVersion(data.version);
       }
       turnOffEdit();
-      notifySave();
+      notify('Changes successfuly saved!');
     });
   };
 
@@ -240,7 +222,6 @@ export function Address({
           </Button>
         </Container>
       )}
-      <ToastContainer />
     </Form>
   );
 }
