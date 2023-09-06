@@ -8,15 +8,13 @@ import { Context } from '../../utils/createContext';
 
 export function App(): JSX.Element {
   const { user } = useContext(Context);
-  // eslint-disable-next-line no-alert
-  // alert('Привет! Пожалуйста, проверьте в последний день! Заранее большое спасибо)');
 
   if (localStorage.getItem('isAuth') === 'true') {
     user.setIsAuth(true);
     user.setId(localStorage.getItem('userID') as string);
     user.setVersion(Number(localStorage.getItem('userVersion')));
   }
-
+        
   return (
     <BrowserRouter>
       <Header />
