@@ -33,11 +33,7 @@ export function ProductItem({ product }: ProductProps): JSX.Element {
 
   return (
     <Col>
-      <Card
-        bg="light"
-        className="h-100 card"
-        onClick={() => navigate(`${RoutesEnum.PRODUCTS_ROUTE}/${product.slug.en}`)}
-      >
+      <Card bg="light" className="h-100 card" onClick={() => navigate(`${RoutesEnum.PRODUCTS_ROUTE}/${product.id}`)}>
         <Card.Img src={url} />
         <Card.Body>
           <Card.Title>{product.name.en}</Card.Title>
