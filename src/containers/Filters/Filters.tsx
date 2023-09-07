@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { Accordion, Form } from 'react-bootstrap';
+import { Accordion, Button, Form } from 'react-bootstrap';
+import { observer } from 'mobx-react-lite';
 import MultiRangeSlider, { ChangeResult } from 'multi-range-slider-react';
 
 import './Filters.scss';
@@ -7,13 +8,12 @@ import { AUTHORS, CATEGORIES } from '../../utils/constants';
 import { searchProducts, getQueryDetails } from '../../services/productsSearcher';
 import { Context } from '../../utils/createContext';
 
-export function Filters(): JSX.Element {
+export const Filters = observer(() => {
   const { store } = useContext(Context);
 
   const [isHardcover, setIsHardcover] = useState(false);
   const [isPaperback, setIsPaperback] = useState(false);
-
-  let isDiscount = false;
+  const [isDiscount, setIsDiscount] = useState(false);
 
   let minValue = 0;
   let maxValue = 550;
@@ -30,7 +30,7 @@ export function Filters(): JSX.Element {
     if (authorsFilter) filtersArray.push(authorsFilter);
     if (isHardcover) filtersArray.push('variants.attributes.bookFormat:"Hardcover"');
     if (isPaperback) filtersArray.push('variants.attributes.bookFormat:"Paperback"');
-    if (isDiscount) filtersArray.push('variants.scopedPriceDiscounted:true');
+    if (!isDiscount) filtersArray.push('variants.scopedPriceDiscounted:true');
     filtersArray.push(`variants.price.centAmount:range (${minValue * 100} to ${maxValue * 100})`);
     store.setFilter(filtersArray);
     return filtersArray;
@@ -42,12 +42,25 @@ export function Filters(): JSX.Element {
     });
   };
 
-  const categoriesControl = (isChecked: boolean, categoryId: string) => {
-    if (isChecked) {
-      categoriesChecked.push(`"${categoryId}"`);
+  const categoriesControl = (category: HTMLInputElement) => {
+    if (category.checked) {
+      categoriesChecked.push(`"${category.value}"`);
+      store.pushCrumb({
+        target: category,
+        name: category.nextSibling?.textContent as string,
+        attributesArray: categoriesChecked,
+        handler: categoriesControl,
+      });
     } else {
-      categoriesChecked = categoriesChecked.filter((id) => id !== `"${categoryId}"`);
+      categoriesChecked = categoriesChecked.filter((id) => id !== `"${category.value}"`);
+      store.popCrumb({
+        target: category,
+        name: category.nextSibling?.textContent as string,
+        attributesArray: categoriesChecked,
+        handler: categoriesControl,
+      });
     }
+
     if (categoriesChecked.length) {
       categoriesFilter = `categories.id:${categoriesChecked.join(', ')}`;
     } else {
@@ -56,15 +69,23 @@ export function Filters(): JSX.Element {
     filters();
   };
 
-  const authorsControl = (isChecked: boolean, authorId: string) => {
-    if (isChecked && authorId.startsWith('range')) {
-      authorsChecked.push(authorId);
-    } else if (isChecked) {
-      authorsChecked.push(`"${authorId}"`);
-    } else if (authorId.startsWith('range')) {
-      authorsChecked = authorsChecked.filter((id) => id !== authorId);
+  const authorsControl = (author: HTMLInputElement) => {
+    if (author.checked) {
+      authorsChecked.push(`"${author.value}"`);
+      store.pushCrumb({
+        target: author,
+        name: author.nextSibling?.textContent as string,
+        attributesArray: authorsChecked,
+        handler: authorsControl,
+      });
     } else {
-      authorsChecked = authorsChecked.filter((id) => id !== `"${authorId}"`);
+      authorsChecked = authorsChecked.filter((id) => id !== `"${author.value}"`);
+      store.popCrumb({
+        target: author,
+        name: author.nextSibling?.textContent as string,
+        attributesArray: authorsChecked,
+        handler: authorsControl,
+      });
     }
 
     if (authorsChecked.length) {
@@ -77,6 +98,20 @@ export function Filters(): JSX.Element {
 
   return (
     <Form>
+      <Button
+        className="mb-3"
+        variant="secondary"
+        onClick={() => {
+          store.clearBreadcrumbs();
+          store.setFilter([]);
+          setIsHardcover(false);
+          setIsPaperback(false);
+          setIsDiscount(false);
+          filters();
+        }}
+      >
+        Clear filters
+      </Button>
       <Accordion defaultActiveKey={['']} alwaysOpen>
         <Accordion.Item eventKey="0">
           <Accordion.Header>Category</Accordion.Header>
@@ -88,7 +123,7 @@ export function Filters(): JSX.Element {
                 type="checkbox"
                 label={category[0]}
                 aria-label={category[0]}
-                onChange={(e) => categoriesControl(e.target.checked, e.target.value)}
+                onChange={(e) => categoriesControl(e.target)}
               />
             ))}
           </Accordion.Body>
@@ -103,7 +138,7 @@ export function Filters(): JSX.Element {
                 type="checkbox"
                 label={author[0]}
                 aria-label={author[0]}
-                onChange={(e) => authorsControl(e.target.checked, e.target.value)}
+                onChange={(e) => authorsControl(e.target)}
               />
             ))}
           </Accordion.Body>
@@ -160,11 +195,12 @@ export function Filters(): JSX.Element {
         type="checkbox"
         label="Show discounted products"
         className="mt-3"
-        onChange={(e) => {
-          isDiscount = e.target.checked;
+        checked={isDiscount}
+        onChange={() => {
+          setIsDiscount(!isDiscount);
           filters();
         }}
       />
     </Form>
   );
-}
+});
