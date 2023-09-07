@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 import { ProductProjection } from '@commercetools/platform-sdk';
-import { StringUndefined } from './types';
+import { StringUndefined, Breadcrumb } from './types';
 
 class Store {
   private _products: ProductProjection[];
@@ -11,11 +11,14 @@ class Store {
 
   private _filter: string[];
 
+  private _breadcrumbs: Breadcrumb[];
+
   constructor() {
     this._products = [];
     this._text = undefined;
     this._sort = 'name.en asc';
     this._filter = [];
+    this._breadcrumbs = [];
     makeAutoObservable(this);
   }
 
@@ -49,6 +52,18 @@ class Store {
 
   setFilter(value: string[]) {
     this._filter = value;
+  }
+
+  get breadcrumbs() {
+    return this._breadcrumbs;
+  }
+
+  pushCrumb(value: Breadcrumb) {
+    this._breadcrumbs.push(value);
+  }
+
+  popCrumb(value: Breadcrumb) {
+    this._breadcrumbs = this._breadcrumbs.filter((item) => item.name !== value.name);
   }
 }
 

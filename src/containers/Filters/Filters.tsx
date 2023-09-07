@@ -42,12 +42,21 @@ export function Filters(): JSX.Element {
     });
   };
 
-  const categoriesControl = (isChecked: boolean, categoryId: string) => {
+  const categoriesControl = (isChecked: boolean, category: HTMLInputElement) => {
     if (isChecked) {
-      categoriesChecked.push(`"${categoryId}"`);
+      categoriesChecked.push(`"${category.value}"`);
+      store.pushCrumb({
+        target: category,
+        name: category.nextSibling?.textContent as string,
+      });
     } else {
-      categoriesChecked = categoriesChecked.filter((id) => id !== `"${categoryId}"`);
+      categoriesChecked = categoriesChecked.filter((id) => id !== `"${category.value}"`);
+      store.popCrumb({
+        target: category,
+        name: category.nextSibling?.textContent as string,
+      });
     }
+
     if (categoriesChecked.length) {
       categoriesFilter = `categories.id:${categoriesChecked.join(', ')}`;
     } else {
@@ -56,15 +65,19 @@ export function Filters(): JSX.Element {
     filters();
   };
 
-  const authorsControl = (isChecked: boolean, authorId: string) => {
-    if (isChecked && authorId.startsWith('range')) {
-      authorsChecked.push(authorId);
-    } else if (isChecked) {
-      authorsChecked.push(`"${authorId}"`);
-    } else if (authorId.startsWith('range')) {
-      authorsChecked = authorsChecked.filter((id) => id !== authorId);
+  const authorsControl = (isChecked: boolean, author: HTMLInputElement) => {
+    if (isChecked) {
+      authorsChecked.push(`"${author.value}"`);
+      store.pushCrumb({
+        target: author,
+        name: author.nextSibling?.textContent as string,
+      });
     } else {
-      authorsChecked = authorsChecked.filter((id) => id !== `"${authorId}"`);
+      authorsChecked = authorsChecked.filter((id) => id !== `"${author.value}"`);
+      store.popCrumb({
+        target: author,
+        name: author.nextSibling?.textContent as string,
+      });
     }
 
     if (authorsChecked.length) {
@@ -88,7 +101,7 @@ export function Filters(): JSX.Element {
                 type="checkbox"
                 label={category[0]}
                 aria-label={category[0]}
-                onChange={(e) => categoriesControl(e.target.checked, e.target.value)}
+                onChange={(e) => categoriesControl(e.target.checked, e.target)}
               />
             ))}
           </Accordion.Body>
@@ -103,7 +116,7 @@ export function Filters(): JSX.Element {
                 type="checkbox"
                 label={author[0]}
                 aria-label={author[0]}
-                onChange={(e) => authorsControl(e.target.checked, e.target.value)}
+                onChange={(e) => authorsControl(e.target.checked, e.target)}
               />
             ))}
           </Accordion.Body>
@@ -162,6 +175,17 @@ export function Filters(): JSX.Element {
         className="mt-3"
         onChange={(e) => {
           isDiscount = e.target.checked;
+          if (isDiscount) {
+            store.pushCrumb({
+              name: 'Discounted only',
+              target: e.target,
+            });
+          } else {
+            store.popCrumb({
+              name: 'Discounted only',
+              target: e.target,
+            });
+          }
           filters();
         }}
       />

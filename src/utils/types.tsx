@@ -50,3 +50,8 @@ export interface Currency {
   currency: string;
   country: string;
 }
+
+export interface Breadcrumb {
+  target: HTMLInputElement;
+  name: string;
+}
