@@ -16,9 +16,11 @@ export const ProductList = observer(() => {
 
   return (
     <Row xs={1} md={2} lg={3} xl={4} className="g-3 mb-5">
-      {store.products.map((product) => (
-        <ProductItem key={product.id} product={product} />
-      ))}
+      {store.products.length ? (
+        store.products.map((product) => <ProductItem key={product.id} product={product} />)
+      ) : (
+        <h3>Sorry... We haven&apos;t found any books with such parameters</h3>
+      )}
     </Row>
   );
 });
