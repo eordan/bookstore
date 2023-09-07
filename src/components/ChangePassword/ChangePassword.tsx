@@ -66,16 +66,15 @@ export function ChangePassword(): JSX.Element {
   };
 
   const onSubmit = () => {
-    updateCustomerPassword(user.id, user.version, getValues('password'), getValues('newPassword'))
-      .then((data) => {
-        if (data.version) {
-          user.setVersion(data.version);
-          localStorage.setItem('userVersion', `${data.version}`);
-          notify();
-        } else {
-          showError();
-        }
-      });
+    updateCustomerPassword(user.id, user.version, getValues('password'), getValues('newPassword')).then((data) => {
+      if (data.version) {
+        user.setVersion(data.version);
+        localStorage.setItem('userVersion', `${data.version}`);
+        notify();
+      } else {
+        showError();
+      }
+    });
   };
 
   return (
