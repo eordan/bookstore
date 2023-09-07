@@ -104,6 +104,11 @@ export function Reg(): JSX.Element {
       if (signInData.customer) {
         user.setIsAuth(true);
         user.setIsEntered(true);
+        localStorage.setItem('isAuth', 'true');
+        localStorage.setItem('userVersion', `${data.customer.version}`);
+        localStorage.setItem('userID', data.customer.id);
+        user.setId(data.customer.id as string);
+        user.setVersion(data.customer.version as number);
         navigate(RoutesEnum.MAIN_ROUTE);
       }
     } else {

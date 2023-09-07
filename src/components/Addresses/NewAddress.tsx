@@ -43,6 +43,7 @@ export function NewAddress({ addMode, notify, loadData }: NewAddressProps): JSX.
     updateCustomer(user.id, user.version, [address]).then((data) => {
       if (data.version) {
         user.setVersion(data.version);
+        localStorage.setItem('userVersion', `${data.version}`);
       }
       notify('Changes successfuly saved!');
       loadData();
