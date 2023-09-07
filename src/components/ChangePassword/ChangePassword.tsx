@@ -4,13 +4,13 @@ import { useForm } from 'react-hook-form';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { passwordValidationRules } from '../../utils/validation';
 import { Context } from '../../utils/createContext';
+import { updateCustomerPassword } from '../../services/profileSetter';
 
 import 'react-toastify/dist/ReactToastify.css';
-import './ChangePassword.scss';
+import '../../pages/Profile/Profile.scss';
 
 import view from '../../assets/view.png';
 import noView from '../../assets/no-view.png';
-import { updateCustomerPassword } from '../../services/profileSetter';
 
 export function ChangePassword(): JSX.Element {
   const {
@@ -65,15 +65,16 @@ export function ChangePassword(): JSX.Element {
     setRePasswordType('password');
   };
 
-  const onSubmit = async () => {
-    const data = await updateCustomerPassword(user.id, user.version, getValues('password'), getValues('newPassword'));
-    if (data.version) {
-      user.setVersion(data.version);
-      localStorage.setItem('userVersion', `${data.version}`);
-      notify();
-    } else {
-      showError();
-    }
+  const onSubmit = () => {
+    updateCustomerPassword(user.id, user.version, getValues('password'), getValues('newPassword')).then((data) => {
+      if (data.version) {
+        user.setVersion(data.version);
+        localStorage.setItem('userVersion', `${data.version}`);
+        notify();
+      } else {
+        showError();
+      }
+    });
   };
 
   return (

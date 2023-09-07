@@ -12,7 +12,7 @@ import {
 } from '../../services/profileSetter';
 import { Context } from '../../utils/createContext';
 
-import './Addresses.scss';
+import '../../pages/Profile/Profile.scss';
 import edit from '../../assets/edit.svg';
 import del from '../../assets/delete.svg';
 
@@ -65,7 +65,7 @@ export function Address({
   const { user } = useContext(Context);
 
   const changeColor = () => {
-    if (isBillingDefault || isShippingDefault) {
+    if (billingId === id || shippingId === id) {
       setColor('#07bc0c');
     } else {
       setColor('#dfdfdf');
@@ -74,7 +74,6 @@ export function Address({
 
   useEffect(() => {
     changeColor();
-    // loadData();
   });
 
   const turnOnEdit = () => {
@@ -96,45 +95,15 @@ export function Address({
     });
   };
 
-  // const setBilling = () => {
-  //   if (!isBillingDefault) {
-  //     updateCustomer(user.id, user.version, [setDefaultBillingAddress(id)])
-  //     .then((data) => {
-  //       if (data.version) {
-  //         user.setVersion(data.version);
-  //       }
-  //       loadData();
-  //     })
-  //   } else {
-  //     updateCustomer(user.id, user.version, [setDefaultBillingAddress()])
-  //     .then((data) => {
-  //       if (data.version) {
-  //         user.setVersion(data.version);
-  //       }
-  //       loadData();
-  //     })
-  //   }
-  // };
-
-  // const setShipping = () => {
-  //   if (!isShippingDefault) {
-  //     updateCustomer(user.id, user.version, [setDefaultShippingAddress(id)])
-  //     .then((data) => {
-  //       if (data.version) {
-  //         user.setVersion(data.version);
-  //       }
-  //       loadData();
-  //     })
-  //   } else {
-  //     updateCustomer(user.id, user.version, [setDefaultShippingAddress()])
-  //     .then((data) => {
-  //       if (data.version) {
-  //         user.setVersion(data.version);
-  //       }
-  //       loadData();
-  //     })
-  //   }
-  // };
+  const getDefaultId = (addressType: boolean, defaultId: string | undefined) => {
+    if (!addressType && id === defaultId) {
+      return undefined;
+    }
+    if (!addressType && id !== defaultId) {
+      return defaultId;
+    }
+    return id;
+  };
 
   const onSubmit = () => {
     const address = changeAddress(id, {
@@ -143,12 +112,11 @@ export function Address({
       postalCode: getValues('postalCode'),
       country: `${toAlpha2.getCode(getValues('country'))}`,
     });
-    const billing = isBillingDefault ? id : billingId;
-    const shipping = isShippingDefault ? id : shippingId;
+
     updateCustomer(user.id, user.version, [
       address,
-      setDefaultBillingAddress(billing),
-      setDefaultShippingAddress(shipping),
+      setDefaultBillingAddress(getDefaultId(isBillingDefault, billingId)),
+      setDefaultShippingAddress(getDefaultId(isShippingDefault, shippingId)),
     ]).then((data) => {
       if (data.version) {
         user.setVersion(data.version);
@@ -168,8 +136,8 @@ export function Address({
     >
       <Container className="d-flex align-items-start mb-1 p-0">
         <Col>
-          {isBillingDefault && !editMode && <p className="m-0 address-status">Default billing</p>}
-          {isShippingDefault && !editMode && <p className="m-0 address-status">Default shipping</p>}
+          {!editMode && id === billingId && <p className="m-0 address-status">Default billing</p>}
+          {!editMode && id === shippingId && <p className="m-0 address-status">Default shipping</p>}
         </Col>
         {!editMode && (
           <Col className="d-flex justify-content-end">

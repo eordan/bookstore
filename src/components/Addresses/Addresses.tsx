@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Container } from 'react-bootstrap';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { Customer } from '@commercetools/platform-sdk';
@@ -6,7 +6,7 @@ import { Address } from './Address';
 import { NewAddress } from './NewAddress';
 
 import 'react-toastify/dist/ReactToastify.css';
-import './Addresses.scss';
+import '../../pages/Profile/Profile.scss';
 
 type AddressesProps = {
   userData: Customer;
@@ -15,6 +15,13 @@ type AddressesProps = {
 
 export function Addresses({ userData, loadData }: AddressesProps): JSX.Element {
   const [isAddMode, setAddMode] = useState(false);
+  const [billingId, setBillingId] = useState<string | undefined>();
+  const [shippingId, setShippingId] = useState<string | undefined>();
+
+  useEffect(() => {
+    setBillingId(userData.defaultBillingAddressId);
+    setShippingId(userData.defaultShippingAddressId);
+  });
 
   const turnOnAddMode = () => {
     setAddMode(true);
@@ -30,7 +37,7 @@ export function Addresses({ userData, loadData }: AddressesProps): JSX.Element {
   };
 
   return (
-    <Container className="mt-3">
+    <Container className="my-3">
       <div>
         {!isAddMode && (
           <Button variant="success" className="ms-3" onClick={() => turnOnAddMode()}>
@@ -38,7 +45,7 @@ export function Addresses({ userData, loadData }: AddressesProps): JSX.Element {
           </Button>
         )}
       </div>
-      <div className="mb-3 addresses">
+      <div className="addresses">
         {!isAddMode &&
           userData.addresses.map((address) => (
             <Address
@@ -50,8 +57,8 @@ export function Addresses({ userData, loadData }: AddressesProps): JSX.Element {
               id={address.id as string}
               isBilling={userData.defaultBillingAddressId === address.id}
               isShipping={userData.defaultShippingAddressId === address.id}
-              billingId={userData.defaultBillingAddressId as string}
-              shippingId={userData.defaultShippingAddressId as string}
+              billingId={billingId as string}
+              shippingId={shippingId as string}
               loadData={loadData}
               notify={notify}
             />

@@ -6,6 +6,70 @@
   margin-right: 3rem;
 }
 
+.form-block {
+  min-width: 400px;
+  height: fit-content;
+  flex-direction: column;
+  padding: 15px;
+  border: solid #dfdfdf 1px;
+  border-radius: 10px;
+}
+
+.form-control:disabled {
+  border: transparent;
+  background-color: transparent !important;
+  font-weight: 500;
+}
+
+.edit-btn,
+.delete-btn {
+  border: unset;
+  background: transparent;
+  opacity: 0.6;
+  transition: 0.2s;
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.delete-btn img {
+  width: 23px !important;
+  height: 23px !important;
+}
+
+.save-btn {
+  min-width: 120px;
+}
+
+.addresses {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.form-select:disabled {
+  --bs-form-select-bg-img: none;
+  border: transparent;
+  background-color: transparent !important;
+  font-weight: 500;
+}
+
+.address-status {
+  font-weight: 500 !important;
+  color: #07bc0c;
+}
+
+@media screen and (max-width: 1200px) {
+  .addresses {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .profile {
     flex-direction: column !important;
@@ -17,5 +81,11 @@
 
   .list-group-item {
     text-align: center !important;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .form-block {
+    min-width: 300px;
   }
 }
