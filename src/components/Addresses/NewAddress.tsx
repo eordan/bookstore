@@ -4,8 +4,9 @@ import { useForm } from 'react-hook-form';
 import toAlpha2 from 'iso-3166-1-alpha-2';
 import { Context } from '../../utils/createContext';
 import { checkPostalCode } from '../../utils/validation';
-
 import { addAddress, updateCustomer } from '../../services/profileSetter';
+
+import '../../pages/Profile/Profile.scss';
 
 type NewAddressProps = {
   addMode: (isAddMode: boolean) => void;

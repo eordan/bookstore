@@ -8,7 +8,7 @@ import { Context } from '../../utils/createContext';
 import { changeEmail, setDateOfBirth, setFirstName, setLastName, updateCustomer } from '../../services/profileSetter';
 
 import 'react-toastify/dist/ReactToastify.css';
-import './PersonalInfo.scss';
+import '../../pages/Profile/Profile.scss';
 import edit from '../../assets/edit.svg';
 
 export function PersonalInfo(props: Customer): JSX.Element {
@@ -63,7 +63,7 @@ export function PersonalInfo(props: Customer): JSX.Element {
   };
 
   return (
-    <Form className="my-3 d-flex flex-column personal-block" onSubmit={handleSubmit(onSubmit)}>
+    <Form className="my-3 d-flex flex-column form-block" onSubmit={handleSubmit(onSubmit)}>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h5 className="m-0">Personal Info</h5>
         {!editMode && (

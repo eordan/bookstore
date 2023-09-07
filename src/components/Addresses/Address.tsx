@@ -12,7 +12,7 @@ import {
 } from '../../services/profileSetter';
 import { Context } from '../../utils/createContext';
 
-import './Addresses.scss';
+import '../../pages/Profile/Profile.scss';
 import edit from '../../assets/edit.svg';
 import del from '../../assets/delete.svg';
 

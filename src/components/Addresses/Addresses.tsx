@@ -6,7 +6,7 @@ import { Address } from './Address';
 import { NewAddress } from './NewAddress';
 
 import 'react-toastify/dist/ReactToastify.css';
-import './Addresses.scss';
+import '../../pages/Profile/Profile.scss';
 
 type AddressesProps = {
   userData: Customer;
