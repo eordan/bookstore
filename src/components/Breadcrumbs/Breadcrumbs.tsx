@@ -3,20 +3,25 @@ import { Button, Container } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
 import { Context } from '../../utils/createContext';
 
+import './Breadcrumbs.scss';
+
 export const Breadcrumb = observer(() => {
   const { store } = useContext(Context);
 
   return (
-    <Container>
+    <Container className="breadcrumbs">
       {store.breadcrumbs.map((breadcrumb) => (
         <Button
+          variant="secondary"
+          href={breadcrumb.target.value}
           key={breadcrumb.target.value}
           onClick={() => {
             breadcrumb.target.checked = false;
             breadcrumb.handler(breadcrumb.target);
           }}
+          dangerouslySetInnerHTML={{ __html: `${breadcrumb.name} &times;` }}
         >
-          {breadcrumb.name}
+          {}
         </Button>
       ))}
     </Container>

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Accordion, Form } from 'react-bootstrap';
+import { Accordion, Button, Form } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
 import MultiRangeSlider, { ChangeResult } from 'multi-range-slider-react';
 
@@ -13,8 +13,7 @@ export const Filters = observer(() => {
 
   const [isHardcover, setIsHardcover] = useState(false);
   const [isPaperback, setIsPaperback] = useState(false);
-
-  let isDiscount = false;
+  const [isDiscount, setIsDiscount] = useState(false);
 
   let minValue = 0;
   let maxValue = 550;
@@ -31,7 +30,7 @@ export const Filters = observer(() => {
     if (authorsFilter) filtersArray.push(authorsFilter);
     if (isHardcover) filtersArray.push('variants.attributes.bookFormat:"Hardcover"');
     if (isPaperback) filtersArray.push('variants.attributes.bookFormat:"Paperback"');
-    if (isDiscount) filtersArray.push('variants.scopedPriceDiscounted:true');
+    if (!isDiscount) filtersArray.push('variants.scopedPriceDiscounted:true');
     filtersArray.push(`variants.price.centAmount:range (${minValue * 100} to ${maxValue * 100})`);
     store.setFilter(filtersArray);
     return filtersArray;
@@ -99,6 +98,20 @@ export const Filters = observer(() => {
 
   return (
     <Form>
+      <Button
+        className="mb-3"
+        variant="secondary"
+        onClick={() => {
+          store.clearBreadcrumbs();
+          store.setFilter([]);
+          setIsHardcover(false);
+          setIsPaperback(false);
+          setIsDiscount(false);
+          filters();
+        }}
+      >
+        Clear filters
+      </Button>
       <Accordion defaultActiveKey={['']} alwaysOpen>
         <Accordion.Item eventKey="0">
           <Accordion.Header>Category</Accordion.Header>
@@ -182,8 +195,9 @@ export const Filters = observer(() => {
         type="checkbox"
         label="Show discounted products"
         className="mt-3"
-        onChange={(e) => {
-          isDiscount = e.target.checked;
+        checked={isDiscount}
+        onChange={() => {
+          setIsDiscount(!isDiscount);
           filters();
         }}
       />

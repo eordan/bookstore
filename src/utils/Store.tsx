@@ -58,12 +58,25 @@ class Store {
     return this._breadcrumbs;
   }
 
+  setBreadcrumbs(value: Breadcrumb[]) {
+    this._breadcrumbs = value;
+  }
+
   pushCrumb(value: Breadcrumb) {
     this._breadcrumbs.push(value);
   }
 
   popCrumb(value: Breadcrumb) {
     this._breadcrumbs = this._breadcrumbs.filter((item) => item.name !== value.name);
+  }
+
+  clearBreadcrumbs() {
+    this._breadcrumbs.map((item) => {
+      item.target.checked = false;
+      item.handler(item.target);
+      return item;
+    });
+    this._breadcrumbs = [];
   }
 }
 
