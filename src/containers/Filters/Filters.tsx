@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Accordion, Form } from 'react-bootstrap';
+import { observer } from 'mobx-react-lite';
 import MultiRangeSlider, { ChangeResult } from 'multi-range-slider-react';
 
 import './Filters.scss';
@@ -7,7 +8,7 @@ import { AUTHORS, CATEGORIES } from '../../utils/constants';
 import { searchProducts, getQueryDetails } from '../../services/productsSearcher';
 import { Context } from '../../utils/createContext';
 
-export function Filters(): JSX.Element {
+export const Filters = observer(() => {
   const { store } = useContext(Context);
 
   const [isHardcover, setIsHardcover] = useState(false);
@@ -42,18 +43,22 @@ export function Filters(): JSX.Element {
     });
   };
 
-  const categoriesControl = (isChecked: boolean, category: HTMLInputElement) => {
-    if (isChecked) {
+  const categoriesControl = (category: HTMLInputElement) => {
+    if (category.checked) {
       categoriesChecked.push(`"${category.value}"`);
       store.pushCrumb({
         target: category,
         name: category.nextSibling?.textContent as string,
+        attributesArray: categoriesChecked,
+        handler: categoriesControl,
       });
     } else {
       categoriesChecked = categoriesChecked.filter((id) => id !== `"${category.value}"`);
       store.popCrumb({
         target: category,
         name: category.nextSibling?.textContent as string,
+        attributesArray: categoriesChecked,
+        handler: categoriesControl,
       });
     }
 
@@ -65,18 +70,22 @@ export function Filters(): JSX.Element {
     filters();
   };
 
-  const authorsControl = (isChecked: boolean, author: HTMLInputElement) => {
-    if (isChecked) {
+  const authorsControl = (author: HTMLInputElement) => {
+    if (author.checked) {
       authorsChecked.push(`"${author.value}"`);
       store.pushCrumb({
         target: author,
         name: author.nextSibling?.textContent as string,
+        attributesArray: authorsChecked,
+        handler: authorsControl,
       });
     } else {
       authorsChecked = authorsChecked.filter((id) => id !== `"${author.value}"`);
       store.popCrumb({
         target: author,
         name: author.nextSibling?.textContent as string,
+        attributesArray: authorsChecked,
+        handler: authorsControl,
       });
     }
 
@@ -101,7 +110,7 @@ export function Filters(): JSX.Element {
                 type="checkbox"
                 label={category[0]}
                 aria-label={category[0]}
-                onChange={(e) => categoriesControl(e.target.checked, e.target)}
+                onChange={(e) => categoriesControl(e.target)}
               />
             ))}
           </Accordion.Body>
@@ -116,7 +125,7 @@ export function Filters(): JSX.Element {
                 type="checkbox"
                 label={author[0]}
                 aria-label={author[0]}
-                onChange={(e) => authorsControl(e.target.checked, e.target)}
+                onChange={(e) => authorsControl(e.target)}
               />
             ))}
           </Accordion.Body>
@@ -175,20 +184,9 @@ export function Filters(): JSX.Element {
         className="mt-3"
         onChange={(e) => {
           isDiscount = e.target.checked;
-          if (isDiscount) {
-            store.pushCrumb({
-              name: 'Discounted only',
-              target: e.target,
-            });
-          } else {
-            store.popCrumb({
-              name: 'Discounted only',
-              target: e.target,
-            });
-          }
           filters();
         }}
       />
     </Form>
   );
-}
+});

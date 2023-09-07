@@ -9,7 +9,15 @@ export const Breadcrumb = observer(() => {
   return (
     <Container>
       {store.breadcrumbs.map((breadcrumb) => (
-        <Button key={breadcrumb.target.value}>{breadcrumb.name}</Button>
+        <Button
+          key={breadcrumb.target.value}
+          onClick={() => {
+            breadcrumb.target.checked = false;
+            breadcrumb.handler(breadcrumb.target);
+          }}
+        >
+          {breadcrumb.name}
+        </Button>
       ))}
     </Container>
   );

@@ -54,4 +54,6 @@ export interface Currency {
 export interface Breadcrumb {
   target: HTMLInputElement;
   name: string;
+  attributesArray: string[];
+  handler: (target: HTMLInputElement) => void;
 }
