@@ -1,0 +1,20 @@
+.card {
+  transition: all 0.5s ease-in;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0 0 20px #434343;
+  }
+}
+
+.price {
+  font-size: 24px;
+  color: #00a1c1;
+}
+
+.old-price {
+  margin-right: 15px;
+  color: #ef000085;
+  text-decoration: line-through;
+  font-size: 18px;
+}

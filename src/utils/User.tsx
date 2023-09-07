@@ -5,9 +5,15 @@ class User {
 
   private _isEntered: boolean;
 
+  private _id: string;
+
+  private _version: number;
+
   constructor() {
     this._isAuth = false;
     this._isEntered = false;
+    this._id = '';
+    this._version = 0;
     makeAutoObservable(this);
   }
 
@@ -25,6 +31,22 @@ class User {
 
   get isEntered() {
     return this._isEntered;
+  }
+
+  setId(id: string) {
+    this._id = id;
+  }
+
+  get id() {
+    return this._id;
+  }
+
+  setVersion(version: number) {
+    this._version = version;
+  }
+
+  get version() {
+    return this._version;
   }
 }
 

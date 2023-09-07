@@ -31,7 +31,7 @@ describe('Registration tests', () => {
     expect(screen.getByText('Please enter your last name')).toBeInTheDocument();
     expect(screen.getByText('Minimum 13 years old')).toBeInTheDocument();
 
-    await userEvent.selectOptions(screen.getByTestId('shipping-country'), 'Belarus');
+    await userEvent.selectOptions(screen.getByTestId('shipping-country'), 'Canada');
     await userEvent.type(screen.getByTestId('shipping-postal-code'), '123');
     expect(screen.getByText('Please enter correct postal code')).toBeInTheDocument();
   });

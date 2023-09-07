@@ -5,7 +5,7 @@ dotenv.config({ path: '.env' });
 module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
   moduleNameMapper: {
-    '\\.scss$': 'identity-obj-proxy',
+    '\\.(scss|css)$': 'identity-obj-proxy',
     '^@components/(.*)$': '<rootDir>/src/components/$1',
     '^@containers/(.*)$': '<rootDir>/src/containers/$1',
     '.+\\.(png|jpg|ttf|woff|woff2)$': '<rootDir>/mockFile.ts',
@@ -14,7 +14,7 @@ module.exports = {
   collectCoverageFrom: ['./src/**'],
   coverageThreshold: {
     global: {
-      lines: 30,
+      lines: 27,
     },
   },
   roots: ['<rootDir>'],

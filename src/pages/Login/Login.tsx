@@ -2,12 +2,13 @@ import React, { useContext, useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import ErrorMessage from '@components/ErrorMessage';
+import { ToastContainer, toast, Slide } from 'react-toastify';
 import { RoutesEnum } from '../../utils/enums';
 import { loginCustomer } from '../../services/customerAuther';
 import { emailValidationRules, passwordValidationRules } from '../../utils/validation';
 import { Context } from '../../utils/createContext';
 
+import 'react-toastify/dist/ReactToastify.css';
 import './Login.scss';
 
 import view from '../../assets/view.png';
@@ -27,9 +28,17 @@ export function Login(): JSX.Element {
     },
     mode: 'onChange',
   });
-  const user = useContext(Context);
+  const { user } = useContext(Context);
   const navigate = useNavigate();
-  const [isErrorShowing, setIsErrorShowing] = useState<boolean>(false);
+
+  const notify = () => {
+    toast.error('Invalid email or password', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+      transition: Slide,
+      theme: 'colored',
+    });
+  };
 
   const signIn = async () => {
     const email = getValues('email');
@@ -39,9 +48,14 @@ export function Login(): JSX.Element {
     if (data.customer) {
       user.setIsAuth(true);
       user.setIsEntered(true);
+      localStorage.setItem('isAuth', 'true');
+      localStorage.setItem('userVersion', `${data.customer.version}`);
+      localStorage.setItem('userID', data.customer.id);
+      user.setId(data.customer.id as string);
+      user.setVersion(data.customer.version as number);
       navigate(RoutesEnum.MAIN_ROUTE);
     } else {
-      setIsErrorShowing(true);
+      notify();
     }
   };
 
@@ -59,7 +73,7 @@ export function Login(): JSX.Element {
     <Container className="d-flex flex-column justify-content-center align-items-center login-container">
       {user.isAuth && <Navigate to={RoutesEnum.MAIN_ROUTE} />}
       <h2>Welcome Back</h2>
-      {isErrorShowing && <ErrorMessage handle={setIsErrorShowing} message="Invalid email or password" />}
+      <ToastContainer />
       <Form className="d-flex flex-column mt-4" onSubmit={handleSubmit(onSubmit)}>
         <Form.Group className="mt-3">
           <Form.Label>Email *</Form.Label>
