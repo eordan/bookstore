@@ -14,7 +14,7 @@ export function App(): JSX.Element {
     user.setId(localStorage.getItem('userID') as string);
     user.setVersion(Number(localStorage.getItem('userVersion')));
   }
-        
+
   return (
     <BrowserRouter>
       <Header />
