@@ -23,4 +23,9 @@ module.exports = {
     }),
     new webpack.DefinePlugin(envKeys),
   ],
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
+  },
 };

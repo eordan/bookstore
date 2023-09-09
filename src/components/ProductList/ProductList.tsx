@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import { Row } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
 import { Context } from '../../utils/createContext';
-import { getQueryDetails, searchProducts } from '../../services/productsSearcher';
+import { getQueryDetails, searchProducts } from '../../services/productsHandler/productsSearcher';
 
 export const ProductList = observer(() => {
   const { store } = useContext(Context);

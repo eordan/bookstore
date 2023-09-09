@@ -1,7 +1,7 @@
 import { createApiBuilderFromCtpClient, ProductProjectionPagedSearchResponse } from '@commercetools/platform-sdk';
-import { searchProductsCtpClient } from './withClientCredentialsFlowClientBuilder';
-import { ProductProjectionsQueryParameters, Currency, type StringUndefined } from '../utils/types';
-import { PROJECT_KEY } from './apiClientDetailsSetter';
+import { searchProductsCtpClient } from '../flows/withClientCredentialsFlowClientBuilder';
+import { ProductProjectionsQueryParameters, Currency, type StringUndefined } from '../../utils/types';
+import { PROJECT_KEY } from '../helpers/apiClientDetailsSetter';
 
 const defaultResultsLimit = 20;
 

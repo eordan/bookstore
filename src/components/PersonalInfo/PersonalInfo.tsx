@@ -5,7 +5,13 @@ import { ToastContainer, toast, Slide } from 'react-toastify';
 import { Customer } from '@commercetools/platform-sdk';
 import { namesValidationRules, checkBirthday, emailValidationRules } from '../../utils/validation';
 import { Context } from '../../utils/createContext';
-import { changeEmail, setDateOfBirth, setFirstName, setLastName, updateCustomer } from '../../services/profileSetter';
+import {
+  changeEmail,
+  setDateOfBirth,
+  setFirstName,
+  setLastName,
+  updateCustomer,
+} from '../../services/profileHandler/profileSetter';
 
 import 'react-toastify/dist/ReactToastify.css';
 import '../../pages/Profile/Profile.scss';

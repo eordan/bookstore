@@ -9,7 +9,7 @@ import {
   setDefaultBillingAddress,
   setDefaultShippingAddress,
   updateCustomer,
-} from '../../services/profileSetter';
+} from '../../services/profileHandler/profileSetter';
 import { Context } from '../../utils/createContext';
 
 import '../../pages/Profile/Profile.scss';

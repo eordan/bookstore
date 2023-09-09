@@ -1,8 +1,8 @@
 import { createApiBuilderFromCtpClient, CustomerUpdateAction, Customer } from '@commercetools/platform-sdk';
-import { getSetCustomers } from './withClientCredentialsFlowClientBuilder';
-import { BaseAddress } from '../utils/types';
-import { Actions } from '../utils/enums';
-import { PROJECT_KEY } from './apiClientDetailsSetter';
+import { getSetCustomers } from '../flows/withClientCredentialsFlowClientBuilder';
+import { BaseAddress } from '../../utils/types';
+import { Actions } from '../../utils/enums';
+import { PROJECT_KEY } from '../helpers/apiClientDetailsSetter';
 
 export const changeEmail = (email: string): CustomerUpdateAction => {
   return {

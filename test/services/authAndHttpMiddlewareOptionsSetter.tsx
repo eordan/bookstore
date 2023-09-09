@@ -2,8 +2,8 @@ import fetch from 'node-fetch';
 import {
   authMiddlewareOptionsForClientCredentialsFlow,
   authMiddlewareOptionsForPasswordFlow,
-} from '../../src/services/authAndHttpMiddlewareOptionsSetter';
-import { API_ADMIN_SCOPE, PROJECT_KEY } from '../../src/services/apiClientDetailsSetter';
+} from '../../src/services/helpers/authAndHttpMiddlewareOptionsSetter';
+import { API_ADMIN_SCOPE, PROJECT_KEY } from '../../src/services/helpers/apiClientDetailsSetter';
 
 describe('authMiddlewareOptionsForClientCredentialsFlow', () => {
   it('should return AuthMiddlewareOptions with the correct properties', () => {

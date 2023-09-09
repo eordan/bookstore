@@ -6,7 +6,7 @@ import ChangePassword from '@components/ChangePassword';
 import { Customer } from '@commercetools/platform-sdk';
 import { useNavigate } from 'react-router-dom';
 import { RoutesEnum } from '../../utils/enums';
-import { getCustomer } from '../../services/profileGetter';
+import { getCustomer } from '../../services/profileHandler/profileGetter';
 import { Context } from '../../utils/createContext';
 
 import 'react-toastify/dist/ReactToastify.css';

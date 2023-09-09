@@ -5,7 +5,7 @@ import MultiRangeSlider, { ChangeResult } from 'multi-range-slider-react';
 
 import './Filters.scss';
 import { AUTHORS, CATEGORIES } from '../../utils/constants';
-import { searchProducts, getQueryDetails } from '../../services/productsSearcher';
+import { searchProducts, getQueryDetails } from '../../services/productsHandler/productsSearcher';
 import { Context } from '../../utils/createContext';
 
 export const Filters = observer(() => {

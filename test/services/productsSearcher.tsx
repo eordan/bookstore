@@ -1,4 +1,4 @@
-import { getQueryDetails, searchProducts } from '../../src/services/productsSearcher';
+import { getQueryDetails, searchProducts } from '../../src/services/productsHandler/productsSearcher';
 
 const data = getQueryDetails();
 

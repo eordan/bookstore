@@ -4,7 +4,7 @@ import {
   API_ADMIN_SCOPE,
   PROJECT_KEY,
   REGION,
-} from '../../src/services/apiClientDetailsSetter';
+} from '../../src/services/helpers/apiClientDetailsSetter';
 
 describe('API_VIEW_CUSTOMERS_SCOPE constant', () => {
   it('should have a valid clientSecret', () => {

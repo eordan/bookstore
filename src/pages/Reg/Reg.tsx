@@ -4,8 +4,8 @@ import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { RoutesEnum } from '../../utils/enums';
-import { getCustomerDetails, createCustomer } from '../../services/customerCreator';
-import { loginCustomer } from '../../services/customerAuther';
+import { getCustomerDetails, createCustomer } from '../../services/customerHandler/customerCreator';
+import { loginCustomer } from '../../services/customerHandler/customerAuther';
 import { Context } from '../../utils/createContext';
 import {
   checkBirthday,

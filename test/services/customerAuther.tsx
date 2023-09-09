@@ -1,4 +1,4 @@
-import { loginCustomer } from '../../src/services/customerAuther';
+import { loginCustomer } from '../../src/services/customerHandler/customerAuther';
 
 test('should make an API request and return the response', async () => {
   const request = {
