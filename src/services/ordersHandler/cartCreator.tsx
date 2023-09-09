@@ -1,6 +1,6 @@
 import { Cart, MyCartDraft, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
-import { anonymousSessionFlowCtpClient } from './withAnonymousSessionFlowClientBuilder';
-import { PROJECT_KEY } from './apiClientDetailsSetter';
+import { anonymousSessionFlowCtpClient } from '../flows/withAnonymousSessionFlowClientBuilder';
+import { PROJECT_KEY } from '../helpers/apiClientDetailsSetter';
 
 export const createAnonimousCart = async (cartDetails: MyCartDraft): Promise<Cart> => {
   const apiRoot = createApiBuilderFromCtpClient(anonymousSessionFlowCtpClient).withProjectKey({

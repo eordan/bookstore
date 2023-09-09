@@ -1,6 +1,6 @@
 import { createApiBuilderFromCtpClient, Customer } from '@commercetools/platform-sdk';
-import { getSetCustomers } from './withClientCredentialsFlowClientBuilder';
-import { PROJECT_KEY } from './apiClientDetailsSetter';
+import { getSetCustomers } from '../flows/withClientCredentialsFlowClientBuilder';
+import { PROJECT_KEY } from '../helpers/apiClientDetailsSetter';
 
 export const getCustomer = (ID: string): Promise<Customer> => {
   const apiRoot = createApiBuilderFromCtpClient(getSetCustomers).withProjectKey({

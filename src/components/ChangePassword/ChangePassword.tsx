@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { passwordValidationRules } from '../../utils/validation';
 import { Context } from '../../utils/createContext';
-import { updateCustomerPassword } from '../../services/profileSetter';
+import { updateCustomerPassword } from '../../services/profileHandler/profileSetter';
 
 import 'react-toastify/dist/ReactToastify.css';
 import '../../pages/Profile/Profile.scss';

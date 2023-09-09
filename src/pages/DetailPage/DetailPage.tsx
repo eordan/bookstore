@@ -3,7 +3,7 @@ import { Carousel, Col, Container, Row, Image } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { ProductCatalogData } from '@commercetools/platform-sdk';
 import SliderModal from '@containers/SliderModal';
-import { getProduct } from '../../services/productsSearcher';
+import { getProduct } from '../../services/productsHandler/productsSearcher';
 
 import './DetailPage.scss';
 import Lorem1 from '../../assets/lorem1.jpg';

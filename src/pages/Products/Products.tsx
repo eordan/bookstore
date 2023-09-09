@@ -3,7 +3,7 @@ import Filters from '@containers/Filters';
 import Breadcrumb from '@components/Breadcrumbs';
 import React, { useContext, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
-import { getQueryDetails, searchProducts } from '../../services/productsSearcher';
+import { getQueryDetails, searchProducts } from '../../services/productsHandler/productsSearcher';
 import { Context } from '../../utils/createContext';
 
 export function Products(): JSX.Element {
