@@ -15,7 +15,8 @@
   }
 }
 
-.profile-btn {
+.profile-btn,
+.cart-btn {
   margin-right: 10px;
   background: transparent;
   border: unset;
@@ -23,8 +24,8 @@
   transition: 0.2s;
 
   img {
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
   }
 
   &:hover {

@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import Login from '../../src/pages/Login';
+import Login from '../../src/pages/Cart';
 
 function getPasswordInput() {
   return screen.getByPlaceholderText('Enter your password');
