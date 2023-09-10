@@ -8,7 +8,7 @@ export enum RoutesEnum {
   PAGE_404 = '/*',
 }
 
-export enum Actions {
+export enum ProfileActions {
   changeEmail = 'changeEmail',
   setFirstName = 'setFirstName',
   setLastName = 'setLastName',
@@ -22,4 +22,8 @@ export enum Actions {
   addBillingAddressId = 'addBillingAddressId',
   removeBillingAddressId = 'removeBillingAddressId',
   setDateOfBirth = 'setDateOfBirth',
+}
+
+export enum CartActions {
+  addLineItem = 'addLineItem',
 }

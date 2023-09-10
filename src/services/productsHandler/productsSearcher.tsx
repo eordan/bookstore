@@ -5,7 +5,7 @@ import { PROJECT_KEY } from '../helpers/apiClientDetailsSetter';
 
 const defaultResultsLimit = 20;
 
-const getCurrencyData = (country: string): Currency => {
+export const getCurrencyData = (country: string): Currency => {
   if (country === 'CA') {
     return {
       currency: 'CAD',

@@ -5,11 +5,13 @@ import 'react-bootstrap';
 import user from './utils/User';
 import store from './utils/Store';
 
-// import { getQueryDetails, searchProducts } from './services/productsHandler/productsSearcher';
+import { getCurrencyData, getQueryDetails, searchProducts } from './services/productsHandler/productsSearcher';
 
-import { getMyCartDraft, createAnonimousCart } from './services/ordersHandler/cartCreator';
+import { createAnonimousCart } from './services/ordersHandler/cartCreator';
 
 import { getCart } from './services/ordersHandler/cartGetter';
+
+import { addLineItem, updateCart } from './services/ordersHandler/cartUpdater';
 
 import App from './components/App';
 import './index.scss';
@@ -21,17 +23,21 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   </Context.Provider>,
 );
 
-// const details = getQueryDetails('Harry');
-// const data = searchProducts(details);
-// console.log(data);
+const details = getQueryDetails('Harry');
+const data = searchProducts(details);
+console.log(data);
 
-const getCRT = async () => {
-  const draft = getMyCartDraft();
+const getCrt = async () => {
+  const draft = getCurrencyData('Canada');
   const cart = await createAnonimousCart(draft);
-  // console.log(cart);
+  console.log(cart);
 
   const getcart = getCart(cart.id as string);
   console.log(getcart);
+
+  const item = addLineItem('983d26e8-2c7a-40d5-9fa5-9ddd7af931a7');
+  const updatedCart = updateCart(cart.id, cart.version, [item]);
+  console.log(updatedCart);
 };
 
-getCRT();
+getCrt();
