@@ -1,14 +1,14 @@
-import { Cart, MyCartDraft, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
+import { Cart, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import { anonymousSessionFlowCtpClient } from '../flows/withAnonymousSessionFlowClientBuilder';
 import { PROJECT_KEY } from '../helpers/apiClientDetailsSetter';
 
-export const getMyCartDraft = () => {
-  return {
-    currency: 'CAD',
-  };
-};
+// export const getMyCartDraft = () => {
+//   return {
+//     currency: 'CAD',
+//   };
+// };
 
-export const createAnonimousCart = async (cartDetails: MyCartDraft): Promise<Cart> => {
+export const getCart = async (ID: string): Promise<Cart> => {
   const apiRoot = createApiBuilderFromCtpClient(anonymousSessionFlowCtpClient).withProjectKey({
     projectKey: PROJECT_KEY,
   });
@@ -16,9 +16,8 @@ export const createAnonimousCart = async (cartDetails: MyCartDraft): Promise<Car
   const data = apiRoot
     .me()
     .carts()
-    .post({
-      body: cartDetails,
-    })
+    .withId({ ID })
+    .get()
     .execute()
     .then(({ body }) => {
       return body;
