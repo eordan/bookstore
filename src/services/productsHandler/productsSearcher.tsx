@@ -61,6 +61,7 @@ export const searchProducts = async (
         sort: params.sort,
         priceCurrency: params.currency?.currency,
         priceCountry: params.currency?.country,
+        withTotal: false,
       },
     })
     .execute()
