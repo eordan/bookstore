@@ -59,3 +59,9 @@
   cursor: default !important;
   box-shadow: none !important;
 }
+
+@media screen and (max-width: 768px) {
+  .cart {
+    flex-direction: column !important;
+  }
+}
