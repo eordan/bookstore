@@ -1,40 +1,40 @@
 import { createApiBuilderFromCtpClient, CustomerUpdateAction, Customer } from '@commercetools/platform-sdk';
 import { getSetCustomers } from '../flows/withClientCredentialsFlowClientBuilder';
 import { BaseAddress } from '../../utils/types';
-import { Actions } from '../../utils/enums';
+import { ProfileActions } from '../../utils/enums';
 import { PROJECT_KEY } from '../helpers/apiClientDetailsSetter';
 
 export const changeEmail = (email: string): CustomerUpdateAction => {
   return {
-    action: Actions.changeEmail,
+    action: ProfileActions.changeEmail,
     email,
   };
 };
 
 export const setFirstName = (firstName: string): CustomerUpdateAction => {
   return {
-    action: Actions.setFirstName,
+    action: ProfileActions.setFirstName,
     firstName,
   };
 };
 
 export const setLastName = (lastName: string): CustomerUpdateAction => {
   return {
-    action: Actions.setLastName,
+    action: ProfileActions.setLastName,
     lastName,
   };
 };
 
 export const addAddress = (address: BaseAddress): CustomerUpdateAction => {
   return {
-    action: Actions.addAddress,
+    action: ProfileActions.addAddress,
     address,
   };
 };
 
 export const changeAddress = (addressId: string, address: BaseAddress): CustomerUpdateAction => {
   return {
-    action: Actions.changeAddress,
+    action: ProfileActions.changeAddress,
     addressId,
     address,
   };
@@ -42,49 +42,49 @@ export const changeAddress = (addressId: string, address: BaseAddress): Customer
 
 export const removeAddress = (addressId: string): CustomerUpdateAction => {
   return {
-    action: Actions.removeAddress,
+    action: ProfileActions.removeAddress,
     addressId,
   };
 };
 
 export const setDefaultShippingAddress = (addressId?: string): CustomerUpdateAction => {
   return {
-    action: Actions.setDefaultShippingAddress,
+    action: ProfileActions.setDefaultShippingAddress,
     addressId,
   };
 };
 
 export const addShippingAddressId = (addressId: string): CustomerUpdateAction => {
   return {
-    action: Actions.addShippingAddressId,
+    action: ProfileActions.addShippingAddressId,
     addressId,
   };
 };
 
 export const removeShippingAddressId = (addressId: string): CustomerUpdateAction => {
   return {
-    action: Actions.removeShippingAddressId,
+    action: ProfileActions.removeShippingAddressId,
     addressId,
   };
 };
 
 export const setDefaultBillingAddress = (addressId?: string): CustomerUpdateAction => {
   return {
-    action: Actions.setDefaultBillingAddress,
+    action: ProfileActions.setDefaultBillingAddress,
     addressId,
   };
 };
 
 export const addBillingAddressId = (addressId: string): CustomerUpdateAction => {
   return {
-    action: Actions.addBillingAddressId,
+    action: ProfileActions.addBillingAddressId,
     addressId,
   };
 };
 
 export const removeBillingAddressId = (addressId: string): CustomerUpdateAction => {
   return {
-    action: Actions.removeBillingAddressId,
+    action: ProfileActions.removeBillingAddressId,
     addressId,
   };
 };
@@ -93,7 +93,7 @@ export const setDateOfBirth = (birthday: string): CustomerUpdateAction => {
   const dateOfBirth = new Date(birthday).toISOString().split('T')[0];
 
   return {
-    action: Actions.setDateOfBirth,
+    action: ProfileActions.setDateOfBirth,
     dateOfBirth,
   };
 };

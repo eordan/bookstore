@@ -5,7 +5,7 @@ import { PROJECT_KEY } from '../helpers/apiClientDetailsSetter';
 
 const defaultResultsLimit = 20;
 
-const getCurrencyData = (country: string): Currency => {
+export const getCurrencyData = (country: string): Currency => {
   if (country === 'CA') {
     return {
       currency: 'CAD',
@@ -61,6 +61,7 @@ export const searchProducts = async (
         sort: params.sort,
         priceCurrency: params.currency?.currency,
         priceCountry: params.currency?.country,
+        withTotal: false,
       },
     })
     .execute()
