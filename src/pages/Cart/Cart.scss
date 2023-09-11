@@ -1,0 +1,61 @@
+.item {
+  height: 10rem !important;
+  border: solid #dfdfdf 1px;
+  border-radius: 10px;
+}
+
+.item-img {
+  width: auto;
+  height: 9rem;
+}
+
+.total {
+  height: fit-content;
+  border: solid #dfdfdf 1px;
+  border-radius: 10px;
+}
+
+.quantity-block {
+  width: 90px !important;
+  height: 30px !important;
+  padding: 0 !important;
+  background: #dfdfdf;
+  border-radius: 10px;
+}
+
+.quantity {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0 !important;
+  font-weight: 500;
+
+  &:first-child,
+  &:last-child {
+    padding-bottom: 4px !important;
+    font-size: 1.5em;
+  }
+}
+
+.delete-btn {
+  border: unset;
+  background: transparent;
+  opacity: 0.6;
+  transition: 0.2s;
+
+  img {
+    width: 23px;
+    height: 23px;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.card:hover {
+  cursor: default !important;
+  box-shadow: none !important;
+}
