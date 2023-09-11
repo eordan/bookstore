@@ -47,7 +47,7 @@ export function Cart(): JSX.Element {
           </ListGroup.Item>
         </ListGroup>
       </Col>
-      <Col sm={12} md={3} className="d-flex flex-column align-items-center p-0">
+      <Col sm={12} md={3} className="d-flex flex-column align-items-center p-0 mb-3">
         <Form className="d-flex flex-column justify-content-between total w-100 p-3">
           <Form.Text className="d-flex justify-content-between mb-4">
             <h3>Total:</h3>

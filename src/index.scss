@@ -22,3 +22,10 @@ body {
 .Toastify__toast-theme--colored.Toastify__toast--error {
   background: #f66;
 }
+
+@media screen and (max-width: 768px) {
+  #root {
+    height: unset;
+    grid-template-rows: minmax(72px, max-content) auto 72px;
+  }
+}
