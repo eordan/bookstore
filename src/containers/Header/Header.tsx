@@ -9,7 +9,8 @@ import { LINKS_ARRAY } from '../../utils/constants';
 
 import './Header.scss';
 
-import profile from '../../assets/profile.svg';
+import profile from '../../assets/profile1.svg';
+import cart from '../../assets/cart.svg';
 
 export function Header(): JSX.Element {
   const navigate = useNavigate();
@@ -28,6 +29,10 @@ export function Header(): JSX.Element {
               <Links key={link.id} to={link.to} title={link.title} />
             ))}
           </Nav>
+          <NavLink className="cart-btn me-4 text-decoration-none" to={RoutesEnum.CART_ROUTE}>
+            <img src={cart} alt="cart" />
+            <span className="ms-1">1</span>
+          </NavLink>
           {!user.isAuth && (
             <Nav className="d-flex nav-btns">
               <NavLink style={{ textDecoration: 'none' }} to={RoutesEnum.LOGIN_ROUTE}>
@@ -59,6 +64,10 @@ export function Header(): JSX.Element {
             </Nav>
           )}
         </Navbar.Collapse>
+        <NavLink className="cart-btn mobile me-4 text-decoration-none" to={RoutesEnum.CART_ROUTE}>
+          <img src={cart} alt="cart" />
+          <span className="ms-1">1</span>
+        </NavLink>
       </Container>
     </Navbar>
   );

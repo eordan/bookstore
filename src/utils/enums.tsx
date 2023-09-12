@@ -5,6 +5,7 @@ export enum RoutesEnum {
   PROFILE_ROUTE = '/profile',
   ABOUT_ROUTE = '/about',
   PRODUCTS_ROUTE = '/products',
+  CART_ROUTE = '/cart',
   PAGE_404 = '/*',
 }
 

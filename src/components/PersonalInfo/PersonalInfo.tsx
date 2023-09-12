@@ -15,6 +15,7 @@ import {
 
 import 'react-toastify/dist/ReactToastify.css';
 import '../../pages/Profile/Profile.scss';
+import '../../styles/main.scss';
 import edit from '../../assets/edit.svg';
 
 export function PersonalInfo(props: Customer): JSX.Element {
@@ -73,9 +74,9 @@ export function PersonalInfo(props: Customer): JSX.Element {
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h5 className="m-0">Personal Info</h5>
         {!editMode && (
-          <button type="button" className="edit-btn" onClick={turnOnEdit}>
+          <Button type="button" className="edit-btn" onClick={turnOnEdit}>
             <img src={edit} alt="edit" />
-          </button>
+          </Button>
         )}
       </div>
       <Form.Group as={Row} className="p-0">

@@ -11,6 +11,7 @@ import { Context } from '../../utils/createContext';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './Profile.scss';
+import '../../styles/main.scss';
 
 export function Profile(): JSX.Element {
   const [selectedCategory, setSelectedCategory] = useState('Personal Info');

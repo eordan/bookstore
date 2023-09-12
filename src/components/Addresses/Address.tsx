@@ -13,6 +13,7 @@ import {
 import { Context } from '../../utils/createContext';
 
 import '../../pages/Profile/Profile.scss';
+import '../../styles/main.scss';
 import edit from '../../assets/edit.svg';
 import del from '../../assets/delete.svg';
 
@@ -141,12 +142,12 @@ export function Address({
         </Col>
         {!editMode && (
           <Col className="d-flex justify-content-end">
-            <button type="button" className="edit-btn" onClick={turnOnEdit}>
+            <Button type="button" className="edit-btn" onClick={turnOnEdit}>
               <img src={edit} alt="edit" />
-            </button>
-            <button type="button" className="delete-btn" onClick={deleteAddress}>
+            </Button>
+            <Button type="button" className="delete-btn" onClick={deleteAddress}>
               <img src={del} alt="delete" />
-            </button>
+            </Button>
           </Col>
         )}
       </Container>

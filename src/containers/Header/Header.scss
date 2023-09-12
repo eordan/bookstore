@@ -15,20 +15,42 @@
   }
 }
 
-.profile-btn {
+.navbar-collapse {
+  position: relative;
+}
+
+.profile-btn,
+.cart-btn {
+  position: relative;
   margin-right: 10px;
   background: transparent;
   border: unset;
-  opacity: 0.6;
+  opacity: 0.8;
   transition: 0.2s;
 
   img {
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
   }
 
   &:hover {
     opacity: 1;
+  }
+}
+
+.profile-btn::after {
+  content: 'Profile';
+  padding-left: 5px;
+  color: #0d6efd;
+  vertical-align: bottom;
+}
+
+.cart-btn {
+  position: absolute;
+  right: 170px;
+
+  &.mobile {
+    display: none;
   }
 }
 
@@ -48,5 +70,22 @@
       top: 2px;
       content: 'Profile';
     }
+  }
+
+  .cart-btn {
+    display: none;
+
+    &.mobile {
+      display: block;
+      position: absolute;
+      top: 23px;
+      right: 25%;
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .cart-btn.mobile {
+    right: 20%;
   }
 }
