@@ -32,11 +32,11 @@ const collaborationDetails = {
   aboutOurTeam:
     'Our dynamic team of dedicated web developers collaborated seamlessly to bring this project to life. Each team member brought a unique set of skills and perspectives, contributing to the success of the final project.',
   teamCollaborationOne:
-    "From the project's inception, we recognized the importance of effective communication and a structured workflow. We established regular meetings to discuss goals, share ideas, and outline tasks. By leveraging version control systems like Git, we ensured a smooth development process, allowing us to work concurrently on different aspects of the project.",
+    "From the project's inception, we recognized the importance of effective communication and a structured workflow. We established regular meetings to discuss goals, share ideas, and outline tasks. By leveraging Git version control systems, we ensured a smooth development process that allowed us to work concurrently on different aspects of the project.",
   teamCollaborationTwo:
     "Our collaboration extended beyond just code. We collectively brainstormed the project's design, user interface, and user experience, ensuring that it met both functional and aesthetic standards. Through rigorous code reviews and testing, we maintained a high-quality standard, identifying and addressing issues promptly.",
   result:
-    'Through our cohesive teamwork, we successfully delivered a front-end project that not only met the course requirements but also showcased our commitment to collaboration, problem-solving, and innovation. We are proud of what we have achieved as a team and look forward to future opportunities to work together on exciting web development projects.',
+    'Through our cohesive teamwork, we successfully delivered the end result that not only met the course requirements but also showcased our commitment to collaboration, problem-solving, and innovation. We are proud of what we have achieved as a team and look forward to future opportunities to work together on new and exciting projects.',
 };
 
 export function About(): JSX.Element {
@@ -53,10 +53,10 @@ export function About(): JSX.Element {
         </Container>
       </div>
 
-      <div className="row collaboration">
+      <div className="collaboration">
         <h2 className="mt-4">About Our Team</h2>
         <p>{collaborationDetails.aboutOurTeam}</p>
-        <h2 className="mt-4">Team Collaboration</h2>
+        <h2 className="mt-4">Collaboration</h2>
         <p>{collaborationDetails.teamCollaborationOne}</p>
         <p>{collaborationDetails.teamCollaborationTwo}</p>
         <h2 className="mt-4">Result</h2>
