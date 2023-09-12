@@ -9,7 +9,7 @@ import { LINKS_ARRAY } from '../../utils/constants';
 
 import './Header.scss';
 
-import profile from '../../assets/profile1.svg';
+import profile from '../../assets/profile.svg';
 import cart from '../../assets/cart.svg';
 
 export function Header(): JSX.Element {

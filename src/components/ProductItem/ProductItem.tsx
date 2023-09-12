@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Col } from 'react-bootstrap';
+import { Button, Card, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { ProductProjection } from '@commercetools/platform-sdk';
 import { RoutesEnum } from '../../utils/enums';
@@ -15,6 +15,7 @@ export function ProductItem({ product }: ProductProps): JSX.Element {
   let url = '';
   let category = '';
   let price = '';
+  let author = '';
 
   if (product.masterVariant.images) {
     const img = product.masterVariant.images[0];
@@ -31,12 +32,17 @@ export function ProductItem({ product }: ProductProps): JSX.Element {
     price = (product.masterVariant.prices[0].value.centAmount / 100).toFixed(2);
   }
 
+  if (product.masterVariant.attributes) {
+    author = product.masterVariant.attributes[0].value;
+  }
+
   return (
     <Col>
-      <Card bg="light" className="h-100 card" onClick={() => navigate(`${RoutesEnum.PRODUCTS_ROUTE}/${product.id}`)}>
+      <Card bg="light" className="h-100" onClick={() => navigate(`${RoutesEnum.PRODUCTS_ROUTE}/${product.id}`)}>
         <Card.Img src={url} />
         <Card.Body>
           <Card.Title>{product.name.en}</Card.Title>
+          <Card.Subtitle className="text-secondary mb-2">{author}</Card.Subtitle>
           <Card.Text>{category}</Card.Text>
           {product.masterVariant.scopedPriceDiscounted ? (
             <div className="d-flex align-items-center">
@@ -48,6 +54,7 @@ export function ProductItem({ product }: ProductProps): JSX.Element {
           ) : (
             <Card.Text className="price">{price}</Card.Text>
           )}
+          <Button>Add to cart</Button>
         </Card.Body>
       </Card>
     </Col>
