@@ -7,6 +7,7 @@ import { checkPostalCode } from '../../utils/validation';
 import { addAddress, updateCustomer } from '../../services/profileHandler/profileSetter';
 
 import '../../pages/Profile/Profile.scss';
+import '../../styles/main.scss';
 
 type NewAddressProps = {
   addMode: (isAddMode: boolean) => void;

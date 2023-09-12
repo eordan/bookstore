@@ -21,28 +21,6 @@
   font-weight: 500;
 }
 
-.edit-btn,
-.delete-btn {
-  border: unset;
-  background: transparent;
-  opacity: 0.6;
-  transition: 0.2s;
-
-  img {
-    width: 20px;
-    height: 20px;
-  }
-
-  &:hover {
-    opacity: 1;
-  }
-}
-
-.delete-btn img {
-  width: 23px !important;
-  height: 23px !important;
-}
-
 .save-btn {
   min-width: 120px;
 }

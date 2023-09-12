@@ -7,6 +7,7 @@ import { Button, Container, ListGroup, Form, Col } from 'react-bootstrap';
 
 // import 'react-toastify/dist/ReactToastify.css';
 import './Cart.scss';
+import '../../styles/main.scss';
 import placeholder from '../../assets/placeholder.jpg';
 import del from '../../assets/delete.svg';
 
@@ -39,9 +40,9 @@ export function Cart(): JSX.Element {
                 <h3 className="m-0 text-center font-weight-500">10$</h3>
               </Col>
               <Col lg={1} xs={3} xxs={{ order: 2 }} className="d-flex justify-content-center">
-                <button type="button" className="delete-btn p-1">
+                <Button type="button" className="delete-btn p-1">
                   <img src={del} alt="delete" />
-                </button>
+                </Button>
               </Col>
             </Col>
           </ListGroup.Item>

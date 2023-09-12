@@ -39,22 +39,6 @@
   }
 }
 
-.delete-btn {
-  border: unset;
-  background: transparent;
-  opacity: 0.6;
-  transition: 0.2s;
-
-  img {
-    width: 23px;
-    height: 23px;
-  }
-
-  &:hover {
-    opacity: 1;
-  }
-}
-
 .card:hover {
   cursor: default !important;
   box-shadow: none !important;
