@@ -1,4 +1,8 @@
 import React from 'react';
+import { Container } from 'react-bootstrap';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './About.scss';
 
 const teamMembers = [
   {
@@ -38,7 +42,16 @@ const collaborationDetails = {
 export function About(): JSX.Element {
   return (
     <div className="container about-us">
-      <h1 className="mt-4">About Us</h1>
+      <div className="about">
+        <Container className="d-flex about-container">
+          <h1 className="title">Our Team</h1>
+          <div className="breadcrumbs">
+            <p className="breadcrumbs-main">Main&#160;&#160;&#160;&#160;&#62;</p>
+            <p className="breadcrumbs-about">About</p>
+          </div>
+          <ToastContainer />
+        </Container>
+      </div>
 
       <div className="row collaboration">
         <h2 className="mt-4">About Our Team</h2>
