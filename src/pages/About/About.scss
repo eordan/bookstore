@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-image: url('../../assets/background.svg');
+  background-image: url('../../assets/about-us-background.svg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -45,23 +45,41 @@
   text-align: center;
 }
 
+.line {
+  max-width: 570px;
+  border-bottom: 1px solid #888;
+  margin: 50px auto;
+  text-align: center;
+}
+
 .team-members {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.bios {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .team-members .media {
   display: flex;
   align-items: center;
-  margin: 20px;
+  margin: 30px;
   max-width: 600px;
 }
 
 .team-members img {
-  width: 100px;
-  height: 100px;
-  margin-right: 20px;
+  width: 150px;
+  height: 150px;
+  margin-right: 50px;
+  border-radius: 50%;
 }
 
 .team-members .media-body {
@@ -76,9 +94,18 @@
 
 .team-members p {
   margin-bottom: 10px;
+  max-width: 450px;
 }
 
 .team-members a {
   display: block;
   margin-top: 10px;
+}
+
+.rs-school-logo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+  text-align: center;
 }

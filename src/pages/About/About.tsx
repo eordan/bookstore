@@ -7,24 +7,24 @@ import './About.scss';
 const teamMembers = [
   {
     name: 'Alina Radjukevich',
-    role: 'Student',
-    bio: 'Passionate web developer with a love for creating user-friendly interfaces.',
+    role: 'RS School Student',
+    bio: "I'm an aspiring web developer currently in my journey to mastering the world of web development. While still a student, I have a strong grasp of React, a powerful JavaScript library. My enthusiasm for coding and my ability to harness React's capabilities allow me to create dynamic and user-friendly interfaces. I'm excited to continue learning and growing in the field of web development.",
     githubLink: 'https://github.com/Linyshka',
-    photoUrl: 'alina-radjukevich-photo.jpg',
+    photoUrl: 'https://avatars.githubusercontent.com/u/92429718?v=4',
   },
   {
     name: 'Natasha',
-    role: 'Developer',
-    bio: 'Experienced in crafting visually appealing and intuitive user interfaces.',
-    githubLink: 'https://github.com/',
-    photoUrl: 'jane-smith-photo.jpg',
+    role: 'RS School Student',
+    bio: "I am in the midst of a career change, transitioning into the dynamic field of web development. With a background in a different field, I bring a fresh perspective and a strong desire to make a meaningful impact through coding. I'm dedicated to learning the ropes of web development and creating user-friendly interfaces that stand out. My passion for this new path drives me to explore and excel.",
+    githubLink: 'https://github.com/whiterabbit8',
+    photoUrl: 'https://avatars.githubusercontent.com/u/32563352?v=4',
   },
   {
     name: 'Andrew Pistsou',
-    role: 'Developer',
-    bio: 'Experienced in crafting visually appealing and intuitive user interfaces.',
-    githubLink: 'https://github.com/',
-    photoUrl: 'jane-smith-photo.jpg',
+    role: 'Current Role: Procurement Engineer',
+    bio: "I am excited to embark on a new journey in web development. My previous experiences in the field of petrochemical procurement have honed my problem-solving skills and attention to detail, which I now bring to the world of coding. While I'm relatively new to web development, I am driven by passion and determination. I am committed to acquiring the necessary skills to learn and grow in the ever-evolving field of web development.",
+    githubLink: 'https://github.com/eordan',
+    photoUrl: 'https://avatars.githubusercontent.com/u/88047742?v=4',
   },
 ];
 
@@ -63,9 +63,11 @@ export function About(): JSX.Element {
         <p>{collaborationDetails.result}</p>
       </div>
 
+      <p className="line" />
+
       <div className="row team-members">
         <h2 className="mt-4">Team Members</h2>
-        <ul className="list-unstyled">
+        <ul className="bios">
           {teamMembers.map((member) => (
             <li key={member.name} className="media mt-3">
               <img src={member.photoUrl} alt={member.name} className="mr-3" width="100" height="100" />
@@ -82,9 +84,12 @@ export function About(): JSX.Element {
         </ul>
       </div>
 
+      <p className="line" />
+
       <div className="row rs-school-logo mt-4">
+        <h2 className="mt-4">Learn more about RS School</h2>
         <a href="https://rs.school/" target="_blank" rel="noopener noreferrer">
-          <img src="rs-school-logo.png" alt="RS School" width="200" height="200" />
+          <img src="https://rs.school/images/rs_school.svg" alt="RS School" width="200" height="200" />
         </a>
       </div>
     </div>
