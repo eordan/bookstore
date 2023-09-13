@@ -15,7 +15,8 @@
   border-radius: 10px;
 }
 
-.form-control:disabled {
+.profile:disabled {
+  --bs-form-select-bg-img: none;
   border: transparent;
   background-color: transparent !important;
   font-weight: 500;
@@ -28,13 +29,6 @@
 .addresses {
   display: grid;
   grid-template-columns: 1fr 1fr;
-}
-
-.form-select:disabled {
-  --bs-form-select-bg-img: none;
-  border: transparent;
-  background-color: transparent !important;
-  font-weight: 500;
 }
 
 .address-status {

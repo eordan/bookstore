@@ -70,7 +70,7 @@ export function PersonalInfo(props: Customer): JSX.Element {
   };
 
   return (
-    <Form className="my-3 d-flex flex-column form-block" onSubmit={handleSubmit(onSubmit)}>
+    <Form className="my-3 d-flex flex-column form-block personal-info" onSubmit={handleSubmit(onSubmit)}>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h5 className="m-0">Personal Info</h5>
         {!editMode && (
@@ -85,6 +85,7 @@ export function PersonalInfo(props: Customer): JSX.Element {
         </Form.Label>
         <Col sm={8}>
           <Form.Control
+            className="profile"
             disabled={!editMode}
             placeholder="Enter your first name"
             {...register('firstName', {
@@ -101,6 +102,7 @@ export function PersonalInfo(props: Customer): JSX.Element {
         </Form.Label>
         <Col sm={8}>
           <Form.Control
+            className="profile"
             disabled={!editMode}
             placeholder="Enter your last name"
             {...register('lastName', {
@@ -117,6 +119,7 @@ export function PersonalInfo(props: Customer): JSX.Element {
         </Form.Label>
         <Col sm={8}>
           <Form.Control
+            className="profile"
             disabled={!editMode}
             type="date"
             {...register('birthday', {
@@ -132,6 +135,7 @@ export function PersonalInfo(props: Customer): JSX.Element {
         </Form.Label>
         <Col sm={8}>
           <Form.Control
+            className="profile"
             disabled={!editMode}
             placeholder="Enter your email"
             {...register('email', emailValidationRules)}
