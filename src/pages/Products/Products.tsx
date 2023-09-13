@@ -19,7 +19,7 @@ export function Products(): JSX.Element {
   };
 
   return (
-    <section className=" mt-3 bg-light">
+    <section className="bg-light">
       <Container>
         <Form className="d-flex justify-content-end pt-4">
           <Row>
