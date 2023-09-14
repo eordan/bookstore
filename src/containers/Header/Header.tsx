@@ -9,7 +9,7 @@ import { LINKS_ARRAY } from '../../utils/constants';
 
 import './Header.scss';
 
-import profile from '../../assets/profile1.svg';
+import profile from '../../assets/profile.svg';
 import cart from '../../assets/cart.svg';
 
 export function Header(): JSX.Element {
@@ -31,7 +31,7 @@ export function Header(): JSX.Element {
           </Nav>
           <NavLink className="cart-btn me-4 text-decoration-none" to={RoutesEnum.CART_ROUTE}>
             <img src={cart} alt="cart" />
-            <span className="ms-1">1</span>
+            <span className="ms-1 cart-counter">0</span>
           </NavLink>
           {!user.isAuth && (
             <Nav className="d-flex nav-btns">

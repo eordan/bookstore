@@ -1,3 +1,3 @@
-import { Cart } from './Cart';
+import { Basket } from './Cart';
 
-export default Cart;
+export default Basket;

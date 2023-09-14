@@ -238,7 +238,7 @@ export function Reg(): JSX.Element {
             setValue('billingCountry', getValues('shippingCountry'));
           }}
         />
-        <Row className="address">
+        <Row className="address gap-3">
           <Col className="mt-3 form-block">
             <h5>Shipping address</h5>
             <Form.Group>

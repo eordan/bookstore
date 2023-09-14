@@ -157,6 +157,7 @@ export function Address({
         </Form.Label>
         <Col sm={8}>
           <Form.Control
+            className="profile"
             disabled={!editMode}
             placeholder="Street"
             {...register('street', {
@@ -172,6 +173,7 @@ export function Address({
         </Form.Label>
         <Col sm={8}>
           <Form.Control
+            className="profile"
             disabled={!editMode}
             placeholder="City"
             {...register('city', {
@@ -187,6 +189,7 @@ export function Address({
         </Form.Label>
         <Col sm={8}>
           <Form.Control
+            className="profile"
             disabled={!editMode}
             placeholder="Postal code"
             {...register('postalCode', {
@@ -202,6 +205,7 @@ export function Address({
         </Form.Label>
         <Col sm={8}>
           <Form.Select
+            className="profile"
             disabled={!editMode}
             {...register('country', {
               validate: (value) => value !== 'Choose...' || 'Please choose country',
