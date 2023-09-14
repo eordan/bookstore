@@ -1,0 +1,111 @@
+.about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url('../../assets/about-us-background.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  flex-grow: 1;
+}
+
+.about-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 112px 0;
+  text-align: center;
+}
+
+.title {
+  max-width: 300px;
+  color: #fff;
+  font-size: 4em;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumbs-main {
+  display: inline-block;
+  color: #acacac;
+}
+
+.breadcrumbs-about {
+  display: inline-block;
+  color: #fff;
+}
+
+.collaboration {
+  max-width: 570px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.line {
+  max-width: 570px;
+  border-bottom: 1px solid #888;
+  margin: 50px auto;
+  text-align: center;
+}
+
+.team-members {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.bios {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.team-members .media {
+  display: flex;
+  align-items: center;
+  margin: 30px;
+  max-width: 600px;
+}
+
+.team-members img {
+  width: 150px;
+  height: 150px;
+  margin-right: 50px;
+  border-radius: 50%;
+}
+
+.team-members .media-body {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.team-members h3 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.team-members p {
+  margin-bottom: 10px;
+  max-width: 450px;
+}
+
+.team-members a {
+  display: block;
+  margin-top: 10px;
+}
+
+.rs-school-logo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+  text-align: center;
+}
