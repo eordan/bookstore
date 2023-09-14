@@ -43,11 +43,11 @@ export function CartItem({ product }: CartItemProps): JSX.Element {
         </Col>
         <Col lg={4} xs={6} className="d-flex flex-column align-items-center p-0 mt-4">
           <div className="d-flex quantity-block">
-            <Button variant="secondary" className="quantity">
+            <Button variant="secondary" className="quantity-item">
               -
             </Button>
-            <div className="quantity">{product.quantity}</div>
-            <Button variant="secondary" className="quantity">
+            <div className="quantity-item">{product.quantity}</div>
+            <Button variant="secondary" className="quantity-item">
               +
             </Button>
           </div>
