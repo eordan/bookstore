@@ -7,10 +7,8 @@ import { RoutesEnum } from '../../utils/enums';
 import { loginCustomer } from '../../services/customerHandler/customerAuther';
 import { emailValidationRules, passwordValidationRules } from '../../utils/validation';
 import { Context } from '../../utils/createContext';
-
 import 'react-toastify/dist/ReactToastify.css';
 import './Login.scss';
-
 import view from '../../assets/view.png';
 import noView from '../../assets/no-view.png';
 
