@@ -17,20 +17,20 @@
 
 .quantity {
   &-block {
+    width: 90px !important;
     height: 30px !important;
     padding: 0 !important;
-    width: 90px !important;
-    background: #dfdfdf;
     border-radius: 10px;
+    background: #dfdfdf;
   }
 
   &-item {
     display: flex !important;
     align-items: center;
     justify-content: center;
+    width: 30px;
     height: 30px !important;
     padding: 0 !important;
-    width: 30px;
     font-weight: 500;
 
     &:first-child,
