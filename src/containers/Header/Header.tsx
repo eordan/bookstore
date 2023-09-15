@@ -66,7 +66,7 @@ export function Header(): JSX.Element {
         </Navbar.Collapse>
         <NavLink className="cart-btn mobile me-4 text-decoration-none" to={RoutesEnum.CART_ROUTE}>
           <img src={cart} alt="cart" />
-          <span className="ms-1">1</span>
+          <span className="ms-1 cart-counter">0</span>
         </NavLink>
       </Container>
     </Navbar>

@@ -14,7 +14,11 @@ export function Basket(): JSX.Element {
   const navigate = useNavigate();
   const [cart, setCart] = useState<Cart>();
   const [isEmpty, setIsEmpty] = useState(true);
-  let totalPrice = 0;
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  const recountPrice = (data: Cart) => {
+    setTotalPrice(data.totalPrice.centAmount / 100);
+  };
 
   useEffect(() => {
     if (localStorage.getItem('cartId')) {
@@ -22,19 +26,16 @@ export function Basket(): JSX.Element {
         if (data.totalLineItemQuantity) {
           setCart(data);
           setIsEmpty(false);
+          recountPrice(data);
         }
       });
     }
   }, [localStorage.getItem('cartId')]);
 
-  if (cart) {
-    totalPrice = cart.totalPrice.centAmount / 100;
-  }
-
   return (
     <Container>
       {isEmpty && (
-        <Container className="d-flex flex-column justify-content-center align-items-center">
+        <Container className="d-flex flex-column justify-content-center align-items-center my-3">
           <img src={emptyCart} alt="empty cart" className="empty-cart" />
           <h3>Your cart is empty</h3>
           <p className="text-secondary text-center">
@@ -50,7 +51,7 @@ export function Basket(): JSX.Element {
           <Col sm={12} md={9}>
             <ListGroup className="w-100">
               {cart?.lineItems.map((product: LineItem) => (
-                <CartItem key={product.id} product={product} />
+                <CartItem key={product.id} product={product} recountPrice={recountPrice} />
               ))}
             </ListGroup>
           </Col>
