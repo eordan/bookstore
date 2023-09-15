@@ -1,0 +1,40 @@
+.detailed {
+  font-family: 'Montserrat', sans-serif;
+
+  p {
+    padding: 0;
+    margin: 0;
+  }
+
+  &.price {
+    font-size: 24px;
+  }
+
+  &.old-price {
+    margin-right: 15px;
+    font-size: 20px;
+  }
+}
+
+.last-crumb {
+  color: #bdbdbd;
+}
+
+.book-title {
+  font-size: 36px;
+  font-family: 'Alfa Slab One', cursive;
+  color: #252b42;
+}
+
+.book-rating {
+  display: flex;
+  align-items: center;
+  margin: 20px 0 12px;
+
+  p {
+    padding: 0;
+    margin: 0 0 0 5px;
+    font-weight: 700;
+    font-size: 16px;
+  }
+}

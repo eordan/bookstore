@@ -5,8 +5,6 @@ import BookDescription from '@components/BookDescription';
 import BookInfo from '@components/BookInfo';
 import { getProduct } from '../../services/productsHandler/productsSearcher';
 
-import './DetailPage.scss';
-
 export function DetailPage(): JSX.Element {
   const { id } = useParams();
   const [product, setProduct] = useState<ProductCatalogData>();
@@ -14,6 +12,7 @@ export function DetailPage(): JSX.Element {
   const [author, setAuthor] = useState('');
   const [price, setPrice] = useState('');
   const [discountedPrice, setDiscountedPrice] = useState<number>();
+  const [rating, setRating] = useState('');
 
   useEffect(() => {
     if (id) {
@@ -24,8 +23,10 @@ export function DetailPage(): JSX.Element {
           setUrl(img.url);
         }
         if (data?.masterData.staged.masterVariant.attributes) {
-          const attribute = data.masterData.staged.masterVariant.attributes[0];
-          setAuthor(attribute.value);
+          const authorAttribute = data.masterData.staged.masterVariant.attributes[0];
+          setAuthor(authorAttribute.value);
+          const ratingArrtibute = data.masterData.staged.masterVariant.attributes[5];
+          setRating(ratingArrtibute.value);
         }
         if (data?.masterData.staged.masterVariant.prices) {
           const attribute = data.masterData.staged.masterVariant.prices[0];
@@ -39,13 +40,14 @@ export function DetailPage(): JSX.Element {
   }, []);
 
   return (
-    <section className="bg-light">
+    <section>
       <BookInfo
         title={product?.staged.name.en}
         url={url}
         author={author}
         price={price}
         discountedPrice={discountedPrice}
+        rating={rating}
       />
       <BookDescription description={product?.staged.metaDescription?.en} />
     </section>

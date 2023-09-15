@@ -1,4 +1,5 @@
 @import '~bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@700&display=swap');
 
 html,
 body {
@@ -13,6 +14,7 @@ body {
   min-height: 100vh;
   display: grid;
   grid-template-rows: 72px auto 72px;
+  font-family: 'Libre Baskerville', serif;
 }
 
 .Toastify__toast-theme--colored.Toastify__toast--success {
