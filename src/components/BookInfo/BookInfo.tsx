@@ -38,7 +38,7 @@ export function BookInfo({ title, url, author, price, discountedPrice, rating }:
           <img className="right-arrow" src={rightArrow} alt="arrow" />
           <p className="last-crumb mb-0">{title}</p>
         </div>
-        <Row className="d-flex justify-content-center align-items-center">
+        <Row className="d-flex justify-content-center">
           <SliderModal show={modalShow} onHide={() => setModalShow(false)} url={url} />
           <Col md={3}>
             <Carousel variant="dark" onClick={() => setModalShow(true)}>
