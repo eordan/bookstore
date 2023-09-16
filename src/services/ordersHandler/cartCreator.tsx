@@ -3,7 +3,7 @@ import { anonymousSessionFlowCtpClient } from '../flows/withAnonymousSessionFlow
 import { refreshTokenFlowCtpClient } from '../flows/withRefreshTokenFlowClientBuilder';
 import { PROJECT_KEY } from '../helpers/apiClientDetailsSetter';
 
-export const createAnonimousCart = async (cartDetails: MyCartDraft): Promise<Cart> => {
+export const createAnonymousCart = async (cartDetails: MyCartDraft): Promise<Cart> => {
   const apiRoot = createApiBuilderFromCtpClient(anonymousSessionFlowCtpClient).withProjectKey({
     projectKey: PROJECT_KEY,
   });

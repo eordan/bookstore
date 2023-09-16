@@ -20,17 +20,25 @@ export function Basket(): JSX.Element {
     setTotalPrice(data.totalPrice.centAmount / 100);
   };
 
+  const loadCart = () => {
+    getCart().then((data) => {
+      if (data.totalLineItemQuantity) {
+        setCart(data);
+        setIsEmpty(false);
+        recountPrice(data);
+      } else {
+        setIsEmpty(true);
+      }
+    });
+  };
+
   useEffect(() => {
-    if (localStorage.getItem('cartId')) {
-      getCart().then((data) => {
-        if (data.totalLineItemQuantity) {
-          setCart(data);
-          setIsEmpty(false);
-          recountPrice(data);
-        }
-      });
-    }
-  }, [localStorage.getItem('cartId')]);
+    loadCart();
+  }, []);
+
+  if (!cart && !isEmpty) {
+    return <h3 className="text-center">Loading...</h3>;
+  }
 
   return (
     <Container>
@@ -51,7 +59,7 @@ export function Basket(): JSX.Element {
           <Col sm={12} md={9}>
             <ListGroup className="w-100">
               {cart?.lineItems.map((product: LineItem) => (
-                <CartItem key={product.id} product={product} recountPrice={recountPrice} />
+                <CartItem key={product.id} product={product} recountPrice={recountPrice} loadCart={loadCart} />
               ))}
             </ListGroup>
           </Col>

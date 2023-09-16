@@ -1,20 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button, ListGroup, Col } from 'react-bootstrap';
+import { Cart, LineItem } from '@commercetools/platform-sdk';
+import { addLineItem, removeLineItem, updateCart } from '../../services/ordersHandler/cartUpdater';
+import { Context } from '../../utils/createContext';
 
 import './CartItem.scss';
 import '../../styles/main.scss';
-import { Cart, LineItem } from '@commercetools/platform-sdk';
 import del from '../../assets/delete.svg';
-import { addLineItem, removeLineItem, updateCart } from '../../services/ordersHandler/cartUpdater';
 
 type CartItemProps = {
   product: LineItem;
   recountPrice: (data: Cart) => void;
+  loadCart: () => void;
 };
 
-export function CartItem({ product, recountPrice }: CartItemProps): JSX.Element {
+export function CartItem({ product, recountPrice, loadCart }: CartItemProps): JSX.Element {
   const [quantity, setQuantity] = useState(product.quantity);
   const [productTotalPrice, setProductTotalPrice] = useState(product.totalPrice.centAmount / 100);
+  const { basket } = useContext(Context);
   let img = '';
   let author = '';
   let price = 0;
@@ -34,26 +37,36 @@ export function CartItem({ product, recountPrice }: CartItemProps): JSX.Element 
   }
 
   const updatePrices = (data: Cart) => {
-    localStorage.setItem('cartVersion', `${data.version}`);
+    basket.setVersion(data.version);
+    if (data.totalLineItemQuantity) {
+      basket.setCount(data.totalLineItemQuantity);
+    } else {
+      basket.setCount(0);
+    }
     recountPrice(data);
     const items = data.lineItems.filter((item) => item.productId === product.productId);
-    setQuantity(items[0].quantity);
-    setProductTotalPrice(items[0].totalPrice.centAmount / 100);
+    if (items[0]) {
+      setQuantity(items[0].quantity);
+      setProductTotalPrice(items[0].totalPrice.centAmount / 100);
+    }
   };
 
   const increaseItems = () => {
-    updateCart(`${localStorage.getItem('cartId')}`, Number(localStorage.getItem('cartVersion')), [
-      addLineItem(product.productId),
-    ]).then((data) => {
+    updateCart(basket.id, basket.version, [addLineItem(product.productId)]).then((data) => {
       updatePrices(data);
     });
   };
 
   const decreaseItems = () => {
-    updateCart(`${localStorage.getItem('cartId')}`, Number(localStorage.getItem('cartVersion')), [
-      removeLineItem(product.id),
-    ]).then((data) => {
+    updateCart(basket.id, basket.version, [removeLineItem(product.id)]).then((data) => {
       updatePrices(data);
+    });
+  };
+
+  const removeProduct = () => {
+    updateCart(basket.id, basket.version, [removeLineItem(product.id, quantity)]).then((data) => {
+      updatePrices(data);
+      loadCart();
     });
   };
 
@@ -90,7 +103,7 @@ export function CartItem({ product, recountPrice }: CartItemProps): JSX.Element 
           <h5 className="m-0 text-center font-weight-500">{productTotalPrice}$</h5>
         </Col>
         <Col lg={1} xs={3} xxs={{ order: 2 }} className="d-flex justify-content-center">
-          <Button type="button" className="delete-btn p-1">
+          <Button type="button" className="delete-btn p-1" onClick={() => removeProduct()}>
             <img src={del} alt="delete" />
           </Button>
         </Col>

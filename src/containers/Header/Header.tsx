@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -13,8 +13,16 @@ import profile from '../../assets/profile.svg';
 import cart from '../../assets/cart.svg';
 
 export function Header(): JSX.Element {
+  const { user, basket } = useContext(Context);
+  const [counter, setCounter] = useState(0);
   const navigate = useNavigate();
-  const { user } = useContext(Context);
+
+  useEffect(() => {
+    if (basket.count) {
+      setCounter(basket.count);
+      console.log(1);
+    }
+  }, [basket.count]);
 
   return (
     <Navbar collapseOnSelect expand="md" className="p-3">
@@ -31,7 +39,7 @@ export function Header(): JSX.Element {
           </Nav>
           <NavLink className="cart-btn me-4 text-decoration-none" to={RoutesEnum.CART_ROUTE}>
             <img src={cart} alt="cart" />
-            <span className="ms-1 cart-counter">0</span>
+            <span className="ms-1 cart-counter">{counter}</span>
           </NavLink>
           {!user.isAuth && (
             <Nav className="d-flex nav-btns">
@@ -66,7 +74,7 @@ export function Header(): JSX.Element {
         </Navbar.Collapse>
         <NavLink className="cart-btn mobile me-4 text-decoration-none" to={RoutesEnum.CART_ROUTE}>
           <img src={cart} alt="cart" />
-          <span className="ms-1 cart-counter">0</span>
+          <span className="ms-1 cart-counter">{counter}</span>
         </NavLink>
       </Container>
     </Navbar>
