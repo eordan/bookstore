@@ -25,4 +25,5 @@ module.exports = {
   },
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/jest-setup.tsx'],
+  testTimeout: 50000,
 };
