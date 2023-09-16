@@ -26,7 +26,6 @@ export function App(): JSX.Element {
           basket.setId(data.id);
           basket.setVersion(data.version);
         }
-        console.log('cart created', basket.id); // for check
       });
     } else {
       getCart().then((data) => {

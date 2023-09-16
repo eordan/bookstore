@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Button, Container, ListGroup, Form, Col } from 'react-bootstrap';
-import { Cart, LineItem } from '@commercetools/platform-sdk';
+import { Cart, LineItem, MyCartUpdateAction } from '@commercetools/platform-sdk';
 import CartItem from '@components/CartItem';
 import { useNavigate } from 'react-router-dom';
 import { getCart } from '../../services/ordersHandler/cartGetter';
 import { RoutesEnum } from '../../utils/enums';
+import { removeLineItem, updateCart } from '../../services/ordersHandler/cartUpdater';
+import { Context } from '../../utils/createContext';
 
 import './Cart.scss';
 import '../../styles/main.scss';
@@ -12,6 +14,7 @@ import emptyCart from '../../assets/empty-cart.svg';
 
 export function Basket(): JSX.Element {
   const navigate = useNavigate();
+  const { basket } = useContext(Context);
   const [cart, setCart] = useState<Cart>();
   const [isEmpty, setIsEmpty] = useState(true);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -35,6 +38,20 @@ export function Basket(): JSX.Element {
   useEffect(() => {
     loadCart();
   }, []);
+
+  const clearCart = () => {
+    getCart().then((data) => {
+      const removeProducts: MyCartUpdateAction[] = [];
+      data.lineItems.forEach((item) => {
+        removeProducts.push(removeLineItem(item.id, item.quantity));
+      });
+      updateCart(basket.id, basket.version, removeProducts).then((response) => {
+        basket.setVersion(response.version);
+        basket.setCount(0);
+        loadCart();
+      });
+    });
+  };
 
   if (!cart && !isEmpty) {
     return <h3 className="text-center">Loading...</h3>;
@@ -74,7 +91,7 @@ export function Basket(): JSX.Element {
               </Form.Group>
               <Button type="submit">Place order</Button>
             </Form>
-            <Button variant="outline-secondary" className="mt-4">
+            <Button variant="outline-secondary" className="mt-4" onClick={() => clearCart()}>
               Clear cart
             </Button>
           </Col>
