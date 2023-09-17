@@ -22,10 +22,8 @@ export function App(): JSX.Element {
     if (!localStorage.getItem('anonTokenDevision')) {
       const draft = getCurrencyData('United States');
       createAnonymousCart(draft).then((data) => {
-        if (data) {
-          basket.setId(data.id);
-          basket.setVersion(data.version);
-        }
+        basket.setId(data.id);
+        basket.setVersion(data.version);
       });
     } else {
       getCart().then((data) => {
