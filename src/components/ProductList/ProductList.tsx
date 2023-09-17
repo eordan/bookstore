@@ -3,16 +3,21 @@ import React, { useContext, useEffect } from 'react';
 import { Row } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
 import { Context } from '../../utils/createContext';
-import { getQueryDetails, searchProducts } from '../../services/productsHandler/productsSearcher';
+import { defaultResultsLimit, getQueryDetails, searchProducts } from '../../services/productsHandler/productsSearcher';
 
 export const ProductList = observer(() => {
   const { store } = useContext(Context);
 
   useEffect(() => {
-    searchProducts(getQueryDetails(undefined, undefined, store.sort)).then((data) => {
-      store.setProducts(data.results);
-    });
-  }, []);
+    searchProducts(getQueryDetails(undefined, undefined, store.sort, (store.page - 1) * defaultResultsLimit)).then(
+      (data) => {
+        if (data.total) {
+          store.setTotal(data.total);
+        }
+        store.setProducts(data.results);
+      },
+    );
+  }, [store.page]);
 
   return (
     <Row xs={1} md={2} lg={3} xl={4} className="g-3 mb-5">

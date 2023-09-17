@@ -5,7 +5,7 @@ import MultiRangeSlider, { ChangeResult } from 'multi-range-slider-react';
 
 import './Filters.scss';
 import { AUTHORS, CATEGORIES } from '../../utils/constants';
-import { searchProducts, getQueryDetails } from '../../services/productsHandler/productsSearcher';
+import { searchProducts, getQueryDetails, defaultResultsLimit } from '../../services/productsHandler/productsSearcher';
 import { Context } from '../../utils/createContext';
 
 export const Filters = observer(() => {
@@ -37,7 +37,13 @@ export const Filters = observer(() => {
   };
 
   const filters = () => {
-    searchProducts(getQueryDetails(store.text, getFiltersArray(), store.sort)).then((data) => {
+    store.setPage(1);
+    searchProducts(
+      getQueryDetails(store.text, getFiltersArray(), store.sort, (store.page - 1) * defaultResultsLimit),
+    ).then((data) => {
+      if (data.total) {
+        store.setTotal(data.total);
+      }
       store.setProducts(data.results);
     });
   };

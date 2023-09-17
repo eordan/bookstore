@@ -13,12 +13,18 @@ class Store {
 
   private _breadcrumbs: Breadcrumb[];
 
+  private _page: number;
+
+  private _total: number;
+
   constructor() {
     this._products = [];
+    this._total = 0;
     this._text = undefined;
     this._sort = 'variants.attributes.rating desc';
     this._filter = [];
     this._breadcrumbs = [];
+    this._page = 1;
     makeAutoObservable(this);
   }
 
@@ -28,6 +34,14 @@ class Store {
 
   get products() {
     return this._products;
+  }
+
+  setTotal(total: number) {
+    this._total = total;
+  }
+
+  get total() {
+    return this._total;
   }
 
   get text() {
@@ -77,6 +91,14 @@ class Store {
       return item;
     });
     this._breadcrumbs = [];
+  }
+
+  get page() {
+    return this._page;
+  }
+
+  setPage(value: number) {
+    this._page = value;
   }
 }
 

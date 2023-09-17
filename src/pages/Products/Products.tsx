@@ -1,21 +1,29 @@
+import React, { useContext, useState } from 'react';
+import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { PaginationControl } from 'react-bootstrap-pagination-control';
+import { observer } from 'mobx-react-lite';
 import ProductList from '@components/ProductList';
 import Filters from '@containers/Filters';
 import Breadcrumb from '@components/Breadcrumbs';
-import React, { useContext, useState } from 'react';
-import { Button, Col, Container, Form, Row } from 'react-bootstrap';
-import { getQueryDetails, searchProducts } from '../../services/productsHandler/productsSearcher';
+import { defaultResultsLimit, getQueryDetails, searchProducts } from '../../services/productsHandler/productsSearcher';
 import { Context } from '../../utils/createContext';
 
-export function Products(): JSX.Element {
+export const Products = observer((): JSX.Element => {
   const { store } = useContext(Context);
 
   const [search, setSearch] = useState('');
 
   const filters = () => {
+    store.setPage(1);
     store.setText(search);
-    searchProducts(getQueryDetails(store.text, store.filter, store.sort)).then((data) => {
-      store.setProducts(data.results);
-    });
+    searchProducts(getQueryDetails(store.text, store.filter, store.sort, (store.page - 1) * defaultResultsLimit)).then(
+      (data) => {
+        if (data.total) {
+          store.setTotal(data.total);
+        }
+        store.setProducts(data.results);
+      },
+    );
   };
 
   return (
@@ -62,10 +70,22 @@ export function Products(): JSX.Element {
             </Row>
             <Row>
               <ProductList />
+              <PaginationControl
+                page={store.page}
+                between={4}
+                total={store.total}
+                last
+                next
+                limit={12}
+                changePage={(page) => {
+                  store.setPage(page);
+                }}
+                ellipsis={1}
+              />
             </Row>
           </Col>
         </Row>
       </Container>
     </section>
   );
-}
+});
