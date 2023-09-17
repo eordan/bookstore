@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Button, Card, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { ProductProjection } from '@commercetools/platform-sdk';
 import { RoutesEnum } from '../../utils/enums';
-import './ProductItem.scss';
 import { CATEGORIES } from '../../utils/constants';
-import { createAnonimousCart } from '../../services/ordersHandler/cartCreator';
 import { addLineItem, updateCart } from '../../services/ordersHandler/cartUpdater';
-import { getCurrencyData } from '../../services/productsHandler/productsSearcher';
+import { Context } from '../../utils/createContext';
+
+import './ProductItem.scss';
 
 type ProductProps = {
   product: ProductProjection;
@@ -15,21 +15,11 @@ type ProductProps = {
 
 export function ProductItem({ product }: ProductProps): JSX.Element {
   const navigate = useNavigate();
+  const { basket } = useContext(Context);
   let url = '';
   let category = '';
   let price = '';
   let author = '';
-
-  useEffect(() => {
-    const resetStorage = () => {
-      localStorage.setItem('cartId', '');
-      localStorage.setItem('cartVersion', '');
-    };
-    window.addEventListener('beforeunload', () => resetStorage());
-    return () => {
-      window.removeEventListener('beforeunload', () => resetStorage());
-    };
-  });
 
   if (product.masterVariant.images) {
     const img = product.masterVariant.images[0];
@@ -50,23 +40,11 @@ export function ProductItem({ product }: ProductProps): JSX.Element {
     author = product.masterVariant.attributes[0].value;
   }
 
-  const addToCart = async () => {
-    if (!localStorage.getItem('cartId')) {
-      const draft = getCurrencyData('United States');
-      const data = await createAnonimousCart(draft);
-      if (data) {
-        localStorage.setItem('cartId', `${data.id}`);
-        localStorage.setItem('cartVersion', `${data.version}`);
-      }
-    }
-
-    updateCart(`${localStorage.getItem('cartId')}`, Number(localStorage.getItem('cartVersion')), [
-      addLineItem(product.id),
-    ]).then((data) => {
-      localStorage.setItem('cartVersion', `${data.version}`);
-      const cartCounter = document.querySelector('.cart-counter');
-      if (cartCounter instanceof HTMLElement) {
-        cartCounter.textContent = `${data.totalLineItemQuantity}`;
+  const addToCart = () => {
+    updateCart(basket.id, basket.version, [addLineItem(product.id)]).then((data) => {
+      basket.setVersion(data.version);
+      if (data.totalLineItemQuantity) {
+        basket.setCount(data.totalLineItemQuantity);
       }
     });
   };
