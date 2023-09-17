@@ -16,7 +16,7 @@ class Store {
   constructor() {
     this._products = [];
     this._text = undefined;
-    this._sort = 'name.en asc';
+    this._sort = 'variants.attributes.rating desc';
     this._filter = [];
     this._breadcrumbs = [];
     makeAutoObservable(this);

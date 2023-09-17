@@ -9,7 +9,7 @@ export const ProductList = observer(() => {
   const { store } = useContext(Context);
 
   useEffect(() => {
-    searchProducts(getQueryDetails(undefined, undefined, 'name.en asc')).then((data) => {
+    searchProducts(getQueryDetails(undefined, undefined, store.sort)).then((data) => {
       store.setProducts(data.results);
     });
   }, []);

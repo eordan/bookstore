@@ -30,6 +30,8 @@ export function Products(): JSX.Element {
                   filters();
                 }}
               >
+                <option value="variants.attributes.rating desc">By Score Descending</option>
+                <option value="variants.attributes.rating asc">By Score Ascending</option>
                 <option value="name.en asc">Alphabetically Ascending</option>
                 <option value="name.en desc">Alphabetically Descending</option>
                 <option value="price asc">By Price Ascending</option>
