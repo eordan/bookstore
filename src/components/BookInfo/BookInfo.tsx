@@ -6,7 +6,7 @@ import SliderModal from '@containers/SliderModal';
 import { RoutesEnum } from '../../utils/enums';
 import { NumberUndefined, StringUndefined } from '../../utils/types';
 import { Context } from '../../utils/createContext';
-import { getCart } from '../../services/ordersHandler/cartGetter';
+import { getAnonumousCart, getCustomerCart } from '../../services/ordersHandler/cartGetter';
 import { addLineItem, removeLineItem, updateCart } from '../../services/ordersHandler/cartUpdater';
 
 import './BookInfo.scss';
@@ -34,14 +34,25 @@ export function BookInfo({ title, url, author, price, discountedPrice, rating, i
   let productId: string = '';
 
   useEffect(() => {
-    getCart().then((data) => {
-      const cartItem = data.lineItems.find((item) => item.productId === id);
-      productId = cartItem?.id as string;
-      if (cartItem) {
-        setIsAdded(true);
-        setQuantity(cartItem.quantity);
-      }
-    });
+    if (localStorage.getItem('isAuth')) {
+      getCustomerCart(basket.id).then((data) => {
+        const cartItem = data.lineItems.find((item) => item.productId === id);
+        productId = cartItem?.id as string;
+        if (cartItem) {
+          setIsAdded(true);
+          setQuantity(cartItem.quantity);
+        }
+      });
+    } else {
+      getAnonumousCart().then((data) => {
+        const cartItem = data.lineItems.find((item) => item.productId === id);
+        productId = cartItem?.id as string;
+        if (cartItem) {
+          setIsAdded(true);
+          setQuantity(cartItem.quantity);
+        }
+      });
+    }
   });
 
   const cartControl = (data: Cart) => {
