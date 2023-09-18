@@ -59,9 +59,10 @@ export function Profile(): JSX.Element {
 
   return (
     <Container className="d-flex profile">
-      <ListGroup variant="flush" className="mt-3">
+      <ListGroup variant="flush" className="mt-3 profile-nav">
         {categories.map((category: string) => (
           <ListGroup.Item
+            className="profile-section"
             key={category}
             action
             variant="light"

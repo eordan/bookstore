@@ -5,7 +5,7 @@ import CartItem from '@components/CartItem';
 import { useNavigate } from 'react-router-dom';
 import { getAnonumousCart } from '../../services/ordersHandler/cartGetter';
 import { RoutesEnum } from '../../utils/enums';
-import { removeLineItem, updateAnonymousCart } from '../../services/ordersHandler/cartUpdater';
+import { addDiscountCode, removeLineItem, updateAnonymousCart } from '../../services/ordersHandler/cartUpdater';
 import { Context } from '../../utils/createContext';
 
 import './Cart.scss';
@@ -53,6 +53,12 @@ export function Basket(): JSX.Element {
     });
   };
 
+  const placeOrder = () => {
+    updateCart(basket.id, basket.version, [addDiscountCode('FALL23')]).then((data) => {
+      basket.setVersion(data.version);
+    });
+  };
+
   if (!cart && !isEmpty) {
     return <h3 className="text-center">Loading...</h3>;
   }
@@ -73,21 +79,22 @@ export function Basket(): JSX.Element {
       )}
       {!isEmpty && (
         <Container className="d-flex mt-3 cart gap-3">
-          <Col sm={12} md={9}>
+          <Col md={12} lg={9}>
             <ListGroup className="w-100">
               {cart?.lineItems.map((product: LineItem) => (
                 <CartItem key={product.id} product={product} recountPrice={recountPrice} loadCart={loadCart} />
               ))}
             </ListGroup>
           </Col>
-          <Col sm={12} md={3} className="d-flex flex-column align-items-center p-0 mb-3">
+          <Col md={12} lg={3} className="d-flex flex-column align-items-center p-0 mb-3">
             <Form className="d-flex flex-column justify-content-between total w-100 p-3">
               <Form.Text className="d-flex justify-content-between mb-4">
                 <h3>Total:</h3>
                 <h3>{totalPrice}$</h3>
               </Form.Text>
-              <Form.Group className="mb-3">
-                <Form.Control placeholder="Have a promocode?" />
+              <Form.Group className="mb-3 position-relative">
+                <Form.Control placeholder="Promo Code" />
+                <Button variant="outline" className="code-btn" onClick={() => placeOrder()} />
               </Form.Group>
               <Button type="submit">Place order</Button>
             </Form>

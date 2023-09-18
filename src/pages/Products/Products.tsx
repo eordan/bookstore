@@ -3,6 +3,7 @@ import Filters from '@containers/Filters';
 import Breadcrumb from '@components/Breadcrumbs';
 import React, { useContext, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import Promotion from '@components/Promotion';
 import { getQueryDetails, searchProducts } from '../../services/productsHandler/productsSearcher';
 import { Context } from '../../utils/createContext';
 
@@ -20,6 +21,7 @@ export function Products(): JSX.Element {
 
   return (
     <section className="bg-light">
+      <Promotion />
       <Container>
         <Form className="d-flex justify-content-end pt-4">
           <Row>
