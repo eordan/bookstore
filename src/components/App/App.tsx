@@ -20,7 +20,7 @@ export function App(): JSX.Element {
 
   useEffect(() => {
     if (!localStorage.getItem('anonTokenDevision')) {
-      const draft = getCurrencyData('United States');
+      const draft = getCurrencyData('Canada');
       createAnonymousCart(draft).then((data) => {
         basket.setId(data.id);
         basket.setVersion(data.version);

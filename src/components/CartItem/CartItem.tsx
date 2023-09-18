@@ -21,6 +21,7 @@ export function CartItem({ product, recountPrice, loadCart }: CartItemProps): JS
   let img = '';
   let author = '';
   let price = 0;
+  let oldPrice = 0;
 
   if (product.variant.images) {
     img = product.variant.images[0].url;
@@ -32,6 +33,7 @@ export function CartItem({ product, recountPrice, loadCart }: CartItemProps): JS
 
   if (product.price.discounted) {
     price = product.price.discounted.value.centAmount / 100;
+    oldPrice = product.price.value.centAmount / 100;
   } else {
     price = product.price.value.centAmount / 100;
   }
@@ -44,10 +46,10 @@ export function CartItem({ product, recountPrice, loadCart }: CartItemProps): JS
       basket.setCount(0);
     }
     recountPrice(data);
-    const items = data.lineItems.filter((item) => item.productId === product.productId);
-    if (items[0]) {
-      setQuantity(items[0].quantity);
-      setProductTotalPrice(items[0].totalPrice.centAmount / 100);
+    const item = data.lineItems.find((element) => element.productId === product.productId);
+    if (item) {
+      setQuantity(item.quantity);
+      setProductTotalPrice(item.totalPrice.centAmount / 100);
     }
   };
 
@@ -101,7 +103,13 @@ export function CartItem({ product, recountPrice, loadCart }: CartItemProps): JS
         <div className="text-secondary">{price}$ unit</div>
       </Col>
       <Col md={2} sm={6} xs={5}>
-        <h5 className="m-0 text-center font-weight-500">{productTotalPrice}$</h5>
+        <h5 className="text-center font-weight-500 item-price">{productTotalPrice}$</h5>
+        {oldPrice !== 0 && (
+          <h6 className="mt-1 text-center text-secondary text-decoration-line-through">
+            {(oldPrice * quantity).toFixed(2)}$
+          </h6>
+        )}
+        {oldPrice === 0 && <h6>&nbsp;</h6>}
       </Col>
       <Col md={1} xs={2} className="d-flex justify-content-center">
         <Button type="button" className="delete-btn p-1" onClick={() => removeProduct()}>
