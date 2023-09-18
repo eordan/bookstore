@@ -50,7 +50,7 @@ export function ProductItem({ product }: ProductProps): JSX.Element {
   };
 
   return (
-    <Col>
+    <Col className="product-card">
       <Card bg="light" className="h-100" onClick={() => navigate(`${RoutesEnum.PRODUCTS_ROUTE}/${product.id}`)}>
         <Card.Img src={url} />
         <Card.Body>

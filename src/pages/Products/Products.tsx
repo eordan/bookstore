@@ -60,7 +60,7 @@ export function Products(): JSX.Element {
             <Row>
               <Breadcrumb />
             </Row>
-            <Row>
+            <Row className="d-flex justify-content-center">
               <ProductList />
             </Row>
           </Col>
