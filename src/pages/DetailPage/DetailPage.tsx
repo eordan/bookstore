@@ -48,6 +48,7 @@ export function DetailPage(): JSX.Element {
         price={price}
         discountedPrice={discountedPrice}
         rating={rating}
+        id={id as string}
       />
       <BookDescription description={product?.staged.metaDescription?.en} />
     </section>
