@@ -1,8 +1,8 @@
-.list-group-item {
+.profile-section {
   min-width: 160px;
 }
 
-.list-group {
+.profile-nav {
   margin-right: 3rem;
 }
 
@@ -47,11 +47,11 @@
     flex-direction: column !important;
   }
 
-  .list-group {
+  .profile-nav {
     margin: 0;
   }
 
-  .list-group-item {
+  .profile-section {
     text-align: center !important;
   }
 }

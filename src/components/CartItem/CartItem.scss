@@ -7,6 +7,8 @@
 .item-img {
   width: auto;
   height: 9rem;
+  margin-right: 0.5em;
+  //object-fit: cover;
 }
 
 .total {
@@ -44,4 +46,26 @@
 .card:hover {
   cursor: default !important;
   box-shadow: none !important;
+}
+
+.book-name,
+.author {
+  display: -webkit-box;
+  height: 2.5em;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 768px) {
+  .item {
+    height: 15rem !important;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .item-img {
+    height: 8rem;
+  }
 }

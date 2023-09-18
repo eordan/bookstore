@@ -3,7 +3,23 @@
   height: auto;
 }
 
-@media screen and (max-width: 768px) {
+.code-btn {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 35px;
+  height: 35px;
+  padding: 0 !important;
+  background: url('../../assets/arrow.svg') center no-repeat !important;
+  opacity: 0.5;
+  transition: 0.2s !important;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 992px) {
   .cart {
     flex-direction: column !important;
   }
