@@ -3,8 +3,12 @@
   height: auto;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 992px) {
   .cart {
     flex-direction: column !important;
+  }
+
+  .place-order-btn {
+    min-width: 200px;
   }
 }

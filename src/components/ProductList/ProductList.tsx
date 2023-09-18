@@ -22,7 +22,7 @@ export const ProductList = observer(() => {
   }, [store.page]);
 
   return (
-    <Row xs={1} md={2} lg={3} xl={4} className="g-3 mb-5">
+    <Row xs={1} sm={2} lg={3} xl={4} className="g-3 mb-5">
       {store.products.length ? (
         store.products.map((product) => <ProductItem key={product.id} product={product} />)
       ) : (

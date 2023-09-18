@@ -65,7 +65,7 @@ export const Header = observer((): JSX.Element => {
             </Nav>
           )}
         </Navbar.Collapse>
-        <NavLink className="cart-btn mobile me-4 text-decoration-none" to={RoutesEnum.CART_ROUTE}>
+        <NavLink className="cart-btn mobile me-5 text-decoration-none" to={RoutesEnum.CART_ROUTE}>
           <img src={cart} alt="cart" />
           <span className="ms-1 cart-counter">{basket.count}</span>
         </NavLink>

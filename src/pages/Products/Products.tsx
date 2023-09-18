@@ -5,6 +5,7 @@ import { observer } from 'mobx-react-lite';
 import ProductList from '@components/ProductList';
 import Filters from '@containers/Filters';
 import Breadcrumb from '@components/Breadcrumbs';
+import Promotion from '@components/Promotion';
 import { defaultResultsLimit, getQueryDetails, searchProducts } from '../../services/productsHandler/productsSearcher';
 import { Context } from '../../utils/createContext';
 
@@ -29,6 +30,7 @@ export const Products = observer((): JSX.Element => {
 
   return (
     <section className="bg-light">
+      <Promotion />
       <Container>
         <Form className="d-flex justify-content-end pt-4">
           <Row>
@@ -76,7 +78,7 @@ export const Products = observer((): JSX.Element => {
             <Row>
               <Breadcrumb />
             </Row>
-            <Row>
+            <Row className="d-flex justify-content-center">
               <ProductList />
               <PaginationControl
                 page={store.page}

@@ -11,7 +11,7 @@
 .card-img {
   width: auto;
   height: 300px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .card-title {
@@ -41,4 +41,14 @@
   color: #ef000085;
   text-decoration: line-through;
   font-size: 18px;
+}
+
+@media screen and (max-width: 576px) {
+  .product-card {
+    width: 100vw !important;
+  }
+
+  .card-img {
+    height: 500px;
+  }
 }

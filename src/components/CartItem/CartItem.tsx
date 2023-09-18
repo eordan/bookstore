@@ -21,6 +21,7 @@ export function CartItem({ product, recountPrice, loadCart }: CartItemProps): JS
   let img = '';
   let author = '';
   let price = 0;
+  let oldPrice = 0;
 
   if (product.variant.images) {
     img = product.variant.images[0].url;
@@ -32,6 +33,7 @@ export function CartItem({ product, recountPrice, loadCart }: CartItemProps): JS
 
   if (product.price.discounted) {
     price = product.price.discounted.value.centAmount / 100;
+    oldPrice = product.price.value.centAmount / 100;
   } else {
     price = product.price.value.centAmount / 100;
   }
@@ -44,10 +46,10 @@ export function CartItem({ product, recountPrice, loadCart }: CartItemProps): JS
       basket.setCount(0);
     }
     recountPrice(data);
-    const items = data.lineItems.filter((item) => item.productId === product.productId);
-    if (items[0]) {
-      setQuantity(items[0].quantity);
-      setProductTotalPrice(items[0].totalPrice.centAmount / 100);
+    const item = data.lineItems.find((element) => element.productId === product.productId);
+    if (item) {
+      setQuantity(item.quantity);
+      setProductTotalPrice(item.totalPrice.centAmount / 100);
     }
   };
 
@@ -71,42 +73,48 @@ export function CartItem({ product, recountPrice, loadCart }: CartItemProps): JS
   };
 
   return (
-    <ListGroup.Item className="d-flex flex-row mb-3 p-2 item">
-      <Col lg={3} md={4} className="d-flex justify-content-center">
+    <ListGroup.Item className="d-flex align-items-center flex-wrap flex-row mb-3 p-2 item">
+      <Col md={3} sm={4} xs={5} className="d-flex justify-content-center">
         <img className="item-img" src={img} alt="book" />
       </Col>
-      <Col lg={9} md={8} className="d-flex align-items-center flex-wrap">
-        <Col lg={5} xs={12}>
-          <h5>{product.name.en}</h5>
-          <h6 className="text-secondary" style={{ fontWeight: 400 }}>
-            {author}
-          </h6>
-        </Col>
-        <Col lg={4} xs={6} className="d-flex flex-column align-items-center p-0 mt-4">
-          <div className="d-flex quantity-block">
-            <Button
-              disabled={quantity === 1}
-              variant="secondary"
-              className="quantity-item"
-              onClick={() => decreaseItems()}
-            >
-              -
-            </Button>
-            <div className="quantity-item">{quantity}</div>
-            <Button variant="secondary" className="quantity-item" onClick={() => increaseItems()}>
-              +
-            </Button>
-          </div>
-          <div className="text-secondary">{price}$ unit</div>
-        </Col>
-        <Col lg={2} xs={3}>
-          <h5 className="m-0 text-center font-weight-500">{productTotalPrice}$</h5>
-        </Col>
-        <Col lg={1} xs={3} xxs={{ order: 2 }} className="d-flex justify-content-center">
-          <Button type="button" className="delete-btn p-1" onClick={() => removeProduct()}>
-            <img src={del} alt="delete" />
+      <Col md={4} sm={8} xs={7}>
+        <h5 className="book-name" title={product.name.en}>
+          {product.name.en}
+        </h5>
+        <h6 className="author text-secondary" style={{ fontWeight: 400 }} title={author}>
+          {author}
+        </h6>
+      </Col>
+      <Col md={2} sm={4} xs={5} className="d-flex flex-column align-items-center p-0 mt-4">
+        <div className="d-flex quantity-block">
+          <Button
+            disabled={quantity === 1}
+            variant="secondary"
+            className="quantity-item"
+            onClick={() => decreaseItems()}
+          >
+            -
           </Button>
-        </Col>
+          <div className="quantity-item">{quantity}</div>
+          <Button variant="secondary" className="quantity-item" onClick={() => increaseItems()}>
+            +
+          </Button>
+        </div>
+        <div className="text-secondary">{price}$ unit</div>
+      </Col>
+      <Col md={2} sm={6} xs={5}>
+        <h5 className="text-center font-weight-500 item-price">{productTotalPrice}$</h5>
+        {oldPrice !== 0 && (
+          <h6 className="mt-1 text-center text-secondary text-decoration-line-through">
+            {(oldPrice * quantity).toFixed(2)}$
+          </h6>
+        )}
+        {oldPrice === 0 && <h6>&nbsp;</h6>}
+      </Col>
+      <Col md={1} xs={2} className="d-flex justify-content-center">
+        <Button type="button" className="delete-btn p-1" onClick={() => removeProduct()}>
+          <img src={del} alt="delete" />
+        </Button>
       </Col>
     </ListGroup.Item>
   );
