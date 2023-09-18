@@ -6,7 +6,7 @@ import './About.scss';
 
 const teamMembers = [
   {
-    name: 'Alina Radjukevich',
+    name: 'Alina Radyukevich',
     role: 'RS School Student',
     bio: "I'm an aspiring web developer currently in my journey to mastering the world of web development. While still a student, I have a strong grasp of React, a powerful JavaScript library. My enthusiasm for coding and my ability to harness React's capabilities allow me to create dynamic and user-friendly interfaces. I'm excited to continue learning and growing in the field of web development.",
     githubLink: 'https://github.com/Linyshka',
