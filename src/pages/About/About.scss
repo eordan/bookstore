@@ -1,6 +1,6 @@
 .link {
   text-decoration: none;
-  color: inherit
+  color: inherit;
 }
 
 .about {
@@ -117,4 +117,13 @@
   justify-content: center;
   margin: 0 auto;
   text-align: center;
+}
+
+@media (max-width: 480px) {
+  .team-members img {
+    width: 70px;
+    height: 70px;
+    margin-right: 10px;
+    border-radius: 50%;
+  }
 }
