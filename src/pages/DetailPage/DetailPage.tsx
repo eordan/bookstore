@@ -29,7 +29,7 @@ export function DetailPage(): JSX.Element {
           setRating(ratingArrtibute.value);
         }
         if (data?.masterData.staged.masterVariant.prices) {
-          const attribute = data.masterData.staged.masterVariant.prices[0];
+          const attribute = data.masterData.staged.masterVariant.prices[1];
           setPrice((attribute.value.centAmount / 100).toFixed(2));
           if (attribute.discounted) {
             setDiscountedPrice(attribute.discounted.value.centAmount);
