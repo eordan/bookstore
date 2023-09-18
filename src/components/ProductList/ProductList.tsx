@@ -9,10 +9,12 @@ export const ProductList = observer(() => {
   const { store } = useContext(Context);
 
   useEffect(() => {
-    searchProducts(getQueryDetails(undefined, undefined, store.sort, (store.page - 1) * defaultResultsLimit)).then(
+    searchProducts(getQueryDetails(store.text, store.filter, store.sort, (store.page - 1) * defaultResultsLimit)).then(
       (data) => {
         if (data.total) {
           store.setTotal(data.total);
+        } else {
+          store.setTotal(0);
         }
         store.setProducts(data.results);
       },

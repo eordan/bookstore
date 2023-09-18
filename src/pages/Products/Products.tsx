@@ -14,12 +14,13 @@ export const Products = observer((): JSX.Element => {
   const [search, setSearch] = useState('');
 
   const filters = () => {
-    store.setPage(1);
     store.setText(search);
     searchProducts(getQueryDetails(store.text, store.filter, store.sort, (store.page - 1) * defaultResultsLimit)).then(
       (data) => {
         if (data.total) {
           store.setTotal(data.total);
+        } else {
+          store.setTotal(0);
         }
         store.setProducts(data.results);
       },
@@ -35,6 +36,7 @@ export const Products = observer((): JSX.Element => {
               <Form.Select
                 onChange={(e) => {
                   store.setSort(e.target.value);
+                  store.setPage(1);
                   filters();
                 }}
               >
@@ -54,7 +56,13 @@ export const Products = observer((): JSX.Element => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
-              <Button variant="outline-success" onClick={filters}>
+              <Button
+                variant="outline-success"
+                onClick={() => {
+                  store.setPage(1);
+                  filters();
+                }}
+              >
                 Search
               </Button>
             </Col>
@@ -76,9 +84,10 @@ export const Products = observer((): JSX.Element => {
                 total={store.total}
                 last
                 next
-                limit={12}
+                limit={defaultResultsLimit}
                 changePage={(page) => {
                   store.setPage(page);
+                  filters();
                 }}
                 ellipsis={1}
               />

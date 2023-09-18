@@ -13,24 +13,23 @@ export const Filters = observer(() => {
 
   const [isHardcover, setIsHardcover] = useState(false);
   const [isPaperback, setIsPaperback] = useState(false);
-  const [isDiscount, setIsDiscount] = useState(false);
 
   let minValue = 0;
   let maxValue = 550;
 
   let categoriesChecked: string[] = [];
-  let categoriesFilter = '';
 
   let authorsChecked: string[] = [];
-  let authorsFilter = '';
 
   const getFiltersArray = () => {
     const filtersArray: string[] = [];
-    if (categoriesFilter) filtersArray.push(categoriesFilter);
-    if (authorsFilter) filtersArray.push(authorsFilter);
+    if (store.categoriesFilter) {
+      filtersArray.push(store.categoriesFilter);
+    }
+    if (store.authorsFilter) filtersArray.push(store.authorsFilter);
     if (isHardcover) filtersArray.push('variants.attributes.bookFormat:"Hardcover"');
     if (isPaperback) filtersArray.push('variants.attributes.bookFormat:"Paperback"');
-    if (!isDiscount) filtersArray.push('variants.scopedPriceDiscounted:true');
+    if (store.isDiscounted) filtersArray.push('variants.scopedPriceDiscounted:true');
     filtersArray.push(`variants.price.centAmount:range (${minValue * 100} to ${maxValue * 100})`);
     store.setFilter(filtersArray);
     return filtersArray;
@@ -43,6 +42,8 @@ export const Filters = observer(() => {
     ).then((data) => {
       if (data.total) {
         store.setTotal(data.total);
+      } else {
+        store.setTotal(0);
       }
       store.setProducts(data.results);
     });
@@ -68,9 +69,9 @@ export const Filters = observer(() => {
     }
 
     if (categoriesChecked.length) {
-      categoriesFilter = `categories.id:${categoriesChecked.join(', ')}`;
+      store.setCategoriesFilter(`categories.id:${categoriesChecked.join(', ')}`);
     } else {
-      categoriesFilter = '';
+      store.setCategoriesFilter('');
     }
     filters();
   };
@@ -95,9 +96,9 @@ export const Filters = observer(() => {
     }
 
     if (authorsChecked.length) {
-      authorsFilter = `variants.attributes.author:${authorsChecked.join(', ')}`;
+      store.setAuthorsFilter(`variants.attributes.author:${authorsChecked.join(', ')}`);
     } else {
-      authorsFilter = '';
+      store.setAuthorsFilter('');
     }
     filters();
   };
@@ -109,10 +110,11 @@ export const Filters = observer(() => {
         variant="secondary"
         onClick={() => {
           store.clearBreadcrumbs();
-          store.setFilter([]);
+          store.setAuthorsFilter('');
+          store.setCategoriesFilter('');
           setIsHardcover(false);
           setIsPaperback(false);
-          setIsDiscount(false);
+          store.setIsDiscounted(false);
           filters();
         }}
       >
@@ -201,9 +203,9 @@ export const Filters = observer(() => {
         type="checkbox"
         label="Show discounted products"
         className="mt-3"
-        checked={isDiscount}
-        onChange={() => {
-          setIsDiscount(!isDiscount);
+        checked={store.isDiscounted}
+        onChange={(e) => {
+          store.setIsDiscounted(e.target.checked);
           filters();
         }}
       />

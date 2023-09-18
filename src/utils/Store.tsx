@@ -17,6 +17,12 @@ class Store {
 
   private _total: number;
 
+  private _isDiscounted: boolean;
+
+  private _categoriesFilter: string;
+
+  private _authorsFilter: string;
+
   constructor() {
     this._products = [];
     this._total = 0;
@@ -25,6 +31,9 @@ class Store {
     this._filter = [];
     this._breadcrumbs = [];
     this._page = 1;
+    this._isDiscounted = false;
+    this._categoriesFilter = '';
+    this._authorsFilter = '';
     makeAutoObservable(this);
   }
 
@@ -99,6 +108,30 @@ class Store {
 
   setPage(value: number) {
     this._page = value;
+  }
+
+  get isDiscounted() {
+    return this._isDiscounted;
+  }
+
+  setIsDiscounted(value: boolean) {
+    this._isDiscounted = value;
+  }
+
+  get categoriesFilter() {
+    return this._categoriesFilter;
+  }
+
+  setCategoriesFilter(value: string) {
+    this._categoriesFilter = value;
+  }
+
+  get authorsFilter() {
+    return this._authorsFilter;
+  }
+
+  setAuthorsFilter(value: string) {
+    this._authorsFilter = value;
   }
 }
 
