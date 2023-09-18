@@ -6,23 +6,23 @@ import './About.scss';
 
 const teamMembers = [
   {
-    name: 'Alina Radjukevich',
-    role: 'RS School Student',
-    bio: "I'm an aspiring web developer currently in my journey to mastering the world of web development. While still a student, I have a strong grasp of React, a powerful JavaScript library. My enthusiasm for coding and my ability to harness React's capabilities allow me to create dynamic and user-friendly interfaces. I'm excited to continue learning and growing in the field of web development.",
+    name: 'Alina Radyukevich',
+    role: 'Student',
+    bio: "Alina is an aspiring web developer currently in her journey to mastering the React Framework. While still a student, she have a strong grasp of computer science. Her enthusiasm for coding and her ability to harness React's capabilities allow her to create dynamic and user-friendly interfaces. She is excited to continue learning and growing in the field of web development.",
     githubLink: 'https://github.com/Linyshka',
     photoUrl: 'https://avatars.githubusercontent.com/u/92429718?v=4',
   },
   {
     name: 'Natasha',
     role: 'RS School Student',
-    bio: "I am in the midst of a career change, transitioning into the dynamic field of web development. With a background in a different field, I bring a fresh perspective and a strong desire to make a meaningful impact through coding. I'm dedicated to learning the ropes of web development and creating user-friendly interfaces that stand out. My passion for this new path drives me to explore and excel.",
+    bio: 'Natasha is in the midst of a career change, transitioning into the dynamic field of web development. With a background in a different field, she brings a fresh perspective and a strong desire to make a meaningful impact through coding. She is dedicated to learning the ropes of web development and creating user-friendly interfaces that stand out. Her passion for this new path drives her to explore and excel.',
     githubLink: 'https://github.com/whiterabbit8',
     photoUrl: 'https://avatars.githubusercontent.com/u/32563352?v=4',
   },
   {
     name: 'Andrew Pistsou',
-    role: 'Current Role: Procurement Engineer',
-    bio: "I am excited to embark on a new journey in web development. My previous experiences in the field of petrochemical procurement have honed my problem-solving skills and attention to detail, which I now bring to the world of coding. While I'm relatively new to web development, I am driven by passion and determination. I am committed to acquiring the necessary skills to learn and grow in the ever-evolving field of web development.",
+    role: 'Procurement Engineer',
+    bio: 'Andrew is excited to embark on a new journey in web development. His previous experiences in the field of petrochemical procurement have honed his problem-solving skills and attention to detail, which he now brings to the world of coding. While he is relatively new to web development, he is driven by passion and determination. He is committed to acquiring the necessary skills to learn and grow in the ever-evolving field of web development.',
     githubLink: 'https://github.com/eordan',
     photoUrl: 'https://avatars.githubusercontent.com/u/88047742?v=4',
   },
@@ -46,7 +46,12 @@ export function About(): JSX.Element {
         <Container className="d-flex about-container">
           <h1 className="title">Our Team</h1>
           <div className="breadcrumbs">
-            <p className="breadcrumbs-main">Main&#160;&#160;&#160;&#160;&#62;</p>
+            <p className="breadcrumbs-main">
+              <a className="link" href="/">
+                Main
+              </a>
+              &#160;&#160;&#160;&#160;&#62;
+            </p>
             <p className="breadcrumbs-about">About</p>
           </div>
           <ToastContainer />
@@ -55,12 +60,12 @@ export function About(): JSX.Element {
 
       <div className="collaboration">
         <h2 className="mt-4">About Our Team</h2>
-        <p>{collaborationDetails.aboutOurTeam}</p>
+        <p className="colaboration-pgph">{collaborationDetails.aboutOurTeam}</p>
         <h2 className="mt-4">Collaboration</h2>
-        <p>{collaborationDetails.teamCollaborationOne}</p>
-        <p>{collaborationDetails.teamCollaborationTwo}</p>
+        <p className="colaboration-pgph">{collaborationDetails.teamCollaborationOne}</p>
+        <p className="colaboration-pgph">{collaborationDetails.teamCollaborationTwo}</p>
         <h2 className="mt-4">Result</h2>
-        <p>{collaborationDetails.result}</p>
+        <p className="colaboration-pgph">{collaborationDetails.result}</p>
       </div>
 
       <p className="line" />

@@ -15,7 +15,8 @@ export const Breadcrumb = observer(() => {
           variant="secondary"
           href={breadcrumb.target.value}
           key={breadcrumb.target.value}
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
             breadcrumb.target.checked = false;
             breadcrumb.handler(breadcrumb.target);
           }}

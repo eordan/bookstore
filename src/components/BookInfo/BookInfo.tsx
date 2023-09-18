@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Carousel, Col, Container, Row, Image, Button } from 'react-bootstrap';
+import { Cart } from '@commercetools/platform-sdk';
 import SliderModal from '@containers/SliderModal';
 import { RoutesEnum } from '../../utils/enums';
 import { NumberUndefined, StringUndefined } from '../../utils/types';
+import { Context } from '../../utils/createContext';
+import { getAnonumousCart, getCustomerCart } from '../../services/ordersHandler/cartGetter';
+import { addLineItem, removeLineItem, updateCart } from '../../services/ordersHandler/cartUpdater';
 
 import './BookInfo.scss';
 
@@ -19,10 +23,71 @@ interface Props {
   price: string;
   discountedPrice: NumberUndefined;
   rating: StringUndefined;
+  id: string;
 }
 
-export function BookInfo({ title, url, author, price, discountedPrice, rating }: Props) {
+export function BookInfo({ title, url, author, price, discountedPrice, rating, id }: Props) {
+  const { basket } = useContext(Context);
   const [modalShow, setModalShow] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
+  const [quantity, setQuantity] = useState(0);
+  let productId: string = '';
+
+  useEffect(() => {
+    if (localStorage.getItem('isAuth')) {
+      getCustomerCart(basket.id).then((data) => {
+        const cartItem = data.lineItems.find((item) => item.productId === id);
+        productId = cartItem?.id as string;
+        if (cartItem) {
+          setIsAdded(true);
+          setQuantity(cartItem.quantity);
+        }
+      });
+    } else {
+      getAnonumousCart().then((data) => {
+        const cartItem = data.lineItems.find((item) => item.productId === id);
+        productId = cartItem?.id as string;
+        if (cartItem) {
+          setIsAdded(true);
+          setQuantity(cartItem.quantity);
+        }
+      });
+    }
+  });
+
+  const cartControl = (data: Cart) => {
+    basket.setVersion(data.version);
+    if (data.totalLineItemQuantity) {
+      basket.setCount(data.totalLineItemQuantity);
+    } else {
+      basket.setCount(0);
+    }
+    const cartItem = data.lineItems.find((item) => item.productId === id);
+    if (cartItem) {
+      setQuantity(cartItem.quantity);
+    } else {
+      setIsAdded(false);
+      setQuantity(0);
+    }
+  };
+
+  const addToCart = () => {
+    updateCart(basket.id, basket.version, [addLineItem(id)]).then((data) => {
+      cartControl(data);
+    });
+  };
+
+  const increaseItems = () => {
+    updateCart(basket.id, basket.version, [addLineItem(id)]).then((data) => {
+      cartControl(data);
+    });
+  };
+
+  const decreaseItems = () => {
+    updateCart(basket.id, basket.version, [removeLineItem(productId)]).then((data) => {
+      cartControl(data);
+    });
+  };
 
   return (
     <div className="bg-light p-5">
@@ -68,7 +133,42 @@ export function BookInfo({ title, url, author, price, discountedPrice, rating }:
             ) : (
               <p className="detailed price mt-4">${price}</p>
             )}
-            <Button className="mt-2">Add to cart</Button>
+            {isAdded ? (
+              <div className="d-flex quantity-block">
+                <Button
+                  variant="secondary"
+                  className="quantity-item"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    decreaseItems();
+                  }}
+                >
+                  -
+                </Button>
+                <div className="quantity-item">{quantity}</div>
+                <Button
+                  variant="secondary"
+                  className="quantity-item"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    increaseItems();
+                  }}
+                >
+                  +
+                </Button>
+              </div>
+            ) : (
+              <Button
+                className="mt-2"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setIsAdded(true);
+                  addToCart();
+                }}
+              >
+                Add to cart
+              </Button>
+            )}
           </Col>
         </Row>
       </Container>
