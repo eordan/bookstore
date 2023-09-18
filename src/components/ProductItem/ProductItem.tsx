@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Card, Col } from 'react-bootstrap';
+import { Button, Card, Col, Image } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { ProductProjection, Cart } from '@commercetools/platform-sdk';
@@ -10,6 +10,8 @@ import { getCart } from '../../services/ordersHandler/cartGetter';
 import { Context } from '../../utils/createContext';
 
 import './ProductItem.scss';
+
+import star from '../../assets/star.svg';
 
 type ProductProps = {
   product: ProductProjection;
@@ -24,6 +26,7 @@ export const ProductItem = observer(({ product }: ProductProps): JSX.Element => 
   let author = '';
   let productId: string = '';
   let discounted = '';
+  let rating = '';
   const [isAdded, setIsAdded] = useState(false);
   const [quantity, setQuantity] = useState(0);
 
@@ -47,6 +50,10 @@ export const ProductItem = observer(({ product }: ProductProps): JSX.Element => 
 
   if (product.masterVariant.attributes) {
     author = product.masterVariant.attributes[0].value;
+    const { attributes } = product.masterVariant;
+    attributes.forEach((attr) => {
+      if (attr.name === 'rating') rating = attr.value;
+    });
   }
 
   const cartControl = (data: Cart) => {
@@ -102,6 +109,10 @@ export const ProductItem = observer(({ product }: ProductProps): JSX.Element => 
           <Card.Title>{product.name.en}</Card.Title>
           <Card.Subtitle className="text-secondary mb-2">{author}</Card.Subtitle>
           <Card.Text>{category}</Card.Text>
+          <div className="book-rating">
+            <Image src={star} alt="star" />
+            <p>{rating}</p>
+          </div>
           {discounted ? (
             <div className="d-flex align-items-center">
               <p className="old-price">${price}</p>

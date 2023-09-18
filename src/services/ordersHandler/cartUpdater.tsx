@@ -5,6 +5,7 @@ import {
   DiscountCodeReference,
 } from '@commercetools/platform-sdk';
 import { anonymousSessionFlowCtpClient } from '../flows/withAnonymousSessionFlowClientBuilder';
+import { getSetCustomers } from '../flows/withClientCredentialsFlowClientBuilder';
 import { CartActions } from '../../utils/enums';
 import { PROJECT_KEY } from '../helpers/apiClientDetailsSetter';
 
@@ -44,7 +45,11 @@ export const recalculate = (): MyCartUpdateAction => {
   };
 };
 
-export const updateCart = async (ID: string, version: number, actions: MyCartUpdateAction[]): Promise<Cart> => {
+export const updateAnonymousCart = async (
+  ID: string,
+  version: number,
+  actions: MyCartUpdateAction[],
+): Promise<Cart> => {
   const apiRoot = createApiBuilderFromCtpClient(anonymousSessionFlowCtpClient).withProjectKey({
     projectKey: PROJECT_KEY,
   });
@@ -70,13 +75,62 @@ export const updateCart = async (ID: string, version: number, actions: MyCartUpd
   return data;
 };
 
-export const deleteCart = async (ID: string, version: number): Promise<Cart> => {
+export const updateCart = async (ID: string, version: number, actions: MyCartUpdateAction[]): Promise<Cart> => {
+  const apiRoot = createApiBuilderFromCtpClient(getSetCustomers).withProjectKey({
+    projectKey: PROJECT_KEY,
+  });
+
+  const data = apiRoot
+    .carts()
+    .withId({ ID })
+    .post({
+      body: {
+        version,
+        actions,
+      },
+    })
+    .execute()
+    .then(({ body }) => {
+      return body;
+    })
+    .catch((error) => {
+      throw error;
+    });
+
+  return data;
+};
+
+export const deleteAnonymousCart = async (ID: string, version: number): Promise<Cart> => {
   const apiRoot = createApiBuilderFromCtpClient(anonymousSessionFlowCtpClient).withProjectKey({
     projectKey: PROJECT_KEY,
   });
 
   const data = apiRoot
     .me()
+    .carts()
+    .withId({ ID })
+    .delete({
+      queryArgs: {
+        version,
+      },
+    })
+    .execute()
+    .then(({ body }) => {
+      return body;
+    })
+    .catch((error) => {
+      throw error;
+    });
+
+  return data;
+};
+
+export const deleteCart = async (ID: string, version: number): Promise<Cart> => {
+  const apiRoot = createApiBuilderFromCtpClient(getSetCustomers).withProjectKey({
+    projectKey: PROJECT_KEY,
+  });
+
+  const data = apiRoot
     .carts()
     .withId({ ID })
     .delete({

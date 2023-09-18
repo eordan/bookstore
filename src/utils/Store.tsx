@@ -13,12 +13,27 @@ class Store {
 
   private _breadcrumbs: Breadcrumb[];
 
+  private _page: number;
+
+  private _total: number;
+
+  private _isDiscounted: boolean;
+
+  private _categoriesFilter: string;
+
+  private _authorsFilter: string;
+
   constructor() {
     this._products = [];
+    this._total = 0;
     this._text = undefined;
-    this._sort = 'name.en asc';
+    this._sort = 'variants.attributes.rating desc';
     this._filter = [];
     this._breadcrumbs = [];
+    this._page = 1;
+    this._isDiscounted = false;
+    this._categoriesFilter = '';
+    this._authorsFilter = '';
     makeAutoObservable(this);
   }
 
@@ -28,6 +43,14 @@ class Store {
 
   get products() {
     return this._products;
+  }
+
+  setTotal(total: number) {
+    this._total = total;
+  }
+
+  get total() {
+    return this._total;
   }
 
   get text() {
@@ -77,6 +100,38 @@ class Store {
       return item;
     });
     this._breadcrumbs = [];
+  }
+
+  get page() {
+    return this._page;
+  }
+
+  setPage(value: number) {
+    this._page = value;
+  }
+
+  get isDiscounted() {
+    return this._isDiscounted;
+  }
+
+  setIsDiscounted(value: boolean) {
+    this._isDiscounted = value;
+  }
+
+  get categoriesFilter() {
+    return this._categoriesFilter;
+  }
+
+  setCategoriesFilter(value: string) {
+    this._categoriesFilter = value;
+  }
+
+  get authorsFilter() {
+    return this._authorsFilter;
+  }
+
+  setAuthorsFilter(value: string) {
+    this._authorsFilter = value;
   }
 }
 

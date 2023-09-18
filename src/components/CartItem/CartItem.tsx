@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Button, ListGroup, Col } from 'react-bootstrap';
 import { Cart, LineItem } from '@commercetools/platform-sdk';
-import { addLineItem, removeLineItem, updateCart } from '../../services/ordersHandler/cartUpdater';
+import { addLineItem, removeLineItem, updateAnonymousCart } from '../../services/ordersHandler/cartUpdater';
 import { Context } from '../../utils/createContext';
 
 import './CartItem.scss';
@@ -52,19 +52,19 @@ export function CartItem({ product, recountPrice, loadCart }: CartItemProps): JS
   };
 
   const increaseItems = () => {
-    updateCart(basket.id, basket.version, [addLineItem(product.productId)]).then((data) => {
+    updateAnonymousCart(basket.id, basket.version, [addLineItem(product.productId)]).then((data) => {
       updatePrices(data);
     });
   };
 
   const decreaseItems = () => {
-    updateCart(basket.id, basket.version, [removeLineItem(product.id)]).then((data) => {
+    updateAnonymousCart(basket.id, basket.version, [removeLineItem(product.id)]).then((data) => {
       updatePrices(data);
     });
   };
 
   const removeProduct = () => {
-    updateCart(basket.id, basket.version, [removeLineItem(product.id, quantity)]).then((data) => {
+    updateAnonymousCart(basket.id, basket.version, [removeLineItem(product.id, quantity)]).then((data) => {
       updatePrices(data);
       loadCart();
     });

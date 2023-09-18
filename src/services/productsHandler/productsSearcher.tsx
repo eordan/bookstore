@@ -3,7 +3,7 @@ import { searchProductsCtpClient } from '../flows/withClientCredentialsFlowClien
 import { ProductProjectionsQueryParameters, Currency, type StringUndefined } from '../../utils/types';
 import { PROJECT_KEY } from '../helpers/apiClientDetailsSetter';
 
-const defaultResultsLimit = 20;
+export const defaultResultsLimit = 12;
 
 export const getCurrencyData = (country: string): Currency => {
   if (country === 'CA') {
@@ -23,9 +23,9 @@ export const getQueryDetails = (
   text: StringUndefined = undefined,
   filter: string[] | StringUndefined = undefined,
   sort: StringUndefined = undefined,
+  offset: number = 0,
   fuzzy: boolean = true,
   limit: number = defaultResultsLimit,
-  offset: number = 0,
   country: string = 'CA',
 ) => {
   const currency = getCurrencyData(country);
