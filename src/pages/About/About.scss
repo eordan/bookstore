@@ -1,3 +1,8 @@
+.link {
+  text-decoration: none;
+  color: inherit
+}
+
 .about {
   display: flex;
   flex-direction: column;
@@ -45,6 +50,10 @@
   text-align: center;
 }
 
+.colaboration-pgph {
+  text-align: justify;
+}
+
 .line {
   max-width: 570px;
   border-bottom: 1px solid #888;
@@ -84,7 +93,7 @@
 
 .team-members .media-body {
   flex-grow: 1;
-  text-align: left;
+  text-align: justify;
 }
 
 .team-members h3 {
