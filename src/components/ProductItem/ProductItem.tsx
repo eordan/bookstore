@@ -23,6 +23,7 @@ export const ProductItem = observer(({ product }: ProductProps): JSX.Element => 
   let price = '';
   let author = '';
   let productId: string = '';
+  let discounted = '';
   const [isAdded, setIsAdded] = useState(false);
   const [quantity, setQuantity] = useState(0);
 
@@ -38,7 +39,10 @@ export const ProductItem = observer(({ product }: ProductProps): JSX.Element => 
   });
 
   if (product.masterVariant.prices) {
-    price = (product.masterVariant.prices[0].value.centAmount / 100).toFixed(2);
+    price = (product.masterVariant.prices[1].value.centAmount / 100).toFixed(2);
+    if (product.masterVariant.prices[1].discounted) {
+      discounted = (product.masterVariant.prices[1].discounted.value.centAmount / 100).toFixed(2);
+    }
   }
 
   if (product.masterVariant.attributes) {
@@ -98,15 +102,13 @@ export const ProductItem = observer(({ product }: ProductProps): JSX.Element => 
           <Card.Title>{product.name.en}</Card.Title>
           <Card.Subtitle className="text-secondary mb-2">{author}</Card.Subtitle>
           <Card.Text>{category}</Card.Text>
-          {product.masterVariant.scopedPriceDiscounted ? (
+          {discounted ? (
             <div className="d-flex align-items-center">
-              <p className="old-price">{price}</p>
-              <p className="price">
-                {((product.masterVariant.scopedPrice?.currentValue.centAmount as number) / 100).toFixed(2)}
-              </p>
+              <p className="old-price">${price}</p>
+              <p className="price">${discounted}</p>
             </div>
           ) : (
-            <Card.Text className="price">{price}</Card.Text>
+            <Card.Text className="price">${price}</Card.Text>
           )}
           {isAdded ? (
             <div className="d-flex quantity-block">
