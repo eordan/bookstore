@@ -41,11 +41,11 @@ export const authMiddlewareOptionsForPasswordFlow = (
     },
     tokenCache: {
       get: (): TokenStore => {
-        const token = JSON.parse(localStorage.getItem('anonTokenDevision') as string);
+        const token = JSON.parse(localStorage.getItem('custTokenDevision') as string);
         return token;
       },
       set: (token: TokenStore) => {
-        localStorage.setItem('anonTokenDevision', JSON.stringify(token));
+        localStorage.setItem('custTokenDevision', JSON.stringify(token));
       },
     },
     scopes: [details.scopes],
@@ -87,14 +87,14 @@ export const authMiddlewareOptionsForRefreshTokenFlow = (details: ApiClientDetai
     },
     tokenCache: {
       get: (): TokenStore => {
-        const token = JSON.parse(localStorage.getItem('anonTokenDevision') as string);
+        const token = JSON.parse(localStorage.getItem('custTokenDevision') as string);
         return token;
       },
       set: (token: TokenStore) => {
-        localStorage.setItem('anonTokenDevision', JSON.stringify(token));
+        localStorage.setItem('custTokenDevision', JSON.stringify(token));
       },
     },
-    refreshToken: JSON.parse(localStorage.getItem('anonTokenDevision') as string),
+    refreshToken: JSON.parse(localStorage.getItem('custTokenDevision') as string).refreshToken,
     fetch,
   };
 };

@@ -3,9 +3,9 @@ import { Button, Container, ListGroup, Form, Col } from 'react-bootstrap';
 import { Cart, LineItem, MyCartUpdateAction } from '@commercetools/platform-sdk';
 import CartItem from '@components/CartItem';
 import { useNavigate } from 'react-router-dom';
-import { getCart } from '../../services/ordersHandler/cartGetter';
+import { getAnonumousCart } from '../../services/ordersHandler/cartGetter';
 import { RoutesEnum } from '../../utils/enums';
-import { removeLineItem, updateCart } from '../../services/ordersHandler/cartUpdater';
+import { removeLineItem, updateAnonymousCart } from '../../services/ordersHandler/cartUpdater';
 import { Context } from '../../utils/createContext';
 
 import './Cart.scss';
@@ -24,7 +24,7 @@ export function Basket(): JSX.Element {
   };
 
   const loadCart = () => {
-    getCart().then((data) => {
+    getAnonumousCart().then((data) => {
       if (data.totalLineItemQuantity) {
         setCart(data);
         setIsEmpty(false);
@@ -40,12 +40,12 @@ export function Basket(): JSX.Element {
   }, []);
 
   const clearCart = () => {
-    getCart().then((data) => {
+    getAnonumousCart().then((data) => {
       const removeProducts: MyCartUpdateAction[] = [];
       data.lineItems.forEach((item) => {
         removeProducts.push(removeLineItem(item.id, item.quantity));
       });
-      updateCart(basket.id, basket.version, removeProducts).then((response) => {
+      updateAnonymousCart(basket.id, basket.version, removeProducts).then((response) => {
         basket.setVersion(response.version);
         basket.setCount(0);
         loadCart();

@@ -7,7 +7,7 @@ import Footer from '@containers/Footer';
 import { Context } from '../../utils/createContext';
 import { getCurrencyData } from '../../services/productsHandler/productsSearcher';
 import { createAnonymousCart } from '../../services/ordersHandler/cartCreator';
-import { getCart } from '../../services/ordersHandler/cartGetter';
+import { getAnonumousCart } from '../../services/ordersHandler/cartGetter';
 
 export function App(): JSX.Element {
   const { user, basket } = useContext(Context);
@@ -26,7 +26,7 @@ export function App(): JSX.Element {
         basket.setVersion(data.version);
       });
     } else {
-      getCart().then((data) => {
+      getAnonumousCart().then((data) => {
         basket.setId(data.id);
         basket.setVersion(data.version);
         if (data.totalLineItemQuantity) {

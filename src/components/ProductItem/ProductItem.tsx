@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { ProductProjection } from '@commercetools/platform-sdk';
 import { RoutesEnum } from '../../utils/enums';
 import { CATEGORIES } from '../../utils/constants';
-import { addLineItem, updateCart } from '../../services/ordersHandler/cartUpdater';
+import { addLineItem, updateAnonymousCart } from '../../services/ordersHandler/cartUpdater';
 import { Context } from '../../utils/createContext';
 
 import './ProductItem.scss';
@@ -41,7 +41,7 @@ export function ProductItem({ product }: ProductProps): JSX.Element {
   }
 
   const addToCart = () => {
-    updateCart(basket.id, basket.version, [addLineItem(product.id)]).then((data) => {
+    updateAnonymousCart(basket.id, basket.version, [addLineItem(product.id)]).then((data) => {
       basket.setVersion(data.version);
       if (data.totalLineItemQuantity) {
         basket.setCount(data.totalLineItemQuantity);
