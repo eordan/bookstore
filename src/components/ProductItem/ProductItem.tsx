@@ -6,7 +6,7 @@ import { ProductProjection, Cart } from '@commercetools/platform-sdk';
 import { RoutesEnum } from '../../utils/enums';
 import { CATEGORIES } from '../../utils/constants';
 import { addLineItem, removeLineItem, updateCart } from '../../services/ordersHandler/cartUpdater';
-import { getCart } from '../../services/ordersHandler/cartGetter';
+import { getAnonumousCart, getCustomerCart } from '../../services/ordersHandler/cartGetter';
 import { Context } from '../../utils/createContext';
 
 import './ProductItem.scss';
@@ -73,14 +73,25 @@ export const ProductItem = observer(({ product }: ProductProps): JSX.Element => 
   };
 
   useEffect(() => {
-    getCart().then((data) => {
-      const cartItem = data.lineItems.find((item) => item.productId === product.id);
-      productId = cartItem?.id as string;
-      if (cartItem) {
-        setIsAdded(true);
-        setQuantity(cartItem.quantity);
-      }
-    });
+    if (localStorage.getItem('isAuth')) {
+      getCustomerCart(basket.id).then((data) => {
+        const cartItem = data.lineItems.find((item) => item.productId === product.id);
+        productId = cartItem?.id as string;
+        if (cartItem) {
+          setIsAdded(true);
+          setQuantity(cartItem.quantity);
+        }
+      });
+    } else {
+      getAnonumousCart().then((data) => {
+        const cartItem = data.lineItems.find((item) => item.productId === product.id);
+        productId = cartItem?.id as string;
+        if (cartItem) {
+          setIsAdded(true);
+          setQuantity(cartItem.quantity);
+        }
+      });
+    }
   });
 
   const addToCart = () => {
