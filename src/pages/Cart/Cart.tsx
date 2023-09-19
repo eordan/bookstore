@@ -76,8 +76,14 @@ export function Basket(): JSX.Element {
   };
 
   useEffect(() => {
+    loadCart();
+  }, []);
+
+  useEffect(() => {
     getAnonumousCart().then((cartResponse) => {
       if (cartResponse.discountCodes.length > 0) {
+        basket.setVersion(cartResponse.version);
+        basket.setId(cartResponse.id);
         updateAnonymousCart(basket.id, basket.version, [
           removeDiscountCode(cartResponse.discountCodes[0].discountCode),
         ]).then((codeResponse) => {
@@ -86,10 +92,6 @@ export function Basket(): JSX.Element {
         });
       }
     });
-  }, []);
-
-  useEffect(() => {
-    loadCart();
   }, []);
 
   const clearCart = () => {
@@ -164,11 +166,11 @@ export function Basket(): JSX.Element {
             <Form className="d-flex flex-column justify-content-between total w-100 p-3">
               <Form.Text className="d-flex justify-content-between mb-2">
                 <h3>Total:</h3>
-                <h3>{totalPrice}$</h3>
+                <h3 className="price cart-price">{totalPrice}$</h3>
               </Form.Text>
               <Form.Text className="d-flex justify-content-between mb-2">
                 <h6 className="text-secondary">Saving:</h6>
-                <h6 className="text-secondary">{saving}$</h6>
+                <h6 className="m-0 text-decoration-none old-price cart-price">{saving}$</h6>
               </Form.Text>
               {!isCodeApplied && (
                 <Form.Group className="d-flex gap-2">

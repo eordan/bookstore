@@ -1,8 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { Button, ListGroup, Col } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { Cart, LineItem } from '@commercetools/platform-sdk';
 import { addLineItem, removeLineItem, updateAnonymousCart } from '../../services/ordersHandler/cartUpdater';
 import { Context } from '../../utils/createContext';
+import { RoutesEnum } from '../../utils/enums';
 
 import './CartItem.scss';
 import '../../styles/main.scss';
@@ -27,6 +29,7 @@ export function CartItem({
 }: CartItemProps): JSX.Element {
   const [quantity, setQuantity] = useState(product.quantity);
   const { basket } = useContext(Context);
+  const navigate = useNavigate();
   let img = '';
   let author = '';
 
@@ -73,10 +76,10 @@ export function CartItem({
 
   return (
     <ListGroup.Item className="d-flex align-items-center flex-wrap flex-row mb-3 p-2 item">
-      <Col md={3} sm={4} xs={5} className="d-flex justify-content-center">
+      <Col md={3} sm={4} xs={5} className="d-flex justify-content-center" style={{ cursor: 'pointer' }} onClick={() => navigate(`${RoutesEnum.PRODUCTS_ROUTE}/${product.productId}`)}>
         <img className="item-img" src={img} alt="book" />
       </Col>
-      <Col md={4} sm={8} xs={7}>
+      <Col md={4} sm={8} xs={7} style={{ cursor: 'pointer' }} onClick={() => navigate(`${RoutesEnum.PRODUCTS_ROUTE}/${product.productId}`)}>
         <h5 className="book-name" title={product.name.en}>
           {product.name.en}
         </h5>
@@ -99,12 +102,12 @@ export function CartItem({
             +
           </Button>
         </div>
-        <div className="text-secondary">{price}$ unit</div>
+        <div className="text-secondary cart-price">{price}$ unit</div>
       </Col>
       <Col md={2} sm={6} xs={5}>
-        <h5 className="text-center font-weight-500 item-price">{totalPrice}$</h5>
+        <h5 className="text-center font-weight-500 item-price price cart-price">{totalPrice}$</h5>
         {oldTotalPrice !== totalPrice && (
-          <h6 className="mt-1 text-center text-secondary text-decoration-line-through">{oldTotalPrice}$</h6>
+          <h6 className="mt-1 me-0 text-center old-price cart-price">{oldTotalPrice}$</h6>
         )}
         {oldTotalPrice === totalPrice && <h6>&nbsp;</h6>}
       </Col>
