@@ -10,18 +10,25 @@ import del from '../../assets/delete.svg';
 
 type CartItemProps = {
   product: LineItem;
+  price: number;
+  totalPrice: number;
+  oldTotalPrice: number;
   recountPrice: (data: Cart) => void;
   loadCart: () => void;
 };
 
-export function CartItem({ product, recountPrice, loadCart }: CartItemProps): JSX.Element {
+export function CartItem({
+  product,
+  price,
+  totalPrice,
+  oldTotalPrice,
+  recountPrice,
+  loadCart,
+}: CartItemProps): JSX.Element {
   const [quantity, setQuantity] = useState(product.quantity);
-  const [productTotalPrice, setProductTotalPrice] = useState(product.totalPrice.centAmount / 100);
   const { basket } = useContext(Context);
   let img = '';
   let author = '';
-  let price = 0;
-  let oldPrice = 0;
 
   if (product.variant.images) {
     img = product.variant.images[0].url;
@@ -29,13 +36,6 @@ export function CartItem({ product, recountPrice, loadCart }: CartItemProps): JS
 
   if (product.variant.attributes) {
     author = product.variant.attributes[0].value;
-  }
-
-  if (product.price.discounted) {
-    price = product.price.discounted.value.centAmount / 100;
-    oldPrice = product.price.value.centAmount / 100;
-  } else {
-    price = product.price.value.centAmount / 100;
   }
 
   const updatePrices = (data: Cart) => {
@@ -49,7 +49,6 @@ export function CartItem({ product, recountPrice, loadCart }: CartItemProps): JS
     const item = data.lineItems.find((element) => element.productId === product.productId);
     if (item) {
       setQuantity(item.quantity);
-      setProductTotalPrice(item.totalPrice.centAmount / 100);
     }
   };
 
@@ -103,13 +102,11 @@ export function CartItem({ product, recountPrice, loadCart }: CartItemProps): JS
         <div className="text-secondary">{price}$ unit</div>
       </Col>
       <Col md={2} sm={6} xs={5}>
-        <h5 className="text-center font-weight-500 item-price">{productTotalPrice}$</h5>
-        {oldPrice !== 0 && (
-          <h6 className="mt-1 text-center text-secondary text-decoration-line-through">
-            {(oldPrice * quantity).toFixed(2)}$
-          </h6>
+        <h5 className="text-center font-weight-500 item-price">{totalPrice}$</h5>
+        {oldTotalPrice !== totalPrice && (
+          <h6 className="mt-1 text-center text-secondary text-decoration-line-through">{oldTotalPrice}$</h6>
         )}
-        {oldPrice === 0 && <h6>&nbsp;</h6>}
+        {oldTotalPrice === totalPrice && <h6>&nbsp;</h6>}
       </Col>
       <Col md={1} xs={2} className="d-flex justify-content-center">
         <Button type="button" className="delete-btn p-1" onClick={() => removeProduct()}>
