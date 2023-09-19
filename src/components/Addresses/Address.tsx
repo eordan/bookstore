@@ -49,6 +49,7 @@ export function Address({
     formState: { errors },
     handleSubmit,
     getValues,
+    setValue,
     trigger,
   } = useForm({
     defaultValues: {
@@ -83,6 +84,10 @@ export function Address({
 
   const turnOffEdit = () => {
     setEditMode(false);
+    setValue('street', streetName);
+    setValue('city', city);
+    setValue('postalCode', postalCode);
+    setValue('country', `${toAlpha2.getCountry(country)}`);
   };
 
   const deleteAddress = () => {
