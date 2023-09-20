@@ -12,9 +12,9 @@ import del from '../../assets/delete.svg';
 
 type CartItemProps = {
   product: LineItem;
-  price: number;
-  totalPrice: number;
-  oldTotalPrice: number;
+  price: string;
+  totalPrice: string;
+  oldTotalPrice: string;
   recountPrice: (data: Cart) => void;
   loadCart: () => void;
 };
