@@ -64,13 +64,20 @@ export function Basket(): JSX.Element {
   };
 
   const loadCart = () => {
-    getAnonumousCart().then((cartResponse) => {
-      if (cartResponse.totalLineItemQuantity) {
-        setCart(cartResponse);
+    getAnonumousCart().then((data) => {
+      if (data.totalLineItemQuantity) {
+        setCart(data);
         setIsEmpty(false);
-        recountPrice(cartResponse);
+        recountPrice(data);
       } else {
         setIsEmpty(true);
+        if (data.discountCodes.length > 0) {
+          updateAnonymousCart(data.id, data.version, [removeDiscountCode(data.discountCodes[0].discountCode)]).then(
+            (response) => {
+              basket.setVersion(response.version);
+            },
+          );
+        }
       }
     });
   };
@@ -80,19 +87,27 @@ export function Basket(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    getAnonumousCart().then((cartResponse) => {
-      if (cartResponse.discountCodes.length > 0) {
-        basket.setVersion(cartResponse.version);
-        basket.setId(cartResponse.id);
-        updateAnonymousCart(basket.id, basket.version, [
-          removeDiscountCode(cartResponse.discountCodes[0].discountCode),
-        ]).then((codeResponse) => {
-          recountPrice(codeResponse);
-          basket.setVersion(codeResponse.version);
-        });
+    getAnonumousCart().then((data) => {
+      if (data.discountCodes.length > 0) {
+        setCodeApplied(true);
       }
     });
   }, []);
+
+  // useEffect(() => {
+  //   getAnonumousCart().then((cartResponse) => {
+  //     if (cartResponse.discountCodes.length > 0) {
+  //       basket.setVersion(cartResponse.version);
+  //       basket.setId(cartResponse.id);
+  //       updateAnonymousCart(basket.id, basket.version, [
+  //         removeDiscountCode(cartResponse.discountCodes[0].discountCode),
+  //       ]).then((codeResponse) => {
+  //         recountPrice(codeResponse);
+  //         basket.setVersion(codeResponse.version);
+  //       });
+  //     }
+  //   });
+  // }, []);
 
   const clearCart = () => {
     getAnonumousCart().then((data) => {
@@ -100,6 +115,7 @@ export function Basket(): JSX.Element {
       data.lineItems.forEach((item) => {
         removeProducts.push(removeLineItem(item.id, item.quantity));
       });
+      // removeProducts.push(removeDiscountCode(data.discountCodes[0].discountCode));
       updateAnonymousCart(basket.id, basket.version, removeProducts).then((response) => {
         basket.setVersion(response.version);
         basket.setCount(0);
@@ -114,12 +130,8 @@ export function Basket(): JSX.Element {
         setCart(data);
         basket.setVersion(data.version);
         recountPrice(data);
-        if (data.discountCodes[0].state !== 'MatchesCart') {
-          setCodeError('Total price too low');
-        } else {
-          setCodeApplied(true);
-          setCodeError('');
-        }
+        setCodeApplied(true);
+        setCodeError('');
       },
       () => {
         setCodeError('Code not found');
