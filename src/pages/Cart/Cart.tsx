@@ -24,6 +24,7 @@ export function Basket(): JSX.Element {
   const [isEmpty, setIsEmpty] = useState(true);
   const [totalPrice, setTotalPrice] = useState('0');
   const [saving, setSaving] = useState('0');
+  const [codeSaving, setCodeSaving] = useState('0');
   const [promoCode, setPromoCode] = useState('');
   const [codeError, setCodeError] = useState('');
   const [isCodeApplied, setCodeApplied] = useState(false);
@@ -54,13 +55,32 @@ export function Basket(): JSX.Element {
     });
     setTotalProductPrices(values);
     setOldTotalProductPrices(oldValues);
-    setSaving((oldValues.reduce((acc, curr) => Number(acc) + Number(curr), 0) - data.totalPrice.centAmount / 100).toFixed(2));
+    setSaving(
+      (oldValues.reduce((acc, curr) => Number(acc) + Number(curr), 0) - data.totalPrice.centAmount / 100).toFixed(2),
+    );
+  };
+
+  const getCodeSaving = (data: Cart) => {
+    const values: number[] = [];
+    data.lineItems.forEach((item) => {
+      if (item.discountedPricePerQuantity.length > 0) {
+        values.push(
+          Number(
+            (
+              item.discountedPricePerQuantity[0].discountedPrice.includedDiscounts[0].discountedAmount.centAmount / 100
+            ).toFixed(2),
+          ),
+        );
+      }
+    });
+    setCodeSaving(values.reduce((acc, curr) => acc + curr, 0).toFixed(2));
   };
 
   const recountPrice = (data: Cart) => {
     setTotalPrice((data.totalPrice.centAmount / 100).toFixed(2));
     getPrices(data);
     getTotalProductPrices(data);
+    getCodeSaving(data);
   };
 
   const loadCart = () => {
@@ -164,8 +184,14 @@ export function Basket(): JSX.Element {
                 <h3>Total:</h3>
                 <h3 className="price cart-price">{totalPrice}$</h3>
               </Form.Text>
+              {isCodeApplied && (
+                <Form.Text className="d-flex justify-content-between mb-1">
+                  <h6 className="text-secondary">FALL23:</h6>
+                  <h6 className="m-0 text-decoration-none old-price cart-price">-{codeSaving}$</h6>
+                </Form.Text>
+              )}
               <Form.Text className="d-flex justify-content-between mb-2">
-                <h6 className="text-secondary">Saving:</h6>
+                <h6 className="text-secondary">Total Saved:</h6>
                 <h6 className="m-0 text-decoration-none old-price cart-price">{saving}$</h6>
               </Form.Text>
               {!isCodeApplied && (
