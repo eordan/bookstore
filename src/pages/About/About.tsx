@@ -13,9 +13,9 @@ const teamMembers = [
     photoUrl: 'https://avatars.githubusercontent.com/u/92429718?v=4',
   },
   {
-    name: 'Natasha',
-    role: 'RS School Student',
-    bio: 'Natasha is in the midst of a career change, transitioning into the dynamic field of web development. With a background in a different field, she brings a fresh perspective and a strong desire to make a meaningful impact through coding. She is dedicated to learning the ropes of web development and creating user-friendly interfaces that stand out. Her passion for this new path drives her to explore and excel.',
+    name: 'Natallia Ivanyuk',
+    role: 'SMT Process Engineer',
+    bio: 'Natallia is a SMT Process Engineer with 4 years of experience in preparing, implementing and monitoring assembly processes in the manufacturing of electronic modules. Following the decision of changing specialization, she took some time off to focus on personal development and studying Front End technologies. Nataly is now eager to return to the workforce and is excited to bring her experience in different spheres including design and manufacturing to her next role in web development.',
     githubLink: 'https://github.com/whiterabbit8',
     photoUrl: 'https://avatars.githubusercontent.com/u/32563352?v=4',
   },

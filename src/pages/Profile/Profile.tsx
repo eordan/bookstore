@@ -41,13 +41,13 @@ export function Profile(): JSX.Element {
     if (userData) {
       switch (selectedCategory) {
         case 'Personal Info':
-          return <PersonalInfo {...userData} />;
+          return <PersonalInfo userData={userData} />;
         case 'Change Password':
           return <ChangePassword />;
         case 'Addresses':
           return <Addresses userData={userData} loadData={loadData} />;
         default:
-          return <PersonalInfo {...userData} />;
+          return <PersonalInfo userData={userData} />;
       }
     }
     return null;

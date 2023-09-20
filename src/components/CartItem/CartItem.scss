@@ -11,7 +11,7 @@
 }
 
 .item-price {
-  margin-top: 1.75em !important;
+  margin-top: 1.5em !important;
   margin-bottom: 0 !important;
 }
 
@@ -41,21 +41,19 @@
 
     &:first-child,
     &:last-child {
-      padding-bottom: 4px !important;
       font-size: 1.5em;
     }
   }
 }
 
-.card:hover {
-  cursor: default !important;
-  box-shadow: none !important;
+.cart-price {
+  font-family: "Montserrat", sans-serif;
 }
 
 .book-name,
 .author {
   display: -webkit-box;
-  height: 2.5em;
+  height: 2.4em;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
