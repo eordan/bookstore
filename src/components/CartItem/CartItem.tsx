@@ -76,10 +76,23 @@ export function CartItem({
 
   return (
     <ListGroup.Item className="d-flex align-items-center flex-wrap flex-row mb-3 p-2 item">
-      <Col md={3} sm={4} xs={5} className="d-flex justify-content-center" style={{ cursor: 'pointer' }} onClick={() => navigate(`${RoutesEnum.PRODUCTS_ROUTE}/${product.productId}`)}>
+      <Col
+        md={3}
+        sm={4}
+        xs={5}
+        className="d-flex justify-content-center"
+        style={{ cursor: 'pointer' }}
+        onClick={() => navigate(`${RoutesEnum.PRODUCTS_ROUTE}/${product.productId}`)}
+      >
         <img className="item-img" src={img} alt="book" />
       </Col>
-      <Col md={4} sm={8} xs={7} style={{ cursor: 'pointer' }} onClick={() => navigate(`${RoutesEnum.PRODUCTS_ROUTE}/${product.productId}`)}>
+      <Col
+        md={4}
+        sm={8}
+        xs={7}
+        style={{ cursor: 'pointer' }}
+        onClick={() => navigate(`${RoutesEnum.PRODUCTS_ROUTE}/${product.productId}`)}
+      >
         <h5 className="book-name" title={product.name.en}>
           {product.name.en}
         </h5>
