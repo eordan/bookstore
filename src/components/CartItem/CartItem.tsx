@@ -28,6 +28,7 @@ export function CartItem({
   loadCart,
 }: CartItemProps): JSX.Element {
   const [quantity, setQuantity] = useState(product.quantity);
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
   const { basket } = useContext(Context);
   const navigate = useNavigate();
   let img = '';
@@ -55,23 +56,31 @@ export function CartItem({
     }
   };
 
-  const increaseItems = () => {
-    updateAnonymousCart(basket.id, basket.version, [addLineItem(product.productId)]).then((data) => {
-      updatePrices(data);
-    });
-  };
-
-  const decreaseItems = () => {
-    updateAnonymousCart(basket.id, basket.version, [removeLineItem(product.id)]).then((data) => {
-      updatePrices(data);
-    });
-  };
-
   const removeProduct = () => {
     updateAnonymousCart(basket.id, basket.version, [removeLineItem(product.id, quantity)]).then((data) => {
       updatePrices(data);
       loadCart();
     });
+  };
+
+  const increaseItems = () => {
+    setButtonDisabled(true);
+    updateAnonymousCart(basket.id, basket.version, [addLineItem(product.productId)]).then((data) => {
+      updatePrices(data);
+      setButtonDisabled(false);
+    });
+  };
+
+  const decreaseItems = () => {
+    setButtonDisabled(true);
+    if (quantity > 1) {
+      updateAnonymousCart(basket.id, basket.version, [removeLineItem(product.id)]).then((data) => {
+        updatePrices(data);
+        setButtonDisabled(false);
+      });
+    } else {
+      removeProduct();
+    }
   };
 
   return (
@@ -103,7 +112,7 @@ export function CartItem({
       <Col md={2} sm={4} xs={5} className="d-flex flex-column align-items-center p-0 mt-4">
         <div className="d-flex quantity-block">
           <Button
-            disabled={quantity === 1}
+            disabled={isButtonDisabled}
             variant="secondary"
             className="quantity-item"
             onClick={() => decreaseItems()}
@@ -111,7 +120,12 @@ export function CartItem({
             -
           </Button>
           <div className="quantity-item">{quantity}</div>
-          <Button variant="secondary" className="quantity-item" onClick={() => increaseItems()}>
+          <Button
+            disabled={isButtonDisabled}
+            variant="secondary"
+            className="quantity-item"
+            onClick={() => increaseItems()}
+          >
             +
           </Button>
         </div>

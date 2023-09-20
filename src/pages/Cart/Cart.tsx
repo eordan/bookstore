@@ -35,7 +35,7 @@ export function Basket(): JSX.Element {
     const values: number[] = [];
     data.lineItems.forEach((item) => {
       if (item.discountedPricePerQuantity.length > 0) {
-        values.push(item.discountedPricePerQuantity[0].discountedPrice.value.centAmount / 100);
+        values.push(Number((item.discountedPricePerQuantity[0].discountedPrice.value.centAmount / 100).toFixed(2)));
       } else if (item.price.discounted) {
         values.push(item.price.discounted.value.centAmount / 100);
       } else {
