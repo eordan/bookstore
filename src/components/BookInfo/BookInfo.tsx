@@ -134,10 +134,10 @@ export function BookInfo({ title, url, author, price, discountedPrice, rating, i
               <p className="detailed price mt-4">${price}</p>
             )}
             {isAdded ? (
-              <div className="d-flex quantity-block">
+              <div className="d-flex mt-2 product quantity-block">
                 <Button
                   variant="secondary"
-                  className="quantity-item"
+                  className="product quantity-item"
                   onClick={(e) => {
                     e.stopPropagation();
                     decreaseItems();
@@ -145,10 +145,10 @@ export function BookInfo({ title, url, author, price, discountedPrice, rating, i
                 >
                   -
                 </Button>
-                <div className="quantity-item">{quantity}</div>
+                <div className="product quantity-item">{quantity}</div>
                 <Button
                   variant="secondary"
-                  className="quantity-item"
+                  className="product quantity-item"
                   onClick={(e) => {
                     e.stopPropagation();
                     increaseItems();

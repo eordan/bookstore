@@ -30,7 +30,7 @@ export const Products = observer((): JSX.Element => {
 
   return (
     <section className="bg-light">
-      <Promotion />
+      <Promotion width="100%" />
       <Container>
         <Form className="d-flex justify-content-end pt-4">
           <Row>
@@ -80,19 +80,21 @@ export const Products = observer((): JSX.Element => {
             </Row>
             <Row className="d-flex justify-content-center">
               <ProductList />
-              <PaginationControl
-                page={store.page}
-                between={4}
-                total={store.total}
-                last
-                next
-                limit={defaultResultsLimit}
-                changePage={(page) => {
-                  store.setPage(page);
-                  filters();
-                }}
-                ellipsis={1}
-              />
+              <Container className="d-flex justify-content-center">
+                <PaginationControl
+                  page={store.page}
+                  between={4}
+                  total={store.total}
+                  last
+                  next
+                  limit={defaultResultsLimit}
+                  changePage={(page) => {
+                    store.setPage(page);
+                    filters();
+                  }}
+                  ellipsis={1}
+                />
+              </Container>
             </Row>
           </Col>
         </Row>

@@ -29,7 +29,7 @@ export function Main(): JSX.Element {
 
   return (
     <section className="main">
-      <Promotion />
+      <Promotion width="100vw" />
       <Container className="d-flex main-container">
         <h1 className="title">We love literature</h1>
         <ToastContainer />

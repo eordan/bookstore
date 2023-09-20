@@ -94,28 +94,12 @@ export function Basket(): JSX.Element {
     });
   }, []);
 
-  // useEffect(() => {
-  //   getAnonumousCart().then((cartResponse) => {
-  //     if (cartResponse.discountCodes.length > 0) {
-  //       basket.setVersion(cartResponse.version);
-  //       basket.setId(cartResponse.id);
-  //       updateAnonymousCart(basket.id, basket.version, [
-  //         removeDiscountCode(cartResponse.discountCodes[0].discountCode),
-  //       ]).then((codeResponse) => {
-  //         recountPrice(codeResponse);
-  //         basket.setVersion(codeResponse.version);
-  //       });
-  //     }
-  //   });
-  // }, []);
-
   const clearCart = () => {
     getAnonumousCart().then((data) => {
       const removeProducts: MyCartUpdateAction[] = [];
       data.lineItems.forEach((item) => {
         removeProducts.push(removeLineItem(item.id, item.quantity));
       });
-      // removeProducts.push(removeDiscountCode(data.discountCodes[0].discountCode));
       updateAnonymousCart(basket.id, basket.version, removeProducts).then((response) => {
         basket.setVersion(response.version);
         basket.setCount(0);

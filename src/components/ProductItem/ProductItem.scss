@@ -43,6 +43,16 @@
   font-size: 18px;
 }
 
+.product.quantity-block {
+  width: 115.5px !important;
+  height: 37.5px !important;
+}
+
+.product.quantity-item {
+  width: 38.5px;
+  height: 37px !important;
+}
+
 @media screen and (max-width: 576px) {
   .product-card {
     width: 100vw !important;

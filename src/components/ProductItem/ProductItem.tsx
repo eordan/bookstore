@@ -133,10 +133,10 @@ export const ProductItem = observer(({ product }: ProductProps): JSX.Element => 
             <Card.Text className="price">${price}</Card.Text>
           )}
           {isAdded ? (
-            <div className="d-flex quantity-block">
+            <div className="d-flex product quantity-block">
               <Button
                 variant="secondary"
-                className="quantity-item"
+                className="product quantity-item"
                 onClick={(e) => {
                   e.stopPropagation();
                   decreaseItems();
@@ -144,10 +144,10 @@ export const ProductItem = observer(({ product }: ProductProps): JSX.Element => 
               >
                 -
               </Button>
-              <div className="quantity-item">{quantity}</div>
+              <div className="product quantity-item">{quantity}</div>
               <Button
                 variant="secondary"
-                className="quantity-item"
+                className="product quantity-item"
                 onClick={(e) => {
                   e.stopPropagation();
                   increaseItems();
