@@ -67,7 +67,7 @@ export function Basket(): JSX.Element {
         values.push(
           Number(
             (
-              item.discountedPricePerQuantity[0].discountedPrice.includedDiscounts[0].discountedAmount.centAmount / 100
+              item.discountedPricePerQuantity[0].discountedPrice.includedDiscounts[0].discountedAmount.centAmount / 100  * item.quantity
             ).toFixed(2),
           ),
         );
