@@ -4,8 +4,8 @@ import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { RoutesEnum } from '../../utils/enums';
-import { getCustomerDetails, createCustomer } from '../../services/customerCreator';
-import { loginCustomer } from '../../services/customerAuther';
+import { getCustomerDetails, createCustomer } from '../../services/customerHandler/customerCreator';
+import { loginCustomer } from '../../services/customerHandler/customerAuther';
 import { Context } from '../../utils/createContext';
 import {
   checkBirthday,
@@ -238,7 +238,7 @@ export function Reg(): JSX.Element {
             setValue('billingCountry', getValues('shippingCountry'));
           }}
         />
-        <Row className="address">
+        <Row className="address gap-3">
           <Col className="mt-3 form-block">
             <h5>Shipping address</h5>
             <Form.Group>

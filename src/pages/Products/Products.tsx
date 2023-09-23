@@ -1,25 +1,36 @@
+import React, { useContext, useState } from 'react';
+import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { PaginationControl } from 'react-bootstrap-pagination-control';
+import { observer } from 'mobx-react-lite';
 import ProductList from '@components/ProductList';
 import Filters from '@containers/Filters';
 import Breadcrumb from '@components/Breadcrumbs';
-import React, { useContext, useState } from 'react';
-import { Button, Col, Container, Form, Row } from 'react-bootstrap';
-import { getQueryDetails, searchProducts } from '../../services/productsSearcher';
+import Promotion from '@components/Promotion';
+import { defaultResultsLimit, getQueryDetails, searchProducts } from '../../services/productsHandler/productsSearcher';
 import { Context } from '../../utils/createContext';
 
-export function Products(): JSX.Element {
+export const Products = observer((): JSX.Element => {
   const { store } = useContext(Context);
 
   const [search, setSearch] = useState('');
 
   const filters = () => {
     store.setText(search);
-    searchProducts(getQueryDetails(store.text, store.filter, store.sort)).then((data) => {
-      store.setProducts(data.results);
-    });
+    searchProducts(getQueryDetails(store.text, store.filter, store.sort, (store.page - 1) * defaultResultsLimit)).then(
+      (data) => {
+        if (data.total) {
+          store.setTotal(data.total);
+        } else {
+          store.setTotal(0);
+        }
+        store.setProducts(data.results);
+      },
+    );
   };
 
   return (
-    <section className=" mt-3 bg-light">
+    <section className="bg-light">
+      <Promotion width="100%" />
       <Container>
         <Form className="d-flex justify-content-end pt-4">
           <Row>
@@ -27,9 +38,12 @@ export function Products(): JSX.Element {
               <Form.Select
                 onChange={(e) => {
                   store.setSort(e.target.value);
+                  store.setPage(1);
                   filters();
                 }}
               >
+                <option value="variants.attributes.rating desc">By Score Descending</option>
+                <option value="variants.attributes.rating asc">By Score Ascending</option>
                 <option value="name.en asc">Alphabetically Ascending</option>
                 <option value="name.en desc">Alphabetically Descending</option>
                 <option value="price asc">By Price Ascending</option>
@@ -44,7 +58,13 @@ export function Products(): JSX.Element {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
-              <Button variant="outline-success" onClick={filters}>
+              <Button
+                variant="outline-success"
+                onClick={() => {
+                  store.setPage(1);
+                  filters();
+                }}
+              >
                 Search
               </Button>
             </Col>
@@ -58,12 +78,27 @@ export function Products(): JSX.Element {
             <Row>
               <Breadcrumb />
             </Row>
-            <Row>
+            <Row className="d-flex justify-content-center">
               <ProductList />
+              <Container className="d-flex justify-content-center">
+                <PaginationControl
+                  page={store.page}
+                  between={4}
+                  total={store.total}
+                  last
+                  next
+                  limit={defaultResultsLimit}
+                  changePage={(page) => {
+                    store.setPage(page);
+                    filters();
+                  }}
+                  ellipsis={1}
+                />
+              </Container>
             </Row>
           </Col>
         </Row>
       </Container>
     </section>
   );
-}
+});

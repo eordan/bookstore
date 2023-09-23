@@ -4,13 +4,11 @@ import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { RoutesEnum } from '../../utils/enums';
-import { loginCustomer } from '../../services/customerAuther';
+import { loginCustomer } from '../../services/customerHandler/customerAuther';
 import { emailValidationRules, passwordValidationRules } from '../../utils/validation';
 import { Context } from '../../utils/createContext';
-
 import 'react-toastify/dist/ReactToastify.css';
 import './Login.scss';
-
 import view from '../../assets/view.png';
 import noView from '../../assets/no-view.png';
 

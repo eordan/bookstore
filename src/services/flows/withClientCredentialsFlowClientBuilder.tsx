@@ -2,8 +2,8 @@ import { ClientBuilder } from '@commercetools/sdk-client-v2';
 import {
   authMiddlewareOptionsForClientCredentialsFlow,
   httpMiddlewareOptions,
-} from './authAndHttpMiddlewareOptionsSetter';
-import { API_VIEW_CUSTOMERS_SCOPE, API_MANAGE_PROFILE_SCOPE, API_ADMIN_SCOPE } from './apiClientDetailsSetter';
+} from '../helpers/authAndHttpMiddlewareOptionsSetter';
+import { API_VIEW_CUSTOMERS_SCOPE, API_MANAGE_PROFILE_SCOPE, API_ADMIN_SCOPE } from '../helpers/apiClientDetailsSetter';
 
 export const viewCustomersCtpClient = new ClientBuilder()
   .withClientCredentialsFlow(authMiddlewareOptionsForClientCredentialsFlow(API_VIEW_CUSTOMERS_SCOPE))

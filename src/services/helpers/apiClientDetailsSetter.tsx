@@ -1,4 +1,4 @@
-import { ApiClientDetails } from '../utils/types';
+import { ApiClientDetails } from '../../utils/types';
 
 // View Customers Scope
 export const API_VIEW_CUSTOMERS_SCOPE: ApiClientDetails = {
@@ -17,6 +17,16 @@ export const API_MANAGE_PROFILE_SCOPE: ApiClientDetails = {
   authUrl: process.env.REACT_APP_MANAGE_PROFILE_CTP_AUTH_URL as string,
   apiUrl: process.env.REACT_APP_MANAGE_PROFILE_CTP_API_URL as string,
   scopes: process.env.REACT_APP_MANAGE_PROFILE_CTP_SCOPES as string,
+  region: process.env.REACT_APP_CTP_REGION as string,
+};
+
+// Orders Scope
+export const API_ORDERS_SCOPE: ApiClientDetails = {
+  clientSecret: process.env.REACT_APP_ORDERS_CTP_CLIENT_SECRET as string,
+  clientId: process.env.REACT_APP_ORDERS_CTP_CLIENT_ID as string,
+  authUrl: process.env.REACT_APP_ORDERS_CTP_AUTH_URL as string,
+  apiUrl: process.env.REACT_APP_ORDERS_CTP_API_URL as string,
+  scopes: process.env.REACT_APP_ORDERS_CTP_SCOPES as string,
   region: process.env.REACT_APP_CTP_REGION as string,
 };
 

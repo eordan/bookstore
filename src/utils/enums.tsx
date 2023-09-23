@@ -5,10 +5,11 @@ export enum RoutesEnum {
   PROFILE_ROUTE = '/profile',
   ABOUT_ROUTE = '/about',
   PRODUCTS_ROUTE = '/products',
+  CART_ROUTE = '/cart',
   PAGE_404 = '/*',
 }
 
-export enum Actions {
+export enum ProfileActions {
   changeEmail = 'changeEmail',
   setFirstName = 'setFirstName',
   setLastName = 'setLastName',
@@ -22,4 +23,21 @@ export enum Actions {
   addBillingAddressId = 'addBillingAddressId',
   removeBillingAddressId = 'removeBillingAddressId',
   setDateOfBirth = 'setDateOfBirth',
+}
+
+export enum CartActions {
+  addLineItem = 'addLineItem',
+  removeLineItem = 'removeLineItem',
+  addDiscountCode = 'addDiscountCode',
+  removeDiscountCode = 'removeDiscountCode',
+  addPayment = 'addPayment',
+  removePayment = 'removePayment',
+  changeTaxMode = 'changeTaxMode',
+  setBillingAddress = 'setBillingAddress',
+  setShippingAddress = 'setShippingAddress',
+  recalculate = 'recalculate',
+}
+
+export enum LineItemActions {
+  changeLineItemQuantity = 'changeLineItemQuantity',
 }

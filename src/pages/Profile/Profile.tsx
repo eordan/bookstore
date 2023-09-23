@@ -6,11 +6,12 @@ import ChangePassword from '@components/ChangePassword';
 import { Customer } from '@commercetools/platform-sdk';
 import { useNavigate } from 'react-router-dom';
 import { RoutesEnum } from '../../utils/enums';
-import { getCustomer } from '../../services/profileGetter';
+import { getCustomer } from '../../services/profileHandler/profileGetter';
 import { Context } from '../../utils/createContext';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './Profile.scss';
+import '../../styles/main.scss';
 
 export function Profile(): JSX.Element {
   const [selectedCategory, setSelectedCategory] = useState('Personal Info');
@@ -40,13 +41,13 @@ export function Profile(): JSX.Element {
     if (userData) {
       switch (selectedCategory) {
         case 'Personal Info':
-          return <PersonalInfo {...userData} />;
+          return <PersonalInfo userData={userData} />;
         case 'Change Password':
           return <ChangePassword />;
         case 'Addresses':
           return <Addresses userData={userData} loadData={loadData} />;
         default:
-          return <PersonalInfo {...userData} />;
+          return <PersonalInfo userData={userData} />;
       }
     }
     return null;
@@ -57,10 +58,11 @@ export function Profile(): JSX.Element {
   }
 
   return (
-    <Container className="d-flex profile">
-      <ListGroup variant="flush" className="mt-3">
+    <Container className="d-flex profile-container">
+      <ListGroup variant="flush" className="mt-3 profile-nav">
         {categories.map((category: string) => (
           <ListGroup.Item
+            className="profile-section"
             key={category}
             action
             variant="light"

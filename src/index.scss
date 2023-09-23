@@ -1,4 +1,5 @@
 @import '~bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@700&display=swap');
 
 html,
 body {
@@ -7,10 +8,10 @@ body {
 }
 
 #root {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 72px auto 72px;
+  font-family: 'Libre Baskerville', serif;
 }
 
 .Toastify__toast-theme--colored.Toastify__toast--success {
@@ -19,4 +20,10 @@ body {
 
 .Toastify__toast-theme--colored.Toastify__toast--error {
   background: #f66;
+}
+
+@media screen and (max-width: 768px) {
+  #root {
+    grid-template-rows: minmax(72px, max-content) auto 80px;
+  }
 }

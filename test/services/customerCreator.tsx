@@ -1,4 +1,4 @@
-import { getCustomerDetails, createCustomer } from '../../src/services/customerCreator';
+import { getCustomerDetails, createCustomer } from '../../src/services/customerHandler/customerCreator';
 
 const data = getCustomerDetails(
   'testemail@domain.com',

@@ -9,10 +9,11 @@ import {
   setDefaultBillingAddress,
   setDefaultShippingAddress,
   updateCustomer,
-} from '../../services/profileSetter';
+} from '../../services/profileHandler/profileSetter';
 import { Context } from '../../utils/createContext';
 
 import '../../pages/Profile/Profile.scss';
+import '../../styles/main.scss';
 import edit from '../../assets/edit.svg';
 import del from '../../assets/delete.svg';
 
@@ -48,6 +49,7 @@ export function Address({
     formState: { errors },
     handleSubmit,
     getValues,
+    setValue,
     trigger,
   } = useForm({
     defaultValues: {
@@ -82,6 +84,10 @@ export function Address({
 
   const turnOffEdit = () => {
     setEditMode(false);
+    setValue('street', streetName);
+    setValue('city', city);
+    setValue('postalCode', postalCode);
+    setValue('country', `${toAlpha2.getCountry(country)}`);
   };
 
   const deleteAddress = () => {
@@ -141,12 +147,12 @@ export function Address({
         </Col>
         {!editMode && (
           <Col className="d-flex justify-content-end">
-            <button type="button" className="edit-btn" onClick={turnOnEdit}>
+            <Button type="button" className="edit-btn" onClick={turnOnEdit}>
               <img src={edit} alt="edit" />
-            </button>
-            <button type="button" className="delete-btn" onClick={deleteAddress}>
+            </Button>
+            <Button type="button" className="delete-btn" onClick={deleteAddress}>
               <img src={del} alt="delete" />
-            </button>
+            </Button>
           </Col>
         )}
       </Container>
@@ -156,6 +162,7 @@ export function Address({
         </Form.Label>
         <Col sm={8}>
           <Form.Control
+            className="profile"
             disabled={!editMode}
             placeholder="Street"
             {...register('street', {
@@ -171,6 +178,7 @@ export function Address({
         </Form.Label>
         <Col sm={8}>
           <Form.Control
+            className="profile"
             disabled={!editMode}
             placeholder="City"
             {...register('city', {
@@ -186,6 +194,7 @@ export function Address({
         </Form.Label>
         <Col sm={8}>
           <Form.Control
+            className="profile"
             disabled={!editMode}
             placeholder="Postal code"
             {...register('postalCode', {
@@ -201,6 +210,7 @@ export function Address({
         </Form.Label>
         <Col sm={8}>
           <Form.Select
+            className="profile"
             disabled={!editMode}
             {...register('country', {
               validate: (value) => value !== 'Choose...' || 'Please choose country',

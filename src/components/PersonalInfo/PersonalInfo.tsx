@@ -5,24 +5,36 @@ import { ToastContainer, toast, Slide } from 'react-toastify';
 import { Customer } from '@commercetools/platform-sdk';
 import { namesValidationRules, checkBirthday, emailValidationRules } from '../../utils/validation';
 import { Context } from '../../utils/createContext';
-import { changeEmail, setDateOfBirth, setFirstName, setLastName, updateCustomer } from '../../services/profileSetter';
+import {
+  changeEmail,
+  setDateOfBirth,
+  setFirstName,
+  setLastName,
+  updateCustomer,
+} from '../../services/profileHandler/profileSetter';
 
 import 'react-toastify/dist/ReactToastify.css';
 import '../../pages/Profile/Profile.scss';
+import '../../styles/main.scss';
 import edit from '../../assets/edit.svg';
 
-export function PersonalInfo(props: Customer): JSX.Element {
+type PersonalInfoProps = {
+  userData: Customer;
+};
+
+export function PersonalInfo({ userData }: PersonalInfoProps): JSX.Element {
   const {
     register,
     formState: { errors },
     handleSubmit,
     getValues,
+    setValue,
   } = useForm({
     defaultValues: {
-      firstName: `${props.firstName}`,
-      lastName: `${props.lastName}`,
-      birthday: `${props.dateOfBirth}`,
-      email: `${props.email}`,
+      firstName: `${userData.firstName}`,
+      lastName: `${userData.lastName}`,
+      birthday: `${userData.dateOfBirth}`,
+      email: `${userData.email}`,
     },
     mode: 'onChange',
   });
@@ -44,6 +56,10 @@ export function PersonalInfo(props: Customer): JSX.Element {
 
   const turnOffEdit = () => {
     setEditMode(false);
+    setValue('firstName', `${userData.firstName}`);
+    setValue('lastName', `${userData.lastName}`);
+    setValue('birthday', `${userData.dateOfBirth}`);
+    setValue('email', `${userData.email}`);
   };
 
   const onSubmit = () => {
@@ -63,13 +79,13 @@ export function PersonalInfo(props: Customer): JSX.Element {
   };
 
   return (
-    <Form className="my-3 d-flex flex-column form-block" onSubmit={handleSubmit(onSubmit)}>
+    <Form className="my-3 d-flex flex-column form-block personal-info" onSubmit={handleSubmit(onSubmit)}>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h5 className="m-0">Personal Info</h5>
         {!editMode && (
-          <button type="button" className="edit-btn" onClick={turnOnEdit}>
+          <Button type="button" className="edit-btn" onClick={turnOnEdit}>
             <img src={edit} alt="edit" />
-          </button>
+          </Button>
         )}
       </div>
       <Form.Group as={Row} className="p-0">
@@ -78,6 +94,7 @@ export function PersonalInfo(props: Customer): JSX.Element {
         </Form.Label>
         <Col sm={8}>
           <Form.Control
+            className="profile"
             disabled={!editMode}
             placeholder="Enter your first name"
             {...register('firstName', {
@@ -94,6 +111,7 @@ export function PersonalInfo(props: Customer): JSX.Element {
         </Form.Label>
         <Col sm={8}>
           <Form.Control
+            className="profile"
             disabled={!editMode}
             placeholder="Enter your last name"
             {...register('lastName', {
@@ -110,6 +128,7 @@ export function PersonalInfo(props: Customer): JSX.Element {
         </Form.Label>
         <Col sm={8}>
           <Form.Control
+            className="profile"
             disabled={!editMode}
             type="date"
             {...register('birthday', {
@@ -125,6 +144,7 @@ export function PersonalInfo(props: Customer): JSX.Element {
         </Form.Label>
         <Col sm={8}>
           <Form.Control
+            className="profile"
             disabled={!editMode}
             placeholder="Enter your email"
             {...register('email', emailValidationRules)}

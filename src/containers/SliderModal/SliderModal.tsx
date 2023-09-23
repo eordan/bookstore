@@ -13,12 +13,12 @@ interface ModalProps {
 
 export function SliderModal(props: ModalProps) {
   return (
-    <Modal size="lg" centered {...props}>
+    <Modal className="book-modal" centered {...props}>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">Image modal</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Carousel variant="secondary">
+        <Carousel variant="dark">
           <Carousel.Item>
             <Image className="w-100 book-img" src={props.url} fluid />
           </Carousel.Item>

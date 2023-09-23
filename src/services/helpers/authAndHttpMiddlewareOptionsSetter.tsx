@@ -4,10 +4,10 @@ import {
   type AnonymousAuthMiddlewareOptions,
   type RefreshAuthMiddlewareOptions,
   type HttpMiddlewareOptions,
+  TokenStore,
 } from '@commercetools/sdk-client-v2';
-import SdkAuth from '@commercetools/sdk-auth';
 import fetch from 'node-fetch';
-import { ApiClientDetails } from '../utils/types';
+import { ApiClientDetails } from '../../utils/types';
 import { PROJECT_KEY, REGION } from './apiClientDetailsSetter';
 
 export const authMiddlewareOptionsForClientCredentialsFlow = (details: ApiClientDetails): AuthMiddlewareOptions => {
@@ -39,6 +39,15 @@ export const authMiddlewareOptionsForPasswordFlow = (
         password,
       },
     },
+    tokenCache: {
+      get: (): TokenStore => {
+        const token = JSON.parse(localStorage.getItem('custTokenDevision') as string);
+        return token;
+      },
+      set: (token: TokenStore) => {
+        localStorage.setItem('custTokenDevision', JSON.stringify(token));
+      },
+    },
     scopes: [details.scopes],
     fetch,
   };
@@ -54,6 +63,15 @@ export const authMiddlewareOptionsForAnonymousSessionFlow = (
       clientId: details.clientId,
       clientSecret: details.clientSecret,
     },
+    tokenCache: {
+      get: (): TokenStore => {
+        const token = JSON.parse(localStorage.getItem('anonTokenDevision') as string);
+        return token;
+      },
+      set: (token: TokenStore) => {
+        localStorage.setItem('anonTokenDevision', JSON.stringify(token));
+      },
+    },
     scopes: [details.scopes],
     fetch,
   };
@@ -67,23 +85,18 @@ export const authMiddlewareOptionsForRefreshTokenFlow = (details: ApiClientDetai
       clientId: details.clientId,
       clientSecret: details.clientSecret,
     },
-    refreshToken: 'bXvTyxc5yuebdvwTwyXn==',
+    tokenCache: {
+      get: (): TokenStore => {
+        const token = JSON.parse(localStorage.getItem('custTokenDevision') as string);
+        return token;
+      },
+      set: (token: TokenStore) => {
+        localStorage.setItem('custTokenDevision', JSON.stringify(token));
+      },
+    },
+    refreshToken: JSON.parse(localStorage.getItem('custTokenDevision') as string).refreshToken,
     fetch,
   };
-};
-
-export const authClient = (details: ApiClientDetails) => {
-  return new SdkAuth({
-    host: `https://auth.${details.region}.commercetools.com`,
-    projectKey: PROJECT_KEY,
-    disableRefreshToken: false,
-    credentials: {
-      clientId: details.clientId,
-      clientSecret: details.clientSecret,
-    },
-    scopes: [details.scopes],
-    fetch,
-  });
 };
 
 export const httpMiddlewareOptions = (): HttpMiddlewareOptions => {
