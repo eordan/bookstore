@@ -190,6 +190,7 @@ export const Filters = observer(() => {
           max={550}
           minValue={minValue}
           maxValue={maxValue}
+          label={false}
           ruler={false}
           style={{ border: 'none', boxShadow: 'none' }}
           onChange={(e: ChangeResult) => {

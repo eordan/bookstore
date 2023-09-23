@@ -5,6 +5,7 @@
     "order/properties-alphabetical-order": null,
     "max-nesting-depth": 2,
     "selector-max-id": null,
-    "value-no-vendor-prefix": null
+    "value-no-vendor-prefix": null,
+    "selector-max-compound-selectors": null
   }
 }

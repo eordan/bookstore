@@ -44,6 +44,10 @@
   .addresses {
     grid-template-columns: 1fr;
   }
+
+  .form-block.address {
+    margin-right: 0 !important;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -62,6 +66,6 @@
 
 @media screen and (max-width: 450px) {
   .form-block {
-    min-width: 300px;
+    min-width: 300px !important;
   }
 }

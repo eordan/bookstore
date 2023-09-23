@@ -12,9 +12,9 @@ import del from '../../assets/delete.svg';
 
 type CartItemProps = {
   product: LineItem;
-  price: number;
-  totalPrice: number;
-  oldTotalPrice: number;
+  price: string;
+  totalPrice: string;
+  oldTotalPrice: string;
   recountPrice: (data: Cart) => void;
   loadCart: () => void;
 };
@@ -28,6 +28,7 @@ export function CartItem({
   loadCart,
 }: CartItemProps): JSX.Element {
   const [quantity, setQuantity] = useState(product.quantity);
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
   const { basket } = useContext(Context);
   const navigate = useNavigate();
   let img = '';
@@ -55,18 +56,6 @@ export function CartItem({
     }
   };
 
-  const increaseItems = () => {
-    updateAnonymousCart(basket.id, basket.version, [addLineItem(product.productId)]).then((data) => {
-      updatePrices(data);
-    });
-  };
-
-  const decreaseItems = () => {
-    updateAnonymousCart(basket.id, basket.version, [removeLineItem(product.id)]).then((data) => {
-      updatePrices(data);
-    });
-  };
-
   const removeProduct = () => {
     updateAnonymousCart(basket.id, basket.version, [removeLineItem(product.id, quantity)]).then((data) => {
       updatePrices(data);
@@ -74,12 +63,45 @@ export function CartItem({
     });
   };
 
+  const increaseItems = () => {
+    setButtonDisabled(true);
+    updateAnonymousCart(basket.id, basket.version, [addLineItem(product.productId)]).then((data) => {
+      updatePrices(data);
+      setButtonDisabled(false);
+    });
+  };
+
+  const decreaseItems = () => {
+    setButtonDisabled(true);
+    if (quantity > 1) {
+      updateAnonymousCart(basket.id, basket.version, [removeLineItem(product.id)]).then((data) => {
+        updatePrices(data);
+        setButtonDisabled(false);
+      });
+    } else {
+      removeProduct();
+    }
+  };
+
   return (
     <ListGroup.Item className="d-flex align-items-center flex-wrap flex-row mb-3 p-2 item">
-      <Col md={3} sm={4} xs={5} className="d-flex justify-content-center" style={{ cursor: 'pointer' }} onClick={() => navigate(`${RoutesEnum.PRODUCTS_ROUTE}/${product.productId}`)}>
+      <Col
+        md={3}
+        sm={4}
+        xs={5}
+        className="d-flex justify-content-center"
+        style={{ cursor: 'pointer' }}
+        onClick={() => navigate(`${RoutesEnum.PRODUCTS_ROUTE}/${product.productId}`)}
+      >
         <img className="item-img" src={img} alt="book" />
       </Col>
-      <Col md={4} sm={8} xs={7} style={{ cursor: 'pointer' }} onClick={() => navigate(`${RoutesEnum.PRODUCTS_ROUTE}/${product.productId}`)}>
+      <Col
+        md={4}
+        sm={8}
+        xs={7}
+        style={{ cursor: 'pointer' }}
+        onClick={() => navigate(`${RoutesEnum.PRODUCTS_ROUTE}/${product.productId}`)}
+      >
         <h5 className="book-name" title={product.name.en}>
           {product.name.en}
         </h5>
@@ -90,7 +112,7 @@ export function CartItem({
       <Col md={2} sm={4} xs={5} className="d-flex flex-column align-items-center p-0 mt-4">
         <div className="d-flex quantity-block">
           <Button
-            disabled={quantity === 1}
+            disabled={isButtonDisabled}
             variant="secondary"
             className="quantity-item"
             onClick={() => decreaseItems()}
@@ -98,7 +120,12 @@ export function CartItem({
             -
           </Button>
           <div className="quantity-item">{quantity}</div>
-          <Button variant="secondary" className="quantity-item" onClick={() => increaseItems()}>
+          <Button
+            disabled={isButtonDisabled}
+            variant="secondary"
+            className="quantity-item"
+            onClick={() => increaseItems()}
+          >
             +
           </Button>
         </div>

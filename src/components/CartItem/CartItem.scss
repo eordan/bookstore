@@ -43,11 +43,15 @@
     &:last-child {
       font-size: 1.5em;
     }
+
+    &:disabled {
+      opacity: 1 !important;
+    }
   }
 }
 
 .cart-price {
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .book-name,

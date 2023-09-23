@@ -31,6 +31,7 @@ export function BookInfo({ title, url, author, price, discountedPrice, rating, i
   const [modalShow, setModalShow] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
   const [quantity, setQuantity] = useState(0);
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
   let productId: string = '';
 
   useEffect(() => {
@@ -72,20 +73,18 @@ export function BookInfo({ title, url, author, price, discountedPrice, rating, i
   };
 
   const addToCart = () => {
+    setButtonDisabled(true);
     updateCart(basket.id, basket.version, [addLineItem(id)]).then((data) => {
       cartControl(data);
-    });
-  };
-
-  const increaseItems = () => {
-    updateCart(basket.id, basket.version, [addLineItem(id)]).then((data) => {
-      cartControl(data);
+      setButtonDisabled(false);
     });
   };
 
   const decreaseItems = () => {
+    setButtonDisabled(true);
     updateCart(basket.id, basket.version, [removeLineItem(productId)]).then((data) => {
       cartControl(data);
+      setButtonDisabled(false);
     });
   };
 
@@ -134,25 +133,21 @@ export function BookInfo({ title, url, author, price, discountedPrice, rating, i
               <p className="detailed price mt-4">${price}</p>
             )}
             {isAdded ? (
-              <div className="d-flex quantity-block">
+              <div className="d-flex mt-2 product quantity-block position-static">
                 <Button
+                  disabled={isButtonDisabled}
                   variant="secondary"
-                  className="quantity-item"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    decreaseItems();
-                  }}
+                  className="product quantity-item"
+                  onClick={() => decreaseItems()}
                 >
                   -
                 </Button>
-                <div className="quantity-item">{quantity}</div>
+                <div className="product quantity-item">{quantity}</div>
                 <Button
+                  disabled={isButtonDisabled}
                   variant="secondary"
-                  className="quantity-item"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    increaseItems();
-                  }}
+                  className="product quantity-item"
+                  onClick={() => addToCart()}
                 >
                   +
                 </Button>
@@ -160,8 +155,7 @@ export function BookInfo({ title, url, author, price, discountedPrice, rating, i
             ) : (
               <Button
                 className="mt-2"
-                onClick={(event) => {
-                  event.stopPropagation();
+                onClick={() => {
                   setIsAdded(true);
                   addToCart();
                 }}

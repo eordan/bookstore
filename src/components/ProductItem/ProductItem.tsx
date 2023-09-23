@@ -29,6 +29,7 @@ export const ProductItem = observer(({ product }: ProductProps): JSX.Element => 
   let rating = '';
   const [isAdded, setIsAdded] = useState(false);
   const [quantity, setQuantity] = useState(0);
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
 
   if (product.masterVariant.images) {
     const img = product.masterVariant.images[0];
@@ -95,26 +96,24 @@ export const ProductItem = observer(({ product }: ProductProps): JSX.Element => 
   });
 
   const addToCart = () => {
+    setButtonDisabled(true);
     updateCart(basket.id, basket.version, [addLineItem(product.id)]).then((data) => {
       cartControl(data);
-    });
-  };
-
-  const increaseItems = () => {
-    updateCart(basket.id, basket.version, [addLineItem(product.id)]).then((data) => {
-      cartControl(data);
+      setButtonDisabled(false);
     });
   };
 
   const decreaseItems = () => {
+    setButtonDisabled(true);
     updateCart(basket.id, basket.version, [removeLineItem(productId)]).then((data) => {
       cartControl(data);
+      setButtonDisabled(false);
     });
   };
 
   return (
     <Col className="product-card">
-      <Card bg="light" className="h-100" onClick={() => navigate(`${RoutesEnum.PRODUCTS_ROUTE}/${product.id}`)}>
+      <Card bg="light" className="h-100 pb-5" onClick={() => navigate(`${RoutesEnum.PRODUCTS_ROUTE}/${product.id}`)}>
         <Card.Img src={url} />
         <Card.Body>
           <Card.Title>{product.name.en}</Card.Title>
@@ -132,43 +131,39 @@ export const ProductItem = observer(({ product }: ProductProps): JSX.Element => 
           ) : (
             <Card.Text className="price">${price}</Card.Text>
           )}
-          {isAdded ? (
-            <div className="d-flex quantity-block">
-              <Button
-                variant="secondary"
-                className="quantity-item"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  decreaseItems();
-                }}
-              >
-                -
-              </Button>
-              <div className="quantity-item">{quantity}</div>
-              <Button
-                variant="secondary"
-                className="quantity-item"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  increaseItems();
-                }}
-              >
-                +
-              </Button>
-            </div>
-          ) : (
-            <Button
-              onClick={(event) => {
-                event.stopPropagation();
-                setIsAdded(true);
-                addToCart();
-              }}
-            >
-              Add to cart
-            </Button>
-          )}
         </Card.Body>
       </Card>
+      {isAdded ? (
+        <div className="d-flex product quantity-block">
+          <Button
+            disabled={isButtonDisabled}
+            variant="secondary"
+            className="product quantity-item"
+            onClick={() => decreaseItems()}
+          >
+            -
+          </Button>
+          <div className="product quantity-item">{quantity}</div>
+          <Button
+            disabled={isButtonDisabled}
+            variant="secondary"
+            className="product quantity-item"
+            onClick={() => addToCart()}
+          >
+            +
+          </Button>
+        </div>
+      ) : (
+        <Button
+          className="add-btn"
+          onClick={() => {
+            setIsAdded(true);
+            addToCart();
+          }}
+        >
+          Add to cart
+        </Button>
+      )}
     </Col>
   );
 });
