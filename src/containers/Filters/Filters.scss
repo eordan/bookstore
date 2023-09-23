@@ -1,0 +1,36 @@
+.check-block {
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
+.price-label {
+  font-size: 22px;
+}
+
+.price-input {
+  max-width: 70px;
+  padding-left: 10px;
+  color: #636363;
+}
+
+.multi-range-slider {
+  .thumb {
+    top: 1.75px;
+
+    .caption * {
+      background-color: #0d6efd;
+      box-shadow: unset;
+    }
+  }
+
+  .bar-inner {
+    background-color: #00ba7c;
+    box-shadow: unset;
+  }
+
+  .bar-left,
+  .bar-right {
+    background-color: #bfbfbf;
+    box-shadow: unset;
+  }
+}

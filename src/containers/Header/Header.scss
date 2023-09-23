@@ -1,0 +1,91 @@
+.registration-btn {
+  margin-left: 16px;
+  margin-right: 16px;
+
+  @media (max-width: 767px) {
+    margin: 10px 0;
+  }
+}
+
+.nav-btns {
+  align-items: center;
+
+  @media (max-width: 767px) {
+    align-items: flex-start;
+  }
+}
+
+.navbar-collapse {
+  position: relative;
+}
+
+.profile-btn,
+.cart-btn {
+  position: relative;
+  margin-right: 10px;
+  background: transparent;
+  border: unset;
+  opacity: 0.8;
+  transition: 0.2s;
+
+  img {
+    width: 25px;
+    height: 25px;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.profile-btn::after {
+  content: 'Profile';
+  padding-left: 5px;
+  color: #0d6efd;
+  vertical-align: bottom;
+}
+
+.cart-btn {
+  position: absolute;
+  right: 170px;
+
+  &.mobile {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .profile-btn {
+    position: relative;
+    margin-bottom: 1rem;
+
+    img {
+      width: 20px;
+      height: 20px;
+      margin-right: 5px;
+    }
+
+    &::after {
+      position: absolute;
+      top: 2px;
+      content: 'Profile';
+    }
+  }
+
+  .cart-btn {
+    display: none;
+
+    &.mobile {
+      display: block;
+      position: absolute;
+      top: 23px;
+      right: 25%;
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .cart-btn.mobile {
+    right: 20%;
+  }
+}

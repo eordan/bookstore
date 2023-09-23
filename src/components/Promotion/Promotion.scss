@@ -1,0 +1,20 @@
+.promo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  background: #00a1c1;
+  color: #fff;
+
+  &-code {
+    background-color: #fff;
+    color: #00a1c1;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .promo {
+    flex-wrap: wrap;
+    gap: 0.5em;
+  }
+}
