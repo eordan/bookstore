@@ -77,10 +77,12 @@ Check out our live demo of the Online Bookstore Project [here](https://develop--
 - React Hook Form
 - Jest
 - Sass
+- Bootstrap
 - Webpack
 - ESLint
 - Prettier
 - Husky
+- MobX
 
 ### Backend
 
